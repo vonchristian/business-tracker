@@ -5,7 +5,6 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'capybara/rspec'
 require 'shoulda/matchers'
-
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Capybara.app_host = 'http://example.com'
 ActiveRecord::Migration.maintain_test_schema!
