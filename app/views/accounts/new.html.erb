@@ -1,6 +1,24 @@
-<h1>Create an Account</h1>
 
-<%=simple_form_for @account do |f| %>
-  <%=f.input :subdomain %>
-  <%=f.submit %>
-<% end %>
+<div class="col-md-4 col-md-offset-2">
+  <div class="panel panel-default">
+    <div class="panel-body">
+<h1>Create an Account</h1>
+  <%=simple_form_for @account do |f| %>
+    <%=f.simple_fields_for :owner do |o| %>
+      <%=o.input :first_name %>
+      <%=o.input :last_name %>
+      <%=o.input :email %>
+      <%=o.input :password %>
+      <%=o.input :password_confirmation %>
+
+    <% end %>
+    <div class="input-group">
+      <%=f.input :subdomain %>
+      <span class="input-group-addon">.business-tracker.ph</span>
+    </div>
+    <%=f.submit class: 'btn btn-primary btn-block btn-lg'%>
+  <% end %>
+  </div>
+  </div>
+  </div>
+

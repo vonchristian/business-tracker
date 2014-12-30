@@ -5,10 +5,11 @@ describe 'account creation' do
     visit root_path
     click_link 'Create Account'
 
-    #fill_in 'Name', with: 'Von Christian Halip'
-    #ill_in 'Email', with: 'vc.halip@gmail.com'
-    #fill_in 'Password', with: 'secretpassword'
-    #fill_in 'Password confirmation', with: 'secretpassword'
+    fill_in 'First name', with: 'Von Christian'
+    fill_in 'Last name', with: 'Halip'
+    fill_in 'Email', with: 'vc.halip@gmail.com'
+    fill_in 'Password', with: 'secretpassword'
+    fill_in 'Password confirmation', with: 'secretpassword'
     fill_in 'Subdomain', with: 'tinoc'
     click_button 'Create Account'
 
