@@ -77,10 +77,10 @@ group :test, :development do
   gem 'email_spec'
 end
 ###########code optimization and cleanup####
-  gem 'traceroute'
+  gem 'traceroute', group: :development
  # gem 'rack-mini-profiler'
   gem 'bullet', group: :development
   gem 'brakeman', :require => false, group: :development
-  gem "rails_best_practices"
+  gem "rails_best_practices", group: :development
 ############################################
 
