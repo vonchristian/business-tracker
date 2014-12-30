@@ -82,5 +82,6 @@ end
   gem 'bullet', group: :development
   gem 'brakeman', :require => false, group: :development
   gem "rails_best_practices", group: :development
+
 ############################################
 
