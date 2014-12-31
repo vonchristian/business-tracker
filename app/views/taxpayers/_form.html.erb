@@ -1,0 +1,19 @@
+<div class='col-md-6'>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%=simple_form_for @taxpayer do |f| %>
+        <%=f.input :first_name %>
+        <%=f.input :middle_name %>
+        <%=f.input :last_name %>
+        <%=f.input :email %>
+        <%=f.input :mobile_number %>
+        <%=f.input :tin %>
+        <% if @taxpayer.new_record? %>
+        <%=f.button :submit, 'Register Taxpayer' %>
+        <% else %>
+         <%=f.button :submit, 'Update Taxpayer' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

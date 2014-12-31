@@ -1,0 +1,10 @@
+<div class='col-md-6'>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%=simple_form_for [@taxpayer, @business] do |f| %>
+        <%=f.input :business_name %>
+        <%=f.button :submit%>
+      <% end %>
+    </div>
+  </div>
+</div>

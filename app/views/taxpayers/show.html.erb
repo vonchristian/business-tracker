@@ -1,0 +1,59 @@
+<%provide(:title, "#{@taxpayer.full_name}") %>
+
+<div class="col-md-10">
+<ul class="nav nav-tabs" role="tablist">
+
+  <li class="active"><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+  <li><a href="#payments" role="tab" data-toggle="tab">Payments</a></li>
+  <li><a href="#settings" role="tab" data-toggle="tab"><span class="fa fa-cog"></span> Settings</a></li>
+  <li><a href="#timeline" role="tab" data-toggle="tab"><span class="fa fa-time"></span> Timeline</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="profile">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-10">
+          <div class="panel">
+            <h1 id="profile_name"><%=@taxpayer.full_name %></h1>
+            <hr />
+            <div class="centered">
+              <%=link_to 'New Business', new_taxpayer_business_path(@taxpayer), class: "btn btn-default" %>
+              <%=link_to 'Edit Profile', edit_taxpayer_path(@taxpayer), class: "btn btn-default" %>
+                 <%=link_to 'Cedula', new_taxpayer_business_path(@taxpayer), class: "btn btn-default" %>
+               <br />
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="panel panel-default">
+            <div class="panel=heading">Taxpayer Details</div>
+            <div class="panel-body">
+              <tr>
+              <td>Email:</td>
+              <td> <%=@taxpayer.email %></td>
+
+
+            </tr>
+               <%=@taxpayer.mobile_number %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="payments">
+  </div>
+
+  <div class="tab-pane" id="settings">.s..</div>
+
+
+  <div class="tab-pane" id="timeline">.ts..</div>
+</div>
+<div class="col-sm-1">
+</div>
+</div>
+</div>

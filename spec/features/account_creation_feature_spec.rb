@@ -1,18 +1,43 @@
 require 'rails_helper'
 
-describe 'account creation' do
-  it 'allows user to create account' do
-    visit root_path
+describe 'Account creation' do
+    let(:subdomain) { FactoryGirl.generate(:subdomain) }
+    before (:each) { sign_up(subdomain) }
+
+  it 'allows  user to create  account'  do
+    visit root_url(subdomain: subdomain)
+    expect(page.current_url).to include(subdomain)
+    expect(Account.all.count).to eq(1)
+  end
+
+  it 'allows access of subdomain' do
+    visit root_url(subdomain: subdomain)
+    expect(page.current_url).to include(subdomain)
+  end
+
+  it 'allows account follow up creation' do
+    subdomain2 = "#{subdomain2}"
+    sign_up(subdomain2)
+    expect(page.current_url).to include(subdomain2)
+    expect(Account.all.count).to eq(2)
+end
+
+  it 'does not allow account creation on subdomain' do
+    user = User.first
+    subdomain = Account.first.subdomain
+    sign_user_in(user, subdomain: subdomain)
+    expect { visit new_account_url(subdomain: subdomain) }.to raise_error ActionController::RoutingError
+end
+
+  def sign_up(subdomain)
+    visit root_url(subdomain: false)
     click_link 'Create Account'
-
-    fill_in 'First name', with: 'Von Christian'
+    fill_in 'First name', with: 'Von'
     fill_in 'Last name', with: 'Halip'
-    fill_in 'Email', with: 'vc.halip@gmail.com'
-    fill_in 'Password', with: 'secretpassword'
-    fill_in 'Password confirmation', with: 'secretpassword'
-    fill_in 'Subdomain', with: 'tinoc'
+    fill_in 'Email', with: 'business@example.com'
+    fill_in 'Password', with: 'secret12345'
+    fill_in 'Password confirmation', with: 'secret12345'
+    fill_in 'Subdomain', with: subdomain
     click_button 'Create Account'
-
-    expect(page).to have_content('Signed up successfully.')
   end
 end

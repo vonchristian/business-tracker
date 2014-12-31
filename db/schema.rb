@@ -1,15 +1,3 @@
-# encoding: UTF-8
-# This file is auto-generated from the current state of the database. Instead
-# of editing this file, please use the migrations feature of Active Record to
-# incrementally modify your database, and then regenerate this schema definition.
-#
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
-#
-# It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20141230140930) do
 
@@ -21,6 +9,71 @@ ActiveRecord::Schema.define(version: 20141230140930) do
     t.integer  "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string  "house_number_or_bldg_number"
+    t.string  "building_name"
+    t.string  "unit_number"
+    t.string  "street"
+    t.string  "barangay"
+    t.string  "subdivision"
+    t.string  "municipality_or_city"
+    t.string  "province"
+    t.integer "addressable_id"
+    t.string  "addressable_type"
+  end
+
+  create_table "businesses", force: :cascade do |t|
+    t.integer  "taxpayer_id"
+    t.integer  "type_of_organization_id"
+    t.string   "address_bldg_no"
+    t.string   "address_unit_no"
+    t.string   "address_street"
+    t.string   "address_barangay"
+    t.string   "address_subdivision"
+    t.string   "address_municipality"
+    t.string   "address_province"
+    t.date     "application_date"
+    t.integer  "dti_sec_reg_no"
+    t.date     "dti_sec_reg_date"
+    t.string   "president_first_name"
+    t.string   "president_middle_name"
+    t.string   "president_last_name"
+    t.string   "business_name"
+    t.string   "position"
+    t.integer  "no_of_employees"
+    t.integer  "phone_no"
+    t.integer  "pin_no"
+    t.integer  "business_area"
+    t.integer  "no_of_employees_lgu"
+    t.integer  "psic_code"
+    t.integer  "capital_for_business"
+    t.string   "first_name_lessor"
+    t.string   "middle_name_lessor"
+    t.string   "last_name_lessor"
+    t.integer  "monthly_rental"
+    t.boolean  "tax_incentive"
+    t.boolean  "rented"
+    t.boolean  "franchised"
+    t.boolean  "branch"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "taxpayers", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "suffix"
+    t.string   "email"
+    t.string   "mobile_number"
+    t.string   "telephone_number"
+    t.string   "tin"
+    t.string   "workflow_state"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "full_name"
   end
 
   create_table "users", force: :cascade do |t|
