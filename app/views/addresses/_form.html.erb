@@ -1,0 +1,12 @@
+<h2>Address Details</h2>
+        <%= fields_for :address do |a| %>
+        <%=a.input :street %>
+        <%=a.input :house_number_or_bldg_number %>
+        <%=a.input :building_name %>
+        <%=a.input :unit_number %>
+        <%=a.input :street %>
+        <%=a.input :barangay %>
+        <%=a.input :subdivision %>
+        <%=a.input :municipality_or_city %>
+        <%=a.input :province %>
+        <% end %>

@@ -49,6 +49,11 @@ describe 'Taxpayer registrations' do
     expect(flash[:alert]).to eql(message)
   end
 
+  it 'defaults to new taxpayer state when newly registered' do
+    taxpayer=create(:taxpayer)
+    expect(taxpayer.workflow_state).to eql('new_taxpayer')
+  end
+
   def click_edit_taxpayer_button(taxpayer_full_name)
     within find("td", text: taxpayer_full_name) do
       page.first("a").click

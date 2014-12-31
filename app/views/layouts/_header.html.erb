@@ -8,7 +8,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%=link_to 'BusinessTracker', root_path, class: 'navbar-brand' %>
+      <% if user_signed_in? %>
+       <%=link_to current_user, root_path, class: 'navbar-brand' %>
+       <% else %>
+      <%=link_to site_name, root_path, class: 'navbar-brand' %>
+      <% end %>
     </div>
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">

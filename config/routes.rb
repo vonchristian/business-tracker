@@ -19,6 +19,11 @@ Rails.application.routes.draw do
     resources :users
     resources :taxpayers do
       resources :businesses
+      resource :address
+    end
+    resources :businesses do
+      resources :taxes
+      resources :payments
     end
   end
 

@@ -17,10 +17,10 @@ def site_name
   def site_url
     if Rails.env.production?
       # Place your production URL in the quotes below
-      "http://http://www.business-tracker.ph/"
+      "http://www.business-tracker.ph/"
     else
       # Our dev & test URL
-      "http://localhost:3000"
+      "http://business-tracker.dev:3000"
     end
   end
 

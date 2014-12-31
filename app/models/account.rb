@@ -13,11 +13,13 @@ class Account < ActiveRecord::Base
   before_validation :downcase_subdomain
 
   accepts_nested_attributes_for :owner
+  def current_subdomain
+    self.subdomain
+  end
   def create_subdomain
-      Apartment::Tenant.create(@account.subdomain)
-      Apartment::Tenant.switch(@account.subdomain)
-      @account.save
-
+      Apartment::Database.create(self.subdomain)
+      Apartment::Database.switch(self.subdomain)
+      self.save
   end
 
   private

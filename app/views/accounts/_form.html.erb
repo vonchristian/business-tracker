@@ -2,7 +2,15 @@
   <div class="panel panel-default">
     <div class="panel-body">
       <h2>Create an Account</h2>
+
       <%=simple_form_for @account do |f| %>
+      <%=f.input :subdomain do %>
+           <div class="input-group">
+             <%=f.input_field :subdomain, class: 'form-control', placeholder: "Name of LGU" %>
+             <span class="input-group-addon">.business-tracker.ph</span>
+             <!--<p class="help-block">Name of Local Goverment Unit </p>-->
+           </div>
+         <% end %>
         <%=f.simple_fields_for :owner do |o| %>
            <%=o.input :first_name %>
            <%=o.input :last_name %>
@@ -10,13 +18,7 @@
            <%=o.input :password %>
            <%=o.input :password_confirmation %>
          <% end %>
-         <%=f.input :subdomain do %>
-           <div class="input-group">
-             <%=f.input_field :subdomain, class: 'form-control', placeholder: "Name of LGU" %>
-             <span class="input-group-addon">.business-tracker.ph</span>
-             <!--<p class="help-block">Name of Local Goverment Unit </p>-->
-           </div>
-         <% end %>
+
          <div class="modal-footer">
            <%=f.button :submit, class: 'btn btn-primary'%>
          </div>

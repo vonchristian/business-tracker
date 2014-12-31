@@ -1,6 +1,7 @@
-<div class='col-md-6'>
+<div class='col-md-4 col-md-offset-4'>
   <div class="panel panel-default">
     <div class="panel-body">
+    <h2>Taxpayer Details</h2>
       <%=simple_form_for @taxpayer do |f| %>
         <%=f.input :first_name %>
         <%=f.input :middle_name %>
@@ -8,6 +9,18 @@
         <%=f.input :email %>
         <%=f.input :mobile_number %>
         <%=f.input :tin %>
+        <h2>Address Details</h2>
+        <%=f.fields_for :address do |a| %>
+        <%=a.input :street %>
+        <%=a.input :house_number_or_bldg_number %>
+        <%=a.input :building_name %>
+        <%=a.input :unit_number %>
+        <%=a.input :street %>
+        <%=a.input :barangay %>
+        <%=a.input :subdivision %>
+        <%=a.input :municipality_or_city %>
+        <%=a.input :province %>
+        <% end %>
         <% if @taxpayer.new_record? %>
         <%=f.button :submit, 'Register Taxpayer' %>
         <% else %>
