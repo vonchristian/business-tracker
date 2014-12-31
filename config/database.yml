@@ -7,8 +7,28 @@ default: &default
 
 development:
   <<: *default
-  database: business-tracker_development
+  database: business_tracker_development
+  pool: 5
+  username: von
+  password: kms316
+  host: localhost
+  port: 5432
 
 test: &test
   <<: *default
-  database: business-tracker_test
+  database: business_tracker_test
+  pool: 5
+  username: von
+  password: kms316
+  host: localhost
+  port: 5432
+
+
+production:
+  <<: *default
+  database: business_tracker_production
+  pool: 5
+  username: von
+  password: kms316
+  host: localhost
+  port: 5432
