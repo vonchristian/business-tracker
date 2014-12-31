@@ -476,6 +476,7 @@ DEPENDENCIES
   rails_12factor
   rails_best_practices
   rails_layout
+  rake
   refile
   responders
   rspec-rails

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
     gem 'rails', '4.2.0'
 
 #assets
-  gem 'newrelic_rpm'
+
   gem 'prawn'
   gem 'apartment'
   gem 'mini_magick'
@@ -54,10 +54,12 @@ group :production do
   gem 'pg',  group: :development
   gem 'rails_12factor'
   gem 'unicorn', group: :development
+  gem 'newrelic_rpm'
 end
 group :test do
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
+  gem 'rake'
 end
 
 group :test, :development do
