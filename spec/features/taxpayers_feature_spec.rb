@@ -35,7 +35,7 @@ describe 'Taxpayer registrations' do
   it "allows taxpayers to be edited" do
     taxpayer = create(:taxpayer)
     visit root_path
-    click_edit_taxpayer_button taxpayer.full_name
+    click_taxpayer_link taxpayer.full_name
     fill_in "First name", with: 'Von Chris'
     click_button "Update Taxpayer"
 
@@ -49,14 +49,15 @@ describe 'Taxpayer registrations' do
     expect(flash[:alert]).to eql(message)
   end
 
-  it 'defaults to new taxpayer state when newly registered' do
+  it "defaults to 'new' state when newly registered" do
     taxpayer=create(:taxpayer)
-    expect(taxpayer.workflow_state).to eql('new_taxpayer')
+    expect(taxpayer.workflow_state).to eql('new')
   end
 
-  def click_edit_taxpayer_button(taxpayer_full_name)
+  def click_taxpayer_link(taxpayer_full_name)
     within find("td", text: taxpayer_full_name) do
       page.first("a").click
+      click_link 'Edit Profile'
   end
 end
 

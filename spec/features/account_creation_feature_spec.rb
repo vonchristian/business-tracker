@@ -10,6 +10,11 @@ describe 'Account creation' do
     expect(Account.all.count).to eq(1)
   end
 
+  it 'sets user role to admin' do
+    user = create(:user)
+    expect(user.role).to eq('system_administrator')
+  end
+
   it 'allows access of subdomain' do
     visit root_url(subdomain: subdomain)
     expect(page.current_url).to include(subdomain)

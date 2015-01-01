@@ -1,0 +1,14 @@
+<div class='col-md-6'>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%=simple_form_for @user do |f| %>
+        <%=f.input :first_name %>
+        <%=f.input :last_name %>
+        <%=f.input :email %>
+        <div class="modal-footer">
+          <%=f.submit%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
