@@ -15,6 +15,7 @@
       <%=f.input_field :password, class: 'form-control input-lg', placeholder: 'Password' %>
       <span class="input-group-addon glyphicon glyphicon-lock"></span>
     </div>
+    <small class="help-text"><%= render "devise/shared/links" %></small>
     <% end %>
 
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
@@ -23,5 +24,4 @@
     <%= f.button :submit, "Sign in", class: "btn btn-primary btn-lg btn-block" %>
 <% end %>
 <br>
-<%= render "devise/shared/links" %>
 </div>
