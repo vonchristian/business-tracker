@@ -1,5 +1,7 @@
-<div class="col-md-4 col-md-offset-4 well signin">
-<h3 class="text-sucess">Sign in to Business Tracker</h3>
+<div class="col-md-4 col-md-offset-4">
+<div class="panel panel-default">
+<div class="panel-heading">Business Tracker</div>
+<div class="panel-body">
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), :url => session_path(resource_name),
        wrapper_mappings: {boolean: :vertical_boolean }) do |f| %>
@@ -24,4 +26,7 @@
     <%= f.button :submit, "Sign in", class: "btn btn-primary btn-lg btn-block" %>
 <% end %>
 <br>
+</div>
+
+</div>
 </div>

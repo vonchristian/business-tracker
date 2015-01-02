@@ -1,30 +1,38 @@
 class BusinessesController < ApplicationController
-before_action :set_business, only: [:show, :edit, :update, :destroy]
-before_action :set_taxpayer, only: [:new, :show, :edit, :update, :destroy]
-def new
-  @business = current_taxpayer.businesses.build
-end
-
-def create
-  @business = current_taxpayer.businesses.create(business_params)
-    if @business.save
-      redirect_to [@taxpayer, @business], notice: 'Business has been registered successfully.'
-    else
-      render :new, alert: 'Business has not been registered.'
+  def index
+    @businesses = Business.all
   end
-end
+  def new
+    @business = Business.new
+    @business.build_owner
+  end
 
-private
-    def business_params
-      params.require(:business).permit(:business_name)
+  def show
+    @business = Business.find(params[:id])
+  end
+  def edit
+      @business = Business.find(params[:id])
+  end
+  def create
+    @business = Business.new(business_params)
+    if @business.save
+        redirect_to root_path, notice: 'registered successfully'
+    else
+      render :new
     end
-    def current_taxpayer
-      @taxpayer = Taxpayer.find(params[:taxpayer_id])
+  end
+
+  def update
+    @business = Business.find(params[:id])
+    if @business.update_attributes(business_params)
+      redirect_to businesses_path, notice: 'updated successfully'
+    else
+      render :edit
     end
-    def set_business
-      @business = @taxpayer.businesses.find(params[:id])
-    end
-    def set_taxpayer
-       @taxpayer = Taxpayer.find(params[:taxpayer_id])
-    end
+  end
+
+  private
+  def business_params
+    params.require(:business).permit(:business_name, owner_attributes: [:first_name, :middle_name, :last_name, :email, :mobile_number])
+  end
 end

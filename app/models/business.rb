@@ -1,8 +1,28 @@
 class Business < ActiveRecord::Base
-  belongs_to :taxpayer
+  belongs_to  :owner, class_name: 'Taxpayer'
   belongs_to :type_of_organization
   has_many :psic_codes
   has_many :payments
-  validates :business_name, :taxpayer, :type_of_organization, presence: true
-end
 
+  validates :business_name,  presence: true
+  accepts_nested_attributes_for :owner
+
+
+  include Workflow
+      workflow do
+        state :new do
+          event :end_of_year, :transitions_to => :expired
+        end
+        state :expired do
+          event :end_of_registration, :transitions_to => :delinquent
+          event :payment_of_taxes, :transitions_to => :renewed
+        end
+        state :delinquent
+        state :renewed
+      end
+
+
+  def owner_name
+    self.owner.try(:first_and_last_name)
+  end
+end

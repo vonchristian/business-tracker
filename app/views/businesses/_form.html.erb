@@ -1,10 +1,29 @@
-<div class='col-md-6'>
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <%=simple_form_for [@taxpayer, @business] do |f| %>
-        <%=f.input :business_name %>
-        <%=f.button :submit%>
-      <% end %>
+<div class="container">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Business Details</div>
+        <div class="panel-body">
+          <%=simple_form_for @business do |f| %>
+          <%=f.input :business_name  %>
+        </div>
+      </div>
     </div>
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">Owner Details</div>
+          <div class="panel-body">
+            <%=f.simple_fields_for :owner do |o| %>
+             <%=o.input :first_name %>
+             <%=o.input :middle_name %>
+             <%=o.input :last_name %>
+             <%=o.input :email %>
+             <%=o.input :mobile_number %>
+              <%=f.button :submit, class: 'btn btn-primary'%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>

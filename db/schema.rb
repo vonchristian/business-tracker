@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150101042618) do
+ActiveRecord::Schema.define(version: 20150101220554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150101042618) do
   end
 
   create_table "businesses", force: :cascade do |t|
-    t.integer  "taxpayer_id"
+    t.integer  "owner_id"
     t.integer  "type_of_organization_id"
     t.string   "address_bldg_no"
     t.string   "address_unit_no"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150101042618) do
     t.boolean  "branch"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "workflow_state"
   end
 
   create_table "taxes", force: :cascade do |t|

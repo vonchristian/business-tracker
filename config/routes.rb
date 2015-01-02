@@ -14,7 +14,7 @@ end
 Rails.application.routes.draw do
 
   constraints(SubdomainPresent) do
-    root 'taxpayers#index', as: :subdomain_root
+    root 'businesses#index', as: :subdomain_root
     devise_for :users, :controllers => { :registrations => "users" }
 
     resources :users

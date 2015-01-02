@@ -1,0 +1,50 @@
+<%provide(:title, "#{@business.business_name}") %>
+<div class="container">
+<ul class="nav nav-tabs" role="tablist">
+
+  <li class="active"><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+  <li><a href="#payments" role="tab" data-toggle="tab">Payments</a></li>
+  <li><a href="#settings" role="tab" data-toggle="tab"><span class="fa fa-cog"></span> Settings</a></li>
+  <li><a href="#timeline" role="tab" data-toggle="tab"><span class="fa fa-time"></span> Timeline</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="profile">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-10">
+          <div class="panel">
+            <h1 id="profile_name"><%=@business.business_name %></h1>
+            <hr />
+            <div class="centered">
+              <%=link_to 'Edit Profile', edit_business_path(@business), class: "btn btn-default" %>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="panel panel-default">
+            <div class="panel=heading">Business Details</div>
+            <div class="panel-body">
+              <tr>
+              <td>Email:</td>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="payments">
+  <%=link_to 'Pay Taxes', new_business_payment_path(@business) %>
+  </div>
+
+  <div class="tab-pane" id="settings">.s..</div>
+
+
+  <div class="tab-pane" id="timeline">.ts..</div>
+</div>
+<div class="col-sm-1">
+</div>
+</div>

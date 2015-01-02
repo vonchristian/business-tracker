@@ -1,7 +1,7 @@
 class CreateBusinesses < ActiveRecord::Migration
   def change
     create_table :businesses do |t|
-      t.integer :taxpayer_id
+      t.integer :owner_id
       t.belongs_to :type_of_organization
       t.string :address_bldg_no
       t.string :address_unit_no

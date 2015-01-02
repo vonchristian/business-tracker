@@ -43,7 +43,7 @@ private
     @users ||= user_scope.to_a
   end
   def load_user
-    @user ||= user_scope.friendly.find(params[:id])
+    @user ||= user_scope.find(params[:id])
   end
   def build_user
     @user ||= user_scope.build
@@ -51,7 +51,7 @@ private
   end
   def save_user
     if @user.save
-      redirect_to @user,:notice => "registered successfully."
+      redirect_to users_path,:notice => "registered successfully."
     end
   end
   def user_scope
