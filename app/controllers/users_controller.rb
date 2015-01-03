@@ -37,7 +37,7 @@ end
 private
   def user_params
     user_params = params[:user]
-    user_params ? user_params.permit(:first_name, :last_name, :password, :password_confirmation, :email) : {}
+    user_params ? user_params.permit(:first_name, :last_name, :password, :password_confirmation, :email, :role) : {}
   end
   def load_users
     @users ||= user_scope.to_a

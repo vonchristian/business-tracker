@@ -2,7 +2,7 @@ source 'https://rubygems.org'
     ruby '2.2.0'
     gem 'rails', '4.2.0'
 
-
+  gem 'redis-rails'
   gem 'prawn'
   gem 'apartment'
   gem 'mini_magick'
@@ -16,7 +16,7 @@ source 'https://rubygems.org'
   gem 'jquery-turbolinks'
   gem 'devise'
   gem 'kaminari'
-  gem 'cancancan'
+  gem 'pundit'
   gem 'font-awesome-rails'
   gem 'ionicons-rails'
   gem 'simple_form'
@@ -64,7 +64,7 @@ end
 group :test, :development do
   gem 'web-console'
   gem 'database_cleaner'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'spring-commands-rspec'

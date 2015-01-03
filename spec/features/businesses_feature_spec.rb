@@ -10,8 +10,9 @@ describe 'Businesses registrations' do
     end
 
     it "allows taxpayers to register a business" do
+      taxpayer = create(:taxpayer)
       visit taxpayers_path
-      click_show_taxpayer_button taxpayer.full_name
+      click_link taxpayer.full_name
       click_button 'New Business'
 
       fill_in "Business name", with: 'Awesome Business'

@@ -1,6 +1,6 @@
 <div class="col-md-4 col-md-offset-4">
 <div class="panel panel-default">
-<div class="panel-heading">Business Tracker</div>
+<div class="panel-heading">Sign in</div>
 <div class="panel-body">
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), :url => session_path(resource_name),
@@ -21,9 +21,9 @@
     <% end %>
 
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    <hr>
 
-
-    <%= f.button :submit, "Sign in", class: "btn btn-primary btn-lg btn-block" %>
+    <%= f.button :submit, "Sign in", class: "btn btn-default" %>
 <% end %>
 <br>
 </div>

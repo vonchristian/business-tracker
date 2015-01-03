@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150101220554) do
+ActiveRecord::Schema.define(version: 20150103000607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20150101220554) do
     t.string   "workflow_state"
   end
 
+  add_index "businesses", ["owner_id"], name: "index_businesses_on_owner_id", using: :btree
+
   create_table "taxes", force: :cascade do |t|
     t.string   "description"
     t.boolean  "default"
@@ -121,7 +123,7 @@ ActiveRecord::Schema.define(version: 20150101220554) do
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "role"
+    t.integer  "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

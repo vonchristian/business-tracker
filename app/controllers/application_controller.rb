@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   include ActionController::MimeResponds
   include ActionController::ImplicitRender
   protect_from_forgery with: :exception
 
+ # after_action :verify_authorized, :except => :index
   before_filter :load_schema, :authenticate_user!
 
   private
