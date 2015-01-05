@@ -12,7 +12,7 @@ describe 'user authentication' do
      it 'does not allow signin with invalid credentials' do
       sign_user_in(user, subdomain: account.subdomain, password: 'wrong password')
 
-      expect(page).to have_content('Invalid email or password')
+      expect(page).to have_content('Unable to login.')
     end
 
   it 'does not allow user to sign in unless on subdomain' do

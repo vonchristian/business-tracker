@@ -10,13 +10,14 @@ describe 'Payment of taxes' do
     end
 
 it "allows taxpayer to pay taxes" do
+  taxpayer = create(:taxpayer)
   visit taxpayers_path
-  click_show_taxpayer_link taxpayer.full_name
+  click_link taxpayer.full_name
   click_link 'Pay Taxes'
   fill_in 'Amount', with: '100'
 
       click_button "Pay Tax"
-      expect(page).to have_text "paymet made successfully"
+      expect(page).to have_text "payment made successfully"
     end
 end
 def click_show_taxpayer_link(taxpayer_full_name)
