@@ -7,6 +7,6 @@ RSpec.describe BusinessNature, :type => :model do
   end
 
   describe 'associations' do
-    it { should have_many :business }
+    it { should have_many :businesses }
   end
 end
