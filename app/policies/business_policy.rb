@@ -15,19 +15,19 @@ class BusinessPolicy < ApplicationPolicy
   end
 
   def create?
-  user.system_administrator?
+  user.system_administrator? or user.application_officer? or not user.payment_officer?
   end
 
   def new?
-    user.system_administrator?
+    user.system_administrator? or user.application_officer?
   end
 
   def update?
-    user.system_administrator?
+    user.system_administrator? or user.application_officer?
   end
 
   def edit?
-    update?
+    user.system_administrator? or user.application_officer?
   end
 
   def destroy?

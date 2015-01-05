@@ -10,10 +10,10 @@ describe BusinessPolicy do
 
     it { should     permit_authorization(:show)    }
 
-    it { should_not permit_authorization(:create)  }
-    it { should_not permit_authorization(:new)     }
-    it { should_not permit_authorization(:update)  }
-    it { should_not permit_authorization(:edit)    }
+    it { should permit_authorization(:create)  }
+    it { should permit_authorization(:new)     }
+    it { should permit_authorization(:update)  }
+    it { should permit_authorization(:edit)    }
     it { should_not permit_authorization(:destroy) }
   end
 
@@ -26,5 +26,16 @@ describe BusinessPolicy do
     it { should permit_authorization(:update)  }
     it { should permit_authorization(:edit)    }
     it { should permit_authorization(:destroy) }
+  end
+
+  context "for a payment officer" do
+    let(:user) { FactoryGirl.create(:user, role: 'system_administrator') }
+
+    it { should permit_authorization(:show)    }
+    it { should_not permit_authorization(:create)  }
+    it { should_not permit_authorization(:new)     }
+    it { should_not permit_authorization(:update)  }
+    it { should_not permit_authorization(:edit)    }
+    it { should_not permit_authorization(:destroy) }
   end
 end

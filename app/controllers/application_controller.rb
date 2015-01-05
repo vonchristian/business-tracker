@@ -7,6 +7,17 @@ class ApplicationController < ActionController::Base
  # after_action :verify_authorized, :except => :index
   before_filter :load_schema, :authenticate_user!
 
+  rescue_from Pundit::NotAuthorizedError, with: :permission_denied
+
+  # Enforces access right checks for individuals resources
+  #after_filter :verify_authorized, :except => :index
+
+  # Enforces access right checks for collections
+ # after_filter :verify_policy_scoped, :only => :index
+
+
+
+
   private
         def load_schema
           Apartment::Database.switch('public')
@@ -26,4 +37,8 @@ class ApplicationController < ActionController::Base
         def after_sign_out_path_for(resource_or_scope)
           new_user_session_path
         end
+
+        def permission_denied
+head 403
+end
 end

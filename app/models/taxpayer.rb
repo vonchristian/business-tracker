@@ -1,7 +1,7 @@
 class Taxpayer < ActiveRecord::Base
   validates :first_name, :middle_name, :last_name, :email, :mobile_number, presence: true
   validates :mobile_number, uniqueness: true
-  has_many :businesses
+  has_many :businesses, foreign_key: :owner_id
   has_many :payments, :through => :businesses
   has_one :address, as: :addressable
   after_validation :titleize_full_name

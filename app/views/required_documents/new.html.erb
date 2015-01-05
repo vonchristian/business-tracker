@@ -1,0 +1,10 @@
+<%=simple_form_for [@business, @required_document] do |f| %>
+   <div class="checkboxes">
+        <p class="text-info">Check Applicable Documents:</p>
+         <%= hidden_field_tag "required_document[document_ids][]", nil %>
+    <% Document.where(default: :false).each do |document| %>
+      <%= check_box_tag "required_document[document_ids][]", requirement.id, @required_document.document_ids.include?(document.id), id: dom_id(document) %>
+      <%= label_tag dom_id(document), document.description, class: "control-label" %><br>
+    <% end %>
+    </div>
+  <% end %>
