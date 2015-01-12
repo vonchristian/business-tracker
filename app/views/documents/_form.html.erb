@@ -5,7 +5,10 @@
 <%=simple_form_for @document  do |f| %>
 <%=f.input :description %>
 <%=f.input :office %>
-<%=f.submit %>
+<%=f.input :default, as: :boolean, label: 'Default Document' %>
+<div class="modal-footer">
+<%=f.submit class: 'btn btn-primary' %>
+</div>
 <% end %>
 </div>
 </div>

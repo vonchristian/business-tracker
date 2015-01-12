@@ -1,4 +1,4 @@
 class RequiredDocument < ActiveRecord::Base
   belongs_to :business
-  has_many :documents
+  belongs_to :document
 end

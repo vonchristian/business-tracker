@@ -5,6 +5,7 @@ class Business < ActiveRecord::Base
   has_many :business_natures, through: :line_of_businesses
   has_many :payments
   has_many :required_documents
+  has_many :documents, through: :required_documents
 
   validates :business_name,  presence: true
   accepts_nested_attributes_for :owner

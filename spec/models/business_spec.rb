@@ -11,7 +11,8 @@ RSpec.describe Business, :type => :model do
   describe "associations" do
    # it { should belong_to :type_of_organization }
     it { should belong_to :owner}
-    #it { should have_one :address }
+    it { should have_many :documents }
+    it { should have_many :payments }
 
   end
 end
