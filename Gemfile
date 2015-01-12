@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 
   gem 'chosen-rails'
+  gem 'bootstrap-datepicker-rails'
   gem 'prawn'
   gem 'apartment'
   gem 'mini_magick'

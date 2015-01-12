@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150112035417) do
+ActiveRecord::Schema.define(version: 20150112133600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 20150112035417) do
     t.string  "province"
     t.integer "addressable_id"
     t.string  "addressable_type"
+  end
+
+  create_table "business_nature_taxes", force: :cascade do |t|
+    t.integer  "tax_id"
+    t.integer  "business_nature_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "business_natures", force: :cascade do |t|
@@ -112,6 +119,16 @@ ActiveRecord::Schema.define(version: 20150112035417) do
   end
 
   add_index "lessors", ["business_id"], name: "index_lessors_on_business_id", using: :btree
+
+  create_table "line_of_businesses", force: :cascade do |t|
+    t.integer  "business_id"
+    t.integer  "business_nature_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "line_of_businesses", ["business_id"], name: "index_line_of_businesses_on_business_id", using: :btree
+  add_index "line_of_businesses", ["business_nature_id"], name: "index_line_of_businesses_on_business_nature_id", using: :btree
 
   create_table "payments", force: :cascade do |t|
     t.decimal  "amount"

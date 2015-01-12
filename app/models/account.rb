@@ -17,8 +17,8 @@ class Account < ActiveRecord::Base
     self.subdomain
   end
   def create_subdomain
-      Apartment::Database.create(self.subdomain)
-      Apartment::Database.switch(self.subdomain)
+      Apartment::Tenant.create(self.subdomain)
+      Apartment::Tenant.switch(self.subdomain)
       self.save
   end
 

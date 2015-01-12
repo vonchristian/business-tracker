@@ -10,7 +10,7 @@ describe 'Taxpayer registrations' do
   end
 
   it "allows taxpayers to be registered" do
-    visit root_path
+    visit taxpayers_path
     click_link "New Taxpayer"
 
     fill_in "First name", with: 'Von Christian'
@@ -25,7 +25,7 @@ describe 'Taxpayer registrations' do
   end
 
   it "displays taxpayer validation messages" do
-    visit root_path
+    visit taxpayers_path
     click_link "New Taxpayer"
 
     click_button "Register Taxpayer"
@@ -34,8 +34,9 @@ describe 'Taxpayer registrations' do
 
   it "allows taxpayers to be edited" do
     taxpayer = create(:taxpayer)
-    visit root_path
-    click_taxpayer_link taxpayer.full_name
+    visit taxpayers_path
+    click_link taxpayer.full_name
+    click_link 'Edit Profile'
     fill_in "First name", with: 'Von Chris'
     click_button "Update Taxpayer"
 
@@ -53,13 +54,6 @@ describe 'Taxpayer registrations' do
     taxpayer=create(:taxpayer)
     expect(taxpayer.workflow_state).to eql('new')
   end
-
-  def click_taxpayer_link(taxpayer_full_name)
-    within find("td", text: taxpayer_full_name) do
-      page.first("a").click
-      click_link 'Edit Profile'
-  end
-end
 
 end
 

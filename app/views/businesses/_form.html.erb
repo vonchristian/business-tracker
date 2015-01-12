@@ -23,13 +23,13 @@
           </div>
           <div class="row">
             <div class="col-md-3">
-              <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current %>
+              <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'mm/dd/yyyy' %>
             </div>
             <div class="col-md-3">
-              <%=f.input :dti_sec_reg_no %>
+              <%=f.input :dti_sec_reg_no, label: 'DTI/SEC Registration Number' %>
             </div>
             <div class="col-md-3">
-              <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" } %>
+              <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" },  placeholder: 'mm/dd/yyyy'  %>
             </div>
           </div>
           <div class="row">
@@ -102,7 +102,13 @@
         </div>
       </div>
 </div>
-      <%=f.button :submit, class: 'btn btn-primary'%>
+<div class="modal-footer">
+<% if @business.new_record? %>
+      <%=f.submit 'Register Business', class: 'btn btn-primary'%>
+      <% else %>
+         <%=f.submit 'Register Business', class: 'btn btn-primary'%>
+         <% end %>
+         </div>
     <% end %>
   </div>
 </div>

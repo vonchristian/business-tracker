@@ -12,6 +12,7 @@ ActiveRecord::Migration.maintain_test_schema!
 Rails.application.routes.default_url_options[:host] = 'test.host'
 
 RSpec.configure do |config|
+  config.include RSpec::Rails::RequestExampleGroup, type: :feature
   config.infer_spec_type_from_file_location!
   config.include Capybara::DSL
   config.include Rails.application.routes.url_helpers
@@ -30,7 +31,7 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
-    Apartment::Database.reset
+    Apartment::Tenant.reset
     drop_schemas
     Capybara.app_host = 'http://example.com'
 

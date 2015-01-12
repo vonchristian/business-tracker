@@ -1,8 +1,10 @@
 class Business < ActiveRecord::Base
   belongs_to  :owner, class_name: 'Taxpayer'
   belongs_to :type_of_organization
-  has_many :business_natures
+  has_many :line_of_businesses
+  has_many :business_natures, through: :line_of_businesses
   has_many :payments
+  has_many :required_documents
 
   validates :business_name,  presence: true
   accepts_nested_attributes_for :owner
