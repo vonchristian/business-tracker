@@ -9,13 +9,16 @@ class BusinessesController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html do
     @business = Business.find(params[:id])
     authorize @business
-  end
-    format.pdf
-  end
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = BusinessPermit.new(@business)
+        send_data pdf.render, filename: "#{@business.business_name}-permit.pdf", type: 'application/pdf'
+      end
+    end
   end
   def edit
       @business = Business.find(params[:id])
