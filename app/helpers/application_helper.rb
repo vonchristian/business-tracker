@@ -9,8 +9,9 @@ module ApplicationHelper
 end
 
 def current_subdomain
- 'City Government of Makati'
+ "Local Government of Tinoc"
 end
+
 def site_name
     # Change the value below between the quotes.
     "Business Tracker"

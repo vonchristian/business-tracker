@@ -13,6 +13,11 @@ describe 'Businesses registrations' do
       click_link 'New Business'
 
       fill_in "Business name", with: 'Awesome Business'
+      fill_in "First name", with: 'Von'
+      fill_in 'Middle name', with: 'Pinosan'
+      fill_in 'Last name', with: 'Halip'
+      fill_in 'Email', with: 'vc.halip@gmail.com'
+      fill_in 'Mobile number', with: '09274173271'
 
       click_button "Register Business"
       expect(page).to have_text "registered successfully"
