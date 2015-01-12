@@ -9,8 +9,13 @@ class BusinessesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html do
     @business = Business.find(params[:id])
     authorize @business
+  end
+    format.pdf
+  end
   end
   def edit
       @business = Business.find(params[:id])

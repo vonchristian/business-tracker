@@ -1,7 +1,7 @@
 class Business < ActiveRecord::Base
   belongs_to  :owner, class_name: 'Taxpayer'
   belongs_to :type_of_organization
-  has_many :psic_codes
+  has_many :business_natures
   has_many :payments
 
   validates :business_name,  presence: true
@@ -10,7 +10,10 @@ class Business < ActiveRecord::Base
 
   include Workflow
       workflow do
-        state :new do
+        state :new_business do
+          event :payment_of_taxes, :transitions_to => :registered
+        end
+        state :registered do
           event :end_of_year, :transitions_to => :expired
         end
         state :expired do
@@ -24,5 +27,17 @@ class Business < ActiveRecord::Base
 
   def owner_name
     self.owner.try(:first_and_last_name)
+  end
+
+  private
+
+  def end_of_year
+    Time.now.end_of_year?
+
+
+  end
+
+  def payment_of_taxes
+
   end
 end
