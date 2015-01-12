@@ -1,7 +1,7 @@
 class Business < ActiveRecord::Base
   belongs_to  :owner, class_name: 'Taxpayer'
   belongs_to :type_of_organization
-  has_many :psic_codes
+  has_many :business_natures
   has_many :payments
   has_many :required_documents
 
