@@ -3,7 +3,7 @@
 <div class="panel-heading">Sign in</div>
 <div class="panel-body">
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), :url => session_path(resource_name),
+<%= simple_form_for(resource, as: resource_name, :url => session_path(resource_name),
        wrapper_mappings: {boolean: :vertical_boolean }) do |f| %>
        <%= f.input :email, label: false do %>
   <div class="input-group">
