@@ -1,5 +1,8 @@
 FactoryGirl.define do
   factory :payment do
-    amount '100'
+    amount "MyString"
+business_id 1
+tax_id 1
   end
+
 end

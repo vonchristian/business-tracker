@@ -1,4 +1,5 @@
 class Tax < ActiveRecord::Base
+scope :default_taxes, -> {Tax.where(default: true)}
  scope :not_default_taxes, -> {Tax.where(default: false)}
  validates :description, :amount, presence: true
  validates :amount, numericality: true

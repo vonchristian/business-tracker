@@ -1,1 +1,29 @@
-ppp
+<div class='col-md-6'>
+  <div class="panel panel-default">
+    <div class="panel-heading">Payment Breakdown </div>
+    <div class="panel-body">
+    <p class="label-info-tax">Default Taxes</p>
+    <%Tax.default_taxes.each do |tax| %>
+    <%=tax.description %>
+      <%=tax.amount %>
+      <% end %>
+      <hr>
+    <% @business.line_of_businesses.each do |line_of_businesses| %>
+      <ul>
+        <li><%=line_of_businesses.description %></li>
+        </ul>
+      <%line_of_businesses.taxes.each do |tax| %>
+      <%=tax.description %>
+      <%=tax.amount %>
+      <% end %>
+    <% end %>
+    <hr>
+      <%=simple_form_for [@business, @payment] do |f| %>
+        <%=f.input :amount %>
+        <div class="modal-footer">
+          <%=f.button :submit, class: 'btn btn-primary'%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
