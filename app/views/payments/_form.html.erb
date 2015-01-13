@@ -4,17 +4,22 @@
     <div class="panel-body">
     <p class="label-info-tax">Default Taxes</p>
     <%Tax.default_taxes.each do |tax| %>
-    <%=tax.description %>
-      <%=tax.amount %>
+    <ul>
+      <li><%=tax.description %>
+      <span class="pull-right"><%=number_to_currency(tax.amount, precision: 2, unit: '') %></span></li>
+      </ul>
       <% end %>
       <hr>
+       <p class="label-info-tax">Business Taxes</p>
     <% @business.line_of_businesses.each do |line_of_businesses| %>
-      <ul>
-        <li><%=line_of_businesses.description %></li>
-        </ul>
+
+        <span class="line-of-business"><%=line_of_businesses.description %></span>
+
       <%line_of_businesses.taxes.each do |tax| %>
-      <%=tax.description %>
-      <%=tax.amount %>
+      <ul>
+      <li><%=tax.description %>
+      <span class="pull-right"><%=number_to_currency(tax.amount, precision: 2, unit: '') %></span></li>
+      </ul>
       <% end %>
     <% end %>
     <hr>
