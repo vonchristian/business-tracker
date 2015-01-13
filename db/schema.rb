@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113071320) do
+ActiveRecord::Schema.define(version: 20150113075804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,16 @@ ActiveRecord::Schema.define(version: 20150113071320) do
 
   add_index "line_of_businesses", ["business_id"], name: "index_line_of_businesses_on_business_id", using: :btree
   add_index "line_of_businesses", ["tax_id"], name: "index_line_of_businesses_on_tax_id", using: :btree
+
+  create_table "mayors_fees", force: :cascade do |t|
+    t.string   "enterprise_scale"
+    t.string   "asset_size"
+    t.string   "workforce_size"
+    t.string   "line_of_business_id"
+    t.decimal  "amount_of_fee_per_anum"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "payments", force: :cascade do |t|
     t.string   "amount"
