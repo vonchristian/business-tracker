@@ -16,15 +16,18 @@
       <% end %>
     <% end %>
     <hr>
-    <p>Subtotal: <span class="pull-right"><%=@payment.amount_to_pay %></span></p>
+    <p>Subtotal: <span class="pull-right"><%=@payment.subtotal %></span></p>
     <p>Exemptions: <span class="pull-right"><%=@payment.exemption %></span></p>
     <p>Surcharges: <span class="pull-right"><%=@payment.surcharge %></span></p>
     <hr>
+        <p>AMOUNT TO PAY <span class="pull-right"><%=@payment.total %></span></p>
+        <hr>
+
       <%=simple_form_for [@business, @payment] do |f| %>
 
         <%=f.input :official_receipt_number %>
         <div class="modal-footer">
-          <%=f.button :submit, class: 'btn btn-primary'%>
+          <%=f.submit 'Register Payment ', class: 'btn btn-primary'%>
         </div>
       <% end %>
     </div>

@@ -3,7 +3,10 @@ class Payment < ActiveRecord::Base
   belongs_to :business
   has_many :taxes, through: :business
   before_save :set_amount
-  def amount_to_pay
+  def total
+    subtotal - exemption + surcharge
+  end
+  def subtotal
    business_taxes + default_taxes
     #taxes + fees + gross_receipts_percentage - exemtions = surcharges
   end
