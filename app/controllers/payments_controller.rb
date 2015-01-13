@@ -18,6 +18,6 @@ private
     end
 
     def payment_params
-      params.require(:payment).permit(:amount)
+      params.require(:payment).permit(:amount, :official_receipt_number)
     end
 end

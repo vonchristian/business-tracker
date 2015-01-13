@@ -7,6 +7,15 @@ class Payment < ActiveRecord::Base
    business_taxes + default_taxes
     #taxes + fees + gross_receipts_percentage - exemtions = surcharges
   end
+
+  def exemption
+    0
+  end
+
+   def surcharge
+    0
+  end
+
 private
     def default_taxes
        Tax.default_taxes.sum(:amount)

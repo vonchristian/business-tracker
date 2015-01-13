@@ -12,7 +12,7 @@
               <%=f.input :business_name  %>
              </div>
              <div class="col-md-3">
-               <%=f.association :type_of_organization %>
+               <%=f.association :type_of_organization, collection: TypeOfOrganization.ownership_types %>
              </div>
              <div class="col-md-3">
               <%= f.association :line_of_businesses,

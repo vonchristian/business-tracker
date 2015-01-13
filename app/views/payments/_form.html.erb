@@ -2,14 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">Payment Breakdown </div>
     <div class="panel-body">
-    <p class="label-info-tax">Default Taxes</p>
-    <%Tax.default_taxes.each do |tax| %>
-    <ul>
-      <li><%=tax.description %>
-      <span class="pull-right"><%=number_to_currency(tax.amount, precision: 2, unit: '') %></span></li>
-      </ul>
-      <% end %>
-      <hr>
+
        <p class="label-info-tax">Business Taxes</p>
     <% @business.line_of_businesses.each do |line_of_businesses| %>
 
@@ -23,8 +16,12 @@
       <% end %>
     <% end %>
     <hr>
+    <p>Subtotal: <span class="pull-right"><%=@payment.amount_to_pay %></span></p>
+    <p>Exemptions: <span class="pull-right"><%=@payment.exemption %></span></p>
+    <p>Surcharges: <span class="pull-right"><%=@payment.surcharge %></span></p>
+    <hr>
       <%=simple_form_for [@business, @payment] do |f| %>
-        <%=f.input :amount_to_pay %>
+
         <%=f.input :official_receipt_number %>
         <div class="modal-footer">
           <%=f.button :submit, class: 'btn btn-primary'%>
