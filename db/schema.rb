@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113075804) do
+ActiveRecord::Schema.define(version: 20150113091155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20150113075804) do
     t.decimal  "gross_receipts_percentage"
     t.integer  "asset_size"
     t.integer  "workforce_size"
+    t.integer  "industry"
   end
 
   add_index "businesses", ["owner_id"], name: "index_businesses_on_owner_id", using: :btree

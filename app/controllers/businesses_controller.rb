@@ -46,6 +46,6 @@ class BusinessesController < ApplicationController
 
   private
   def business_params
-    params.require(:business).permit(:asset_size, :workforce_size, :business_name, :type_of_organization_id, :line_of_business_ids =>[], owner_attributes: [:first_name, :middle_name, :last_name, :email, :mobile_number])
+    params.require(:business).permit(:industry, :asset_size, :workforce_size, :business_name, :type_of_organization_id, :line_of_business_ids =>[], owner_attributes: [:first_name, :middle_name, :last_name, :email, :mobile_number])
   end
 end

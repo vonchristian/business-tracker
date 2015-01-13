@@ -14,6 +14,9 @@
              <div class="col-md-3">
                <%=f.association :type_of_organization, collection: TypeOfOrganization.ownership_types %>
              </div>
+              <div class="col-md-3">
+               <%=f.input :industry, collection: Business.industries %>
+             </div>
              <div class="col-md-3">
               <%= f.association :line_of_businesses,
                   collection: LineOfBusiness.all,
@@ -26,7 +29,7 @@
               <%=f.input :asset_size%>
             </div>
             <div class="col-md-3">
-              <%=f.input :workforce_size, label: 'DTI/SEC Registration Number' %>
+              <%=f.input :workforce_size, label: 'Number of Employees' %>
             </div>
           <div class="row">
             <div class="col-md-3">
