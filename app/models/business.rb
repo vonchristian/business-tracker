@@ -1,5 +1,6 @@
 class Business < ActiveRecord::Base
-  enum asset_size: [:micro_industry, :cottage_industry, :small_scale_industry, :medium, :large]
+
+
   belongs_to  :owner, class_name: 'Taxpayer'
   belongs_to :type_of_organization
   has_many :line_of_businesses
@@ -9,7 +10,9 @@ class Business < ActiveRecord::Base
   has_many :documents, through: :required_documents
 
   validates :business_name,  presence: true
+
   accepts_nested_attributes_for :owner
+
 
 
   include Workflow
@@ -44,4 +47,5 @@ class Business < ActiveRecord::Base
   def payment_of_taxes
 
   end
+
 end

@@ -1,4 +1,4 @@
-<div class='col-md-6'>
+<div class='col-md-4 col-md-offset-4'>
   <div class="panel panel-default">
     <div class="panel-heading">Payment Breakdown </div>
     <div class="panel-body">
@@ -25,6 +25,7 @@
     <hr>
       <%=simple_form_for [@business, @payment] do |f| %>
         <%=f.input :amount_to_pay %>
+        <%=f.input :official_receipt_number %>
         <div class="modal-footer">
           <%=f.button :submit, class: 'btn btn-primary'%>
         </div>

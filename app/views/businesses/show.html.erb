@@ -18,8 +18,8 @@
           <div class="panel">
             <h1 id="profile_name"><%=@business.business_name %></h1>
             <hr />
-            <div class="centered">
-            <%=link_to 'Pay Taxes', new_business_payment_path(@business) %>
+            <div class="well well-sm">
+            <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-default" %>
               <%=link_to 'Edit Profile', edit_business_path(@business), class: "btn btn-default" %>
               <%=link_to 'Submit Requirements', new_business_required_documents_path(@business), class: "btn btn-default" %>
             </div>

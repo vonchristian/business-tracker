@@ -23,6 +23,13 @@
           </div>
           <div class="row">
             <div class="col-md-3">
+              <%=f.input :asset_size%>
+            </div>
+            <div class="col-md-3">
+              <%=f.input :workforce_size, label: 'DTI/SEC Registration Number' %>
+            </div>
+          <div class="row">
+            <div class="col-md-3">
               <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'mm/dd/yyyy' %>
             </div>
             <div class="col-md-3">
