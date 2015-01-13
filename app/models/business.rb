@@ -1,4 +1,5 @@
 class Business < ActiveRecord::Base
+  enum asset_size: [:micro_industry, :cottage_industry, :small_scale_industry, :medium, :large]
   belongs_to  :owner, class_name: 'Taxpayer'
   belongs_to :type_of_organization
   has_many :line_of_businesses
