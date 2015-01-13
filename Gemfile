@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 
 
   gem 'chosen-rails'
-  gem 'wicked'
   gem 'bootstrap-datepicker-rails'
   gem 'prawn'
   gem 'apartment'
