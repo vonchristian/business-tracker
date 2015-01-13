@@ -1,0 +1,2 @@
+module GrossReceiptsHelper
+end

@@ -32,6 +32,7 @@ Rails.application.routes.draw do
           resources :documents
           resources :line_of_businesses
           resources :business_natures
+          resources :gross_receipts
   end
 
    constraints(SubdomainBlank) do

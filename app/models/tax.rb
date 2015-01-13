@@ -1,4 +1,6 @@
 class Tax < ActiveRecord::Base
+
+  enum type_of_tax: [:mayors_permit_fee, :regulatory_fee, :business_tax]
 scope :default_taxes, -> {Tax.where(default: true)}
  scope :not_default_taxes, -> {Tax.where(default: false)}
  validates :description, :amount, presence: true

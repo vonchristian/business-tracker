@@ -24,7 +24,7 @@
     <% end %>
     <hr>
       <%=simple_form_for [@business, @payment] do |f| %>
-        <%=f.input :amount %>
+        <%=f.input :amount_to_pay %>
         <div class="modal-footer">
           <%=f.button :submit, class: 'btn btn-primary'%>
         </div>

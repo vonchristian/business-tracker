@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113031014) do
+ActiveRecord::Schema.define(version: 20150113041420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,10 +77,12 @@ ActiveRecord::Schema.define(version: 20150113031014) do
     t.boolean  "rented"
     t.boolean  "franchised"
     t.boolean  "branch"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "workflow_state"
     t.integer  "business_nature_id"
+    t.decimal  "gross_receipts"
+    t.decimal  "gross_receipts_percentage"
   end
 
   add_index "businesses", ["owner_id"], name: "index_businesses_on_owner_id", using: :btree
@@ -92,6 +94,24 @@ ActiveRecord::Schema.define(version: 20150113031014) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.boolean  "default"
+  end
+
+  create_table "gross_receipts", force: :cascade do |t|
+    t.integer  "business_id"
+    t.decimal  "gross_sales_minimum"
+    t.decimal  "gross_sales_maximum"
+    t.decimal  "amount_of_tax_per_anum"
+    t.integer  "line_of_business_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "line_of_business_gross_receipts", force: :cascade do |t|
+    t.decimal  "gross_sales"
+    t.decimal  "amount_of_tax_per_anum"
+    t.integer  "line_of_business_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "line_of_business_taxes", force: :cascade do |t|
