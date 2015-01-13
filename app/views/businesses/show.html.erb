@@ -19,6 +19,7 @@
             <h1 id="profile_name"><%=@business.business_name %></h1>
             <hr />
             <div class="centered">
+            <%=link_to 'Pay Taxes', new_business_payment_path(@business) %>
               <%=link_to 'Edit Profile', edit_business_path(@business), class: "btn btn-default" %>
               <%=link_to 'Submit Requirements', new_business_required_documents_path(@business), class: "btn btn-default" %>
             </div>
@@ -39,14 +40,30 @@
   </div>
 
   <div class="tab-pane" id="payments">
-  <%=link_to 'Pay Taxes', new_business_payment_path(@business) %>
+
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @business.payments.each do |payment| %>
+            <tr>
+              <td><%= number_to_currency(payment.amount, {:unit =>'PHP '}) %> </td>
+              <td> <%= payment.created_at %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
   </div>
+
 
   <div class="tab-pane" id="settings">.s..</div>
 
 
   <div class="tab-pane" id="timeline">.ts..</div>
 </div>
-<div class="col-sm-1">
-</div>
+
 </div>

@@ -4,6 +4,7 @@
       <%=simple_form_for @tax do |f| %>
         <%=f.input :description %>
         <%=f.input :amount %>
+         <%= f.select :type_of_tax, Tax.type_of_taxes.keys.map {|type_of_tax| [type_of_tax.titleize, type_of_tax,  class: 'form-control']} , as: :radio_buttons%>
         <%= f.input :default, as: :boolean %>
         <div class="modal-footer">
           <%=f.button :submit, class: 'btn btn-primary'%>
