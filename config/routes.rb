@@ -30,6 +30,8 @@ Rails.application.routes.draw do
           resources :requirements
           resources :taxes
           resources :documents
+          resources :line_of_businesses
+          resources :business_natures
   end
 
    constraints(SubdomainBlank) do

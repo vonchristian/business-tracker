@@ -9,10 +9,11 @@
           <%=f.error_notification %>
           <div class="row">
             <div class="col-md-5">
+
               <%=f.input :business_name  %>
              </div>
              <div class="col-md-3">
-               <%=f.association :type_of_organization %>
+               <%=f.association :type_of_organization, collection: TypeOfOrganization.ownership_types%>
              </div>
              <div class="col-md-3">
               <%= f.association :line_of_businesses,
@@ -46,62 +47,7 @@
       </div><!--end of panel body-->
     </div><!--end od panel default -->
     </div><!--end of col-md-12 -->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">Owner Details</div>
-          <div class="panel-body">
-            <%=f.simple_fields_for :owner do |o| %>
-            <div class="col-md-3">
-              <%=o.input :first_name %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :middle_name %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :last_name %>
-              </div>
-              <div class="col-md-3">
-              </div>
-              <div class="col-md-3">
-              <%=o.input :suffix %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :email %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :mobile_number %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :cedula_number %>
-              </div>
 
-              <div class="col-md-3">
-              <%=o.input :tin_number %>
-              </div>
-
-            <% end %>
-          </div>
-        </div>
-      </div>
-</div>
-<div class="row">
-       <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">Documents Submitted</div>
-          <div class="panel-body">
-            <%=f.simple_fields_for :required_documents do |d| %>
-
-               <%= f.association :required_documents,
-                  collection: Document.all,
-                  include_blank: true,
-                  input_html: { class: 'chosen-select' } %>
-
-            <% end %>
-          </div>
-        </div>
-      </div>
-</div>
 <div class="modal-footer">
 <% if @business.new_record? %>
       <%=f.submit 'Register Business', class: 'btn btn-primary'%>

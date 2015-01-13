@@ -32,7 +32,6 @@ source 'https://rubygems.org'
   gem 'uglifier'
   gem 'coffee-rails'
   gem 'jquery-rails'
-  gem 'turbolinks'
   gem 'jbuilder'
   gem 'responders'
 

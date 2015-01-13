@@ -2,7 +2,7 @@
 <div class="col-md-10 col-md-offset-2">
 <div class="well well-sm">
   <% if policy(Business.new).create? %>
-  <%=link_to ' New Business', new_business_path, class: "btn btn-primary fa fa-marker",  'data-no-turbolinks-track' => true  %>
+  <%=link_to ' New Business', new_business_path, class: "btn btn-primary fa fa-marker",  'data-no-turbolinks' => true  %>
   <% end %>
 </div>
 <div class="panel panel-default">

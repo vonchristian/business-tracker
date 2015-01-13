@@ -1,0 +1,33 @@
+<% provide(:title, 'Line of Businesses') %>
+  <div class="well well-sm">
+      <%=link_to ' New Line of Business', new_line_of_business_path, class: 'btn btn-primary fa fa-plus', 'data-no-turbolinks' => true%>
+    </div>
+
+<div class="panel panel-info">
+    <div class='panel-body'>
+      <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @line_of_businesses.each do |line_of_business| %>
+            <tr>
+              <td><%= line_of_business.description %></td>
+              <td><%= link_to "Edit |", edit_line_of_business_path(line_of_business),  class: 'fa fa-plus' %>
+                  <%=link_to ' Delete', line_of_business_path(line_of_business),
+                    :method => :delete,  class: 'fa fa-trash-o',
+                    :data   =>{confirm: 'Are you sure you want to delete this line_of_business?'}%>
+             </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+

@@ -532,7 +532,6 @@ DEPENDENCIES
   sunspot_rails
   sunspot_solr
   traceroute
-  turbolinks
   uglifier
   unicorn
   web-console

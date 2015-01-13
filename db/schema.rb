@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150112143520) do
+ActiveRecord::Schema.define(version: 20150113025425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,13 +34,6 @@ ActiveRecord::Schema.define(version: 20150112143520) do
     t.string  "province"
     t.integer "addressable_id"
     t.string  "addressable_type"
-  end
-
-  create_table "business_nature_taxes", force: :cascade do |t|
-    t.integer  "tax_id"
-    t.integer  "business_nature_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
   end
 
   create_table "business_natures", force: :cascade do |t|
@@ -101,46 +94,25 @@ ActiveRecord::Schema.define(version: 20150112143520) do
     t.boolean  "default"
   end
 
-  create_table "lessors", force: :cascade do |t|
-    t.integer  "business_id"
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "last_name"
-    t.decimal  "monthly_rental"
-    t.string   "building_number"
-    t.string   "street"
-    t.string   "barangay"
-    t.string   "subdivision"
-    t.string   "city_or_municipality"
-    t.string   "province"
-    t.string   "email"
-    t.string   "mobile_number"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+  create_table "line_of_business_taxes", force: :cascade do |t|
+    t.integer  "line_of_business_id"
+    t.integer  "tax_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
-
-  add_index "lessors", ["business_id"], name: "index_lessors_on_business_id", using: :btree
 
   create_table "line_of_businesses", force: :cascade do |t|
     t.integer  "business_id"
-    t.integer  "business_nature_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer  "tax_id"
+    t.integer  "type_of_business"
+    t.string   "description"
+    t.string   "psic_code"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "line_of_businesses", ["business_id"], name: "index_line_of_businesses_on_business_id", using: :btree
-  add_index "line_of_businesses", ["business_nature_id"], name: "index_line_of_businesses_on_business_nature_id", using: :btree
-
-  create_table "payments", force: :cascade do |t|
-    t.decimal  "amount"
-    t.integer  "business_id"
-    t.integer  "taxpayer_id"
-    t.integer  "tax_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "official_receipt_number"
-    t.integer  "status"
-  end
+  add_index "line_of_businesses", ["tax_id"], name: "index_line_of_businesses_on_tax_id", using: :btree
 
   create_table "required_documents", force: :cascade do |t|
     t.string   "description"
@@ -148,21 +120,8 @@ ActiveRecord::Schema.define(version: 20150112143520) do
     t.date     "date_issued"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-  end
-
-  create_table "revenues", force: :cascade do |t|
-    t.decimal  "amount"
-    t.integer  "tax_id"
-    t.integer  "payment_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tax_categorizations", force: :cascade do |t|
-    t.integer  "business_nature_id"
-    t.integer  "tax_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer  "business_id"
+    t.integer  "document_id"
   end
 
   create_table "taxes", force: :cascade do |t|
@@ -170,8 +129,9 @@ ActiveRecord::Schema.define(version: 20150112143520) do
     t.boolean  "default"
     t.integer  "business_id"
     t.decimal  "amount"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "line_of_business_id"
   end
 
   create_table "taxpayers", force: :cascade do |t|
@@ -189,6 +149,12 @@ ActiveRecord::Schema.define(version: 20150112143520) do
     t.string   "full_name"
     t.string   "cedula_number"
     t.string   "tin_number"
+  end
+
+  create_table "type_of_organizations", force: :cascade do |t|
+    t.integer  "business_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,3 +1,4 @@
 class TypeOfOrganization < ActiveRecord::Base
-  OWNERSHIP = ['Sole Proprietorship', 'Partnership', 'Cooperative']
+  has_many :businesses
+  enum ownership_type: [:sole_proprietorship, :partnership, :cooperative, :corporation, :incorporation, :religious]
 end
