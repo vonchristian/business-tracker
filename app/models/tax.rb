@@ -14,6 +14,6 @@ scope :default_taxes, -> {Tax.where(default: true)}
   has_many :line_of_businesses, through: :line_of_business_taxes
 
   def to_label
-    "#{description}"
+    "#{description} - P #{amount}"
   end
 end
