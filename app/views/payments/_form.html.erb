@@ -6,11 +6,11 @@
        <p class="label-info-tax">Taxes, Fees and Other Charges</p>
     <% @business.line_of_businesses.each do |line_of_businesses| %>
 
-        <span class="line-of-business"><%=line_of_businesses.description %></span>
+        <span class="line-of-business"><%=line_of_businesses.description.upcase %></span>
 
       <%line_of_businesses.taxes.each do |tax| %>
       <ul>
-      <li><%=tax.description %>
+      <li class="tax-description"><%=tax.description %>
       <span class="pull-right"><%=number_to_currency(tax.amount, precision: 2, unit: '') %></span></li>
       </ul>
       <% end %>
@@ -25,7 +25,7 @@
 
       <%=simple_form_for [@business, @payment] do |f| %>
 
-        <%=f.input :official_receipt_number %>
+        <%=f.input :official_receipt_number, autofocus: true %>
         <div class="modal-footer">
           <%=f.submit 'Register Payment ', class: 'btn btn-primary'%>
         </div>

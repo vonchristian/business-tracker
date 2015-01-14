@@ -5,6 +5,7 @@ class BusinessesController < ApplicationController
   def new
     @business = Business.new
     @business.build_owner
+    @business.line_of_businesses.build
     authorize @business
   end
 

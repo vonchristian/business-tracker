@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 
   gem 'chosen-rails'
+  gem 'nested_form_fields'
   gem 'wicked'
   gem 'bootstrap-datepicker-rails'
   gem 'prawn'

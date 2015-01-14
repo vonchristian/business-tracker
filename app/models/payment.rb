@@ -32,3 +32,9 @@ private
     end
 
 end
+
+class PartialPayment < Payment
+end
+
+class FullPayment < Payment
+end

@@ -1,0 +1,17 @@
+<div class="row">
+       <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">Documents Submitted</div>
+          <div class="panel-body">
+            <%=f.zsimple_fields_for :required_documents do |d| %>
+
+               <%= f.association :required_documents,
+                  collection: Document.all,
+                  include_blank: true,
+                  input_html: { class: 'chosen-select' } %>
+
+            <% end %>
+          </div>
+        </div>
+      </div>
+</div>

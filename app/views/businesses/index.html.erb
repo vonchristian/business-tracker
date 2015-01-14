@@ -20,7 +20,7 @@
         <tbody>
           <% @businesses.each do |business| %>
             <tr>
-              <td><%=link_to business.business_name.upcase, business, class: 'btn btn-link'%></td>
+              <td><%=link_to truncate(business.business_name.upcase, length: 20), business, class: 'btn btn-link'%></td>
               <td><%=business.created_at.strftime('%B %d %Y')%></td>
               <td class="data-halign="center" data-align="left""><%= business.owner_name %></td>
               <td><%= business.workflow_state %></td>

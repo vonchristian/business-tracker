@@ -17,3 +17,4 @@ scope :default_taxes, -> {Tax.where(default: true)}
     "#{description} - P #{amount}"
   end
 end
+

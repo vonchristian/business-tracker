@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require chosen-jquery
 //= require bootstrap-datepicker
+//= require nested_form_fields
 //= require_tree .
  $(document).ready(function(){
     $('.datepicker').datepicker();

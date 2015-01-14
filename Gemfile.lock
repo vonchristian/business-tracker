@@ -242,6 +242,8 @@ GEM
     minitest (5.5.1)
     multi_json (1.10.1)
     nenv (0.1.1)
+    nested_form_fields (0.6)
+      rails (>= 3.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -506,6 +508,7 @@ DEPENDENCIES
   letter_opener
   mina
   mini_magick
+  nested_form_fields
   newrelic_rpm
   pg
   pg_search
