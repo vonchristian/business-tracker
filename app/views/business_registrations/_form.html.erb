@@ -1,0 +1,33 @@
+
+
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Business Details</div>
+        <div class="panel-body">
+
+          <%=simple_form_for @business_registration do |f| %>
+          <%=f.error_notification %>
+          <div class="row">
+            <div class="col-md-5">
+            <%=simple_fields_for :business do |b| %>
+              <%=b.input :business_name  %>
+             </div>
+           <% end %>
+          </div>
+
+            <%=simple_fields_for :taxpayer do |t| %>
+              <%=t.input :first_name  %>
+              <%=t.input :middle_name  %>
+              <%=t.input :last_name  %>
+              <%=t.input :email  %>
+              <%=t.input :mobile_number  %>
+
+           <% end %>
+
+<div class="modal-footer">
+         <%=f.submit 'Register Business', class: 'btn btn-primary'%>
+
+         </div>
+    <% end %>
+  </div>
+</div>
