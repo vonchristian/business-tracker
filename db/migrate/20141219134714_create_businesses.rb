@@ -2,6 +2,8 @@ class CreateBusinesses < ActiveRecord::Migration
   def change
     create_table :businesses do |t|
       t.integer :owner_id
+      t.string :workflow_state
+      t.decimal :asset_size
       t.belongs_to :type_of_organization
       t.string :address_bldg_no
       t.string :address_unit_no

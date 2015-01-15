@@ -8,8 +8,9 @@ class CreateTaxpayers < ActiveRecord::Migration
       t.string :email
       t.string :mobile_number
       t.string :telephone_number
-      t.string :tin
+      t.string :tin_number
       t.string :workflow_state
+      t.string :cedula_number
 
       t.timestamps null: false
     end

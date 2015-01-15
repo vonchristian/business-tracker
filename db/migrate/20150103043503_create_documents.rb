@@ -4,6 +4,7 @@ class CreateDocuments < ActiveRecord::Migration
       t.string :description
       t.string :office
       t.date :date_issued
+      t.boolean :default
 
       t.timestamps null: false
     end

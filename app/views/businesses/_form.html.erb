@@ -14,16 +14,13 @@
              <div class="col-md-3">
                <%=f.association :type_of_organization, collection: TypeOfOrganization.ownership_types.keys.to_a.map{|t| [t.humanize, t]} %>
              </div>
-              <div class="col-md-3">
-               <%=f.input :industry, collection: Business.industries.keys.to_a.map{ |i| [i.titleize, i] }, label: 'Size of Industry' %>
-             </div>
 
           <div class="row">
             <div class="col-md-3">
               <%=f.input :asset_size%>
             </div>
             <div class="col-md-3">
-              <%=f.input :workforce_size, label: 'Number of Employees' %>
+              <%=f.input :no_of_employees, label: 'Number of Employees' %>
             </div>
           <div class="row">
             <div class="col-md-3">
@@ -106,34 +103,7 @@
         </div>
       </div>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading"> Line of Business Details </div>
-      <div class="panel-body">
-        <div class="col-md-3">
-              <%= f.association :line_of_businesses,
-                  collection: LineOfBusiness.all,
-                  include_blank: true,
-                  input_html: { class: 'chosen-select form-control' } %>
-                  <%=f.add_nested_fields_link :line_of_businesses, 'Add New'%>
-              </div>
-          </div>
 
-          <div class="col-md-3">
-          <%=f.nested_fields_for :line_of_businesses do |ff| %>
-          <%=ff.input :description %>
-          <%=ff.input :psic_code %>
-           <%= ff.select :type_of_business, LineOfBusiness.type_of_businesses.keys.map {|type_of_business| [type_of_business.titleize, type_of_business,  class: 'form-control']} , as: :radio_button%>
-        <%=ff.association :taxes, collection: Tax.not_default_taxes,   input_html: { class: 'chosen-select form-control' }%>
-          <%=ff.remove_nested_fields_link  'Remove' %>
-
-      <% end %>
-
-      </div>
-         </div>
-         </div>
-         </div>
 <div class="modal-footer">
 <% if @business.new_record? %>
       <%=f.submit 'Register Business', class: 'btn btn-primary'%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114083012) do
+ActiveRecord::Schema.define(version: 20150115010003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,13 @@ ActiveRecord::Schema.define(version: 20150114083012) do
     t.string  "addressable_type"
   end
 
+  create_table "business_fees", force: :cascade do |t|
+    t.integer  "business_id"
+    t.integer  "fee_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "business_natures", force: :cascade do |t|
     t.string   "description"
     t.string   "psic_code"
@@ -46,6 +53,8 @@ ActiveRecord::Schema.define(version: 20150114083012) do
 
   create_table "businesses", force: :cascade do |t|
     t.integer  "owner_id"
+    t.string   "workflow_state"
+    t.decimal  "asset_size"
     t.integer  "type_of_organization_id"
     t.string   "address_bldg_no"
     t.string   "address_unit_no"
@@ -77,33 +86,29 @@ ActiveRecord::Schema.define(version: 20150114083012) do
     t.boolean  "rented"
     t.boolean  "franchised"
     t.boolean  "branch"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "workflow_state"
-    t.integer  "business_nature_id"
-    t.decimal  "gross_receipts"
-    t.decimal  "gross_receipts_percentage"
-    t.integer  "asset_size"
-    t.integer  "workforce_size"
-    t.integer  "industry"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "enterprise_scale"
   end
-
-  add_index "businesses", ["owner_id"], name: "index_businesses_on_owner_id", using: :btree
 
   create_table "documents", force: :cascade do |t|
     t.string   "description"
     t.string   "office"
     t.date     "date_issued"
+    t.boolean  "default"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.boolean  "default"
   end
 
   create_table "fees", force: :cascade do |t|
-    t.decimal  "amount"
+    t.decimal  "amount_of_fee_per_anum"
+    t.integer  "enterprise_scale"
+    t.decimal  "asset_size"
+    t.integer  "workforce"
+    t.integer  "type_of_business"
     t.integer  "line_of_business_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "gross_receipts", force: :cascade do |t|
@@ -122,13 +127,6 @@ ActiveRecord::Schema.define(version: 20150114083012) do
     t.integer  "line_of_business_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-  end
-
-  create_table "line_of_business_taxes", force: :cascade do |t|
-    t.integer  "line_of_business_id"
-    t.integer  "tax_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
   end
 
   create_table "line_of_businesses", force: :cascade do |t|
@@ -158,19 +156,18 @@ ActiveRecord::Schema.define(version: 20150114083012) do
     t.string   "amount"
     t.integer  "business_id"
     t.integer  "tax_id"
+    t.string   "official_receipt_number"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.string   "official_receipt_number"
   end
 
   create_table "required_documents", force: :cascade do |t|
     t.string   "description"
     t.string   "office"
     t.date     "date_issued"
+    t.integer  "business_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "business_id"
-    t.integer  "document_id"
   end
 
   create_table "taxes", force: :cascade do |t|
@@ -178,10 +175,8 @@ ActiveRecord::Schema.define(version: 20150114083012) do
     t.boolean  "default"
     t.integer  "business_id"
     t.decimal  "amount"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.integer  "line_of_business_id"
-    t.integer  "type_of_tax"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "taxpayers", force: :cascade do |t|
@@ -192,13 +187,11 @@ ActiveRecord::Schema.define(version: 20150114083012) do
     t.string   "email"
     t.string   "mobile_number"
     t.string   "telephone_number"
-    t.string   "tin"
+    t.string   "tin_number"
     t.string   "workflow_state"
+    t.string   "cedula_number"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.string   "full_name"
-    t.string   "cedula_number"
-    t.string   "tin_number"
   end
 
   create_table "type_of_organizations", force: :cascade do |t|
@@ -211,6 +204,7 @@ ActiveRecord::Schema.define(version: 20150114083012) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "mobile_number"
+    t.integer  "role"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -230,7 +224,6 @@ ActiveRecord::Schema.define(version: 20150114083012) do
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

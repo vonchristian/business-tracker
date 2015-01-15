@@ -1,15 +1,17 @@
 class Fee < ActiveRecord::Base
-end
+  has_many :business_fees
+  has_many :businesses, through: :business_fees
 
-class MayorsPermitFee < Fee
-end
+  def mayors_permit_fee
+    return micro_industry_fees if self.business.micro_industry?
+  end
 
-class SanitaryInspectionFee < Fee
-end
+  private
+      def micro_industry?
+        self.business.asset_size < 150_000
+      end
 
-class PoliceClearanceFee < Fee
+      def micro_industry_fees
+        0
+      end
 end
-
-class FireCodeFee < Fee
-end
-

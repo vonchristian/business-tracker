@@ -31,7 +31,7 @@ Rails.application.routes.draw do
           resources :taxes
           resources :documents
           resources :line_of_businesses
-          resources :business_natures
+          resources :fees
           resources :payments
   end
 

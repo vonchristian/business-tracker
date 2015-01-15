@@ -4,6 +4,7 @@ class CreatePayments < ActiveRecord::Migration
       t.string :amount
       t.integer :business_id
       t.integer :tax_id
+      t.string :official_receipt_number
 
       t.timestamps null: false
     end
