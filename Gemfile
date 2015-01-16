@@ -88,6 +88,4 @@ end
   gem "rails_best_practices", group: :development
 
 ############################################
-
-gem 'mina'
 gem 'pg_search'
