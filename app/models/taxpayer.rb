@@ -21,7 +21,7 @@ class Taxpayer < ActiveRecord::Base
   end
 
   def first_and_last_name
-    "#{try(:first_name)} #{try(:middle_name).first}. #{try(:last_name)}"
+    "#{try(:first_name).titleize} #{try(:middle_name).first.upcase}. #{try(:last_name).titleize}"
   end
 
   private

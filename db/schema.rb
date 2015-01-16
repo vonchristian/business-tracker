@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115010003) do
+ActiveRecord::Schema.define(version: 20150115091347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,18 +43,11 @@ ActiveRecord::Schema.define(version: 20150115010003) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "business_natures", force: :cascade do |t|
-    t.string   "description"
-    t.string   "psic_code"
-    t.integer  "business_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "businesses", force: :cascade do |t|
     t.integer  "owner_id"
     t.string   "workflow_state"
     t.decimal  "asset_size"
+    t.integer  "enterprise_scale"
     t.integer  "type_of_organization_id"
     t.string   "address_bldg_no"
     t.string   "address_unit_no"
@@ -88,7 +81,9 @@ ActiveRecord::Schema.define(version: 20150115010003) do
     t.boolean  "branch"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "enterprise_scale"
+    t.integer  "industry_type"
+    t.decimal  "gross_sales"
+    t.string   "permit_number"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -111,24 +106,6 @@ ActiveRecord::Schema.define(version: 20150115010003) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "gross_receipts", force: :cascade do |t|
-    t.integer  "business_id"
-    t.decimal  "gross_sales_minimum"
-    t.decimal  "gross_sales_maximum"
-    t.decimal  "amount_of_tax_per_anum"
-    t.integer  "line_of_business_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "line_of_business_gross_receipts", force: :cascade do |t|
-    t.decimal  "gross_sales"
-    t.decimal  "amount_of_tax_per_anum"
-    t.integer  "line_of_business_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "line_of_businesses", force: :cascade do |t|
     t.integer  "business_id"
     t.integer  "tax_id"
@@ -141,16 +118,6 @@ ActiveRecord::Schema.define(version: 20150115010003) do
 
   add_index "line_of_businesses", ["business_id"], name: "index_line_of_businesses_on_business_id", using: :btree
   add_index "line_of_businesses", ["tax_id"], name: "index_line_of_businesses_on_tax_id", using: :btree
-
-  create_table "mayors_fees", force: :cascade do |t|
-    t.string   "enterprise_scale"
-    t.string   "asset_size"
-    t.string   "workforce_size"
-    t.string   "line_of_business_id"
-    t.decimal  "amount_of_fee_per_anum"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
 
   create_table "payments", force: :cascade do |t|
     t.string   "amount"
@@ -190,8 +157,10 @@ ActiveRecord::Schema.define(version: 20150115010003) do
     t.string   "tin_number"
     t.string   "workflow_state"
     t.string   "cedula_number"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.date     "cedula_date_issued"
+    t.string   "place_issued_cedula"
   end
 
   create_table "type_of_organizations", force: :cascade do |t|

@@ -16,5 +16,10 @@ scope :default_taxes, -> {Tax.where(default: true)}
   def to_label
     "#{description} - P #{amount}"
   end
+ def self.business_tax(business)
+    # return manufaturers_importers_producers_mayors_permit_fee if business==:manufacturers_importers_producers
+    return business_tax_for_retailers if business==:wholesalers_retailers_dealers
+  end
+
 end
 

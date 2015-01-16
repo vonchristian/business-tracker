@@ -24,8 +24,8 @@
         <hr>
 
       <%=simple_form_for [@business, @payment] do |f| %>
-
-        <%=f.input :official_receipt_number, autofocus: true %>
+        <%=f.input :amount, autofocus: true %>
+        <%=f.input :official_receipt_number %>
         <div class="modal-footer">
           <%=f.submit 'Register Payment ', class: 'btn btn-primary'%>
         </div>

@@ -24,6 +24,9 @@ Rails.application.routes.draw do
       resource :address
     end
     resources :businesses do
+      member do
+      match :renew, via: [:get, :post]
+    end
       resources :payments
       resource :required_documents
     end

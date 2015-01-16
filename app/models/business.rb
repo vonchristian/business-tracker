@@ -1,16 +1,24 @@
 class Business < ActiveRecord::Base
-  include Forwardable
-  delegate :mayors_permit_fee, :sanitary_inspection_fee, :police_clearance_fee, to: :business_fees
+
   scope :expired,            -> { where(workflow_state: :expired)            }
   scope :new_business,  -> { where(workflow_state: :new_business) }
   scope :delinquent,       -> { where(workflow_state: :delinquent)       }
   scope :retired,              -> { where(workflow_state: :retired)             }
   scope :registered,        -> { where(workflow_state: :registered)        }
-
+  delegate :set_mayors_fee, to: :fees
   before_save :set_enterprise_scale
 
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
+  enum industry_type: [:manufacturers_importers_producers,
+                                      :banks,
+                                      :other_financial_institutions,
+                                      :contractors_service_establishments,
+                                      :wholesalers_retailers_dealers_distributors,
+                                      :transloading_operations,
+                                      :other_businesses]
+
   belongs_to  :owner, class_name: 'Taxpayer'
+  has_one :address, as: :addressable
   belongs_to :type_of_organization
   has_many :line_of_businesses
 
@@ -25,6 +33,7 @@ class Business < ActiveRecord::Base
   validates :asset_size, numericality: { message: 'Invalid Asset Size' }
 
   accepts_nested_attributes_for :owner
+  accepts_nested_attributes_for :address
   accepts_nested_attributes_for :line_of_businesses, allow_destroy: true
   validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
 
@@ -46,10 +55,45 @@ class Business < ActiveRecord::Base
         state :renewed
       end
 
-
   def owner_name
     self.owner.try(:first_and_last_name)
   end
+
+    def cedula_number
+    self.owner.try(:cedula_number)
+  end
+  def date_issued
+    self.owner.try(:cedula_date_issued).strftime('%B %d, %Y')
+  end
+  def place_issued
+    self.owner.try(:place_issued_cedula)
+  end
+  def official_receipt_number
+    self.payments.last.official_receipt_number
+  end
+  def amount_paid
+    self.payments.last.amount
+  end
+  def full_address
+    "#{address.street}, #{address.barangay}, #{address.municipality_or_city}, #{address.province}"
+  end
+
+    def set_fees
+       Fee.mayors_permit_fee(self)
+      self.save
+    end
+    def set_taxes
+      if self.expired?
+       Tax.set_taxes(self)
+      self.save
+    end
+  end
+    def renew
+      self.update_attributes(workflow_state: :renewed)
+      self.set_fees
+      self.set_taxes
+      self.save
+    end
     def micro_industry?
     self.asset_size<=150_000
   end
