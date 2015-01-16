@@ -1,5 +1,5 @@
 class Business < ActiveRecord::Base
-
+  delegate :mayors_permit_fee, to: :fees
   scope :expired,            -> { where(workflow_state: :expired)            }
   scope :new_business,  -> { where(workflow_state: :new_business) }
   scope :delinquent,       -> { where(workflow_state: :delinquent)       }
@@ -78,20 +78,21 @@ class Business < ActiveRecord::Base
     "#{address.street}, #{address.barangay}, #{address.municipality_or_city}, #{address.province}"
   end
 
-    def set_fees
-       Fee.mayors_permit_fee(self)
-      self.save
+    def build_fees
+       Fee.create(self)
+      self.fees.save
     end
     def set_taxes
       if self.expired?
-       Tax.set_taxes(self)
+       self.taxes.create
       self.save
     end
   end
+
     def renew
-      self.update_attributes(workflow_state: :renewed)
       self.set_fees
       self.set_taxes
+      self.update_attributes(workflow_state: :renewed)
       self.save
     end
     def micro_industry?

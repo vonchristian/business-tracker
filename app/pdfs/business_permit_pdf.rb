@@ -16,11 +16,15 @@ class BusinessPermitPdf < Prawn::Document
   signatory
   end
   def heading_picture
-    image "#{Rails.root}/app/assets/images/heading.jpg", :width => 550, :height => 120
+    text "Republic of the Philippines", align: :center
+    text "Cordillera Administrative Region", align: :center
+    text "Municipality of Tinoc", align: :center
+    move_down 5
+    text "OFFICE OF THE MUNICIPAL MAYOR", align: :center
   end
   def heading
-    move_down 10
-    text "MAYOR'S PERMIT",  align: :center, size: 30
+    move_down 20
+    text "MAYOR'S PERMIT",  align: :center, size: 30, style: :bold
     stroke_horizontal_rule
   end
 
@@ -33,7 +37,7 @@ class BusinessPermitPdf < Prawn::Document
 
   def business_name
     move_down 15
-   text "#{@business.business_name.upcase}", size: 18, style: :bold, align: :center
+   text "#{@business.business_name.upcase}", size: 25, style: :bold, align: :center
    text "Business Trade Name", align: :center
   end
 
@@ -44,9 +48,9 @@ class BusinessPermitPdf < Prawn::Document
   end
 
   def owner
-    move_down 10
-    text  "#{@business.owner_name}", align: :center, style: :bold
-    text "Proprietor/Manager", align: :center
+    move_down 20
+    text  "#{@business.owner_name.upcase}", align: :center, style: :bold
+    text "Proprietor/Manager/President", align: :center
   end
 
   def type_of_organization
@@ -88,6 +92,6 @@ class BusinessPermitPdf < Prawn::Document
     text "MARCELO G. CATALINO, Ph.D.", align: :center, style: :bold
     text "Municipal Mayor", align: :center
     move_down 40
-    stroke_horizontal_rule
+
   end
 end

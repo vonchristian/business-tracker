@@ -2,12 +2,21 @@ class Fee < ActiveRecord::Base
   has_many :business_fees
   has_many :businesses, through: :business_fees
 
-  def self.mayors_permit_fee(business)
+  def set_mayors_permit_fee(business)
     # return manufaturers_importers_producers_mayors_permit_fee if business==:manufacturers_importers_producers
-    return wholesalers_retailers_dealers_mayors_permit_fee if business==:wholesalers_retailers_dealers
+    return wholesalers_retailers_dealers_mayors_permit_fee if business.industry_type==:wholesalers_retailers_dealers
+    return other_businesses_mayors_permit_fee if business.industry_type==:other_businesses
   end
 
   def wholesalers_retailers_dealers_mayors_permit_fee
+    return business.mayors_permit_fee=600 if business_is_micro_industry?
+    return business.mayors_permit_fee=900 if business_is_cottage_industry?
+    return business.mayors_permit_fee=1_500 if small_industry?
+    return business.mayors_permit_fee=2_500 if medium_industry?
+    return business.mayors_permit_fee=3_500 if large_industry?
+  end
+
+   def other_businesses_mayors_permit_fee
     return business.mayors_permit_fee=600 if business_is_micro_industry?
     return business.mayors_permit_fee=900 if business_is_cottage_industry?
     return business.mayors_permit_fee=1_500 if small_industry?
