@@ -55,7 +55,7 @@ end
 group :production do
   gem 'pg',  group: :development
   gem 'rails_12factor'
-  gem 'unicorn', group: :development
+  gem "unicorn-rails"
   gem 'newrelic_rpm'
 end
 group :test do

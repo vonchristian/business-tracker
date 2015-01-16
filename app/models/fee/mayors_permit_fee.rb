@@ -1,2 +1,2 @@
-class Fee::MayorsPermitFee < ActiveRecordBase
+class Fee::MayorsPermitFee < ActiveRecord::Base
 end

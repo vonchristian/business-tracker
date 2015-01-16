@@ -13,3 +13,12 @@ development:
 test: &test
   <<: *default
   database: business_tracker_test
+
+production:
+  <<: *default
+  database: business_tracker_production
+  adapter: postgresql
+  host: localhost
+  pool: 5
+  username: vonchristian
+  password: kms316@lw()ys

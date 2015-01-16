@@ -6,6 +6,7 @@ class Business < ActiveRecord::Base
   scope :retired,              -> { where(workflow_state: :retired)             }
   scope :registered,        -> { where(workflow_state: :registered)        }
   delegate :set_mayors_fee, to: :fees
+
   before_save :set_enterprise_scale
 
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
@@ -113,6 +114,10 @@ class Business < ActiveRecord::Base
   def large_industry?
     self.asset_size>60_000_000
   end
+  def set_fees
+  self.fees.create!
+   end
+
   private
 
   def end_of_year
@@ -126,6 +131,7 @@ class Business < ActiveRecord::Base
     return self.enterprise_scale=:medium if self.medium_industry?
     return self.enterprise_scale=:large if self.large_industry?
   end
+
 
 
 

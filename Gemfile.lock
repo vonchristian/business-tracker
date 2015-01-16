@@ -449,6 +449,9 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    unicorn-rails (2.2.0)
+      rack
+      unicorn
     uniform_notifier (1.6.2)
     warden (1.2.3)
       rack (>= 1.0)
@@ -533,7 +536,7 @@ DEPENDENCIES
   sunspot_solr
   traceroute
   uglifier
-  unicorn
+  unicorn-rails
   web-console
   whenever
   wicked

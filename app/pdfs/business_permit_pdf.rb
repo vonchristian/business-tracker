@@ -16,6 +16,8 @@ class BusinessPermitPdf < Prawn::Document
   signatory
   end
   def heading_picture
+    y_position = cursor
+    image "#{Rails.root}/app/assets/images/logo.png", width: 80, height: 80, :at => [20, y_position]
     text "Republic of the Philippines", align: :center
     text "Cordillera Administrative Region", align: :center
     text "Municipality of Tinoc", align: :center
