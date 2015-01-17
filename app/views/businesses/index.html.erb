@@ -1,5 +1,17 @@
-<% cache do %>
-<div class="col-md-10 col-md-offset-2">
+
+<ul class="nav nav-tabs" role="tablist">
+
+  <li class="active"><a href="#profile" role="tab" data-toggle="tab">Businesses <span class="badge text-info"><%=Business.count %></span></a></li>
+  <li><a href="#payments" role="tab" data-toggle="tab">Payments</a></li>
+  <li><a href="#settings" role="tab" data-toggle="tab"><span class="fa fa-cog"></span> Settings</a></li>
+  <li><a href="#timeline" role="tab" data-toggle="tab"><span class="fa fa-time"></span> Timeline</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="profile">
+    <% cache do %>
+<div class="col-md-12">
 <div class="well well-sm">
   <% if policy(Business.new).create? %>
   <%=link_to ' New Business', new_business_path, class: "btn btn-primary fa fa-marker",  'data-no-turbolinks' => true  %>
@@ -44,3 +56,20 @@
 </div>
 
 <% end %>
+</div>
+</div>
+
+  <div class="tab-pane" id="payments">
+
+
+  </div>
+
+
+  <div class="tab-pane" id="settings">.s..</div>
+
+
+  <div class="tab-pane" id="timeline">.ts..</div>
+</div>
+
+
+

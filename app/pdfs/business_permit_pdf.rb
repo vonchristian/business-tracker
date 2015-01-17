@@ -4,7 +4,7 @@ class BusinessPermitPdf < Prawn::Document
    @business = business
    heading_picture
    heading
-   heading_content
+   # heading_content
    business_name
    permit_number
    owner
@@ -21,7 +21,7 @@ class BusinessPermitPdf < Prawn::Document
     text "Republic of the Philippines", align: :center
     text "Cordillera Administrative Region", align: :center
     text "Municipality of Tinoc", align: :center
-    text "www.tinoc.gov.ph | lgu_tinoc@gmail.com", size: 6, align: :center, style: :italic
+    text " website: www.tinoc.gov.ph | email: lgu_tinoc@gmail.com", size: 6, align: :center, style: :italic
     move_down 5
     text "OFFICE OF THE MUNICIPAL MAYOR", align: :center
   end
@@ -31,15 +31,15 @@ class BusinessPermitPdf < Prawn::Document
     stroke_horizontal_rule
   end
 
-  def heading_content
-    move_down 15
-    text "Pursuant to the provisions of the Tinoc Revised Municipal Revenue Code of 2014-03 of the Municipality of Tinoc,
-            PERMIT is hereby granted to:", align: :center, size: 10
+  # def heading_content
+  #   move_down 15
+  #   text "Pursuant to the provisions of the Tinoc Revised Municipal Revenue Code of 2014-03 of the Municipality of Tinoc,
+  #           PERMIT is hereby granted to:", align: :center, size: 10
 
-  end
+  # end
 
   def business_name
-    move_down 15
+    move_down 20
    text "#{@business.business_name.upcase}", size: 25, style: :bold, align: :center
    text "Business Trade Name", align: :center
   end
@@ -69,16 +69,18 @@ class BusinessPermitPdf < Prawn::Document
   end
 
   def line_of_business
+    move_down 15
+    text "Line of Business/Products/Business Activities", align: :center
   end
 
   def content
     move_down 5
     text "Permit is hereby granted to the above mentioned person/firm/corporation to engange in the above stated business subject
-    to the provisions of the Tinoc Ifugao Revenue Code and other ordinances or regulations governing the business trade or activity", align: :center, size: 10
+    to the provisions of the  Revenue Code of 2014-03 of the Municipality of Tinoc and other ordinances or regulations governing the business trade or activity.", align: :center, size: 10
     move_down 10
      text "Any violation  hereof shall cause the immediate revocation of this permit and the forfeitures of all fees and other taxes paid in favor of the Municipal Government of Tinoc.", align: :center, size: 10
     move_down 10
-    text "Valid until #{Time.current.end_of_year.strftime('%B %d, %Y')} and shall be renewed on or before #{(Time.current.end_of_year + 20.days).strftime('%B %d, %Y')}.", align: :center, size: 10
+    text "Valid until #{Time.current.end_of_year.strftime('%B %d, %Y')} or otherwise surrendered or revoked for cause and shall be renewed on or before #{(Time.current.end_of_year + 20.days).strftime('%B %d, %Y')}.", align: :center, size: 10
     move_down 10
     text "Given this <u>#{Time.current.strftime('%B %d, %Y')}</u> at Tinoc, Ifugao.", align: :center, size: 10, inline_format: true
   end
