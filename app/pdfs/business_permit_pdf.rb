@@ -21,6 +21,7 @@ class BusinessPermitPdf < Prawn::Document
     text "Republic of the Philippines", align: :center
     text "Cordillera Administrative Region", align: :center
     text "Municipality of Tinoc", align: :center
+    text "www.tinoc.gov.ph | lgu_tinoc@gmail.com", size: 6, align: :center, style: :italic
     move_down 5
     text "OFFICE OF THE MUNICIPAL MAYOR", align: :center
   end
