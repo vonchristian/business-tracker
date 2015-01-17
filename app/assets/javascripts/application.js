@@ -10,12 +10,13 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+
 //= require bootstrap-sprockets
-//= require jquery_ujs
 //= require chosen-jquery
 //= require bootstrap-datepicker
 //= require nested_form_fields
+//= require jquery
+//= require jquery_ujs
 //= require_tree .
  $(document).ready(function(){
     $('.datepicker').datepicker();

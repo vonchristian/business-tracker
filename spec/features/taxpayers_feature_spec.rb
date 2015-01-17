@@ -21,7 +21,7 @@ describe 'Taxpayer registrations' do
     fill_in "Tin", with: '000-111-22223-55'
     click_button "Register Taxpayer"
 
-    expect(page).to have_text "Taxpayer registered successfully"
+    expect(page).to have_text "registered successfully"
   end
 
   it "displays taxpayer validation messages" do

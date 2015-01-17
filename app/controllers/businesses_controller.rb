@@ -1,6 +1,7 @@
 class BusinessesController < ApplicationController
   def index
     @businesses = Business.includes(:owner).all
+    @taxpayers = Taxpayer.all
   end
   def new
     @business = Business.new

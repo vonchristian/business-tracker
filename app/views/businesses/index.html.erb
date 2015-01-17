@@ -1,8 +1,8 @@
 
 <ul class="nav nav-tabs" role="tablist">
 
-  <li class="active"><a href="#profile" role="tab" data-toggle="tab">Businesses <span class="badge text-info"><%=Business.count %></span></a></li>
-  <li><a href="#payments" role="tab" data-toggle="tab">Payments</a></li>
+  <li class="active"><a href="#profile" role="tab" data-toggle="tab">Businesses <span class="badge text-info"><%=@businesses.count %></span></a></li>
+  <li><a href="#taxpayers" role="tab" data-toggle="tab">Taxpayers <span class="badge"><%=@taxpayers.count%></span></a></li>
   <li><a href="#settings" role="tab" data-toggle="tab"><span class="fa fa-cog"></span> Settings</a></li>
   <li><a href="#timeline" role="tab" data-toggle="tab"><span class="fa fa-time"></span> Timeline</a></li>
 </ul>
@@ -59,8 +59,8 @@
 </div>
 </div>
 
-  <div class="tab-pane" id="payments">
-
+  <div class="tab-pane" id="taxpayers">
+ <%=render 'taxpayers/index' %>
 
   </div>
 
