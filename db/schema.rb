@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20150115001332) do
   add_index "line_of_businesses", ["tax_id"], name: "index_line_of_businesses_on_tax_id", using: :btree
 
   create_table "payments", force: :cascade do |t|
-    t.string   "amount"
+    t.decimal  "amount"
     t.integer  "business_id"
     t.integer  "tax_id"
     t.string   "official_receipt_number"

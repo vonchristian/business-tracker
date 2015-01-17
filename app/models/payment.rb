@@ -2,6 +2,7 @@ class Payment < ActiveRecord::Base
   belongs_to :taxpayer
   belongs_to :business
   has_many :taxes, through: :business
+  validates :amount, presence: true, numericality: true
   def total
     subtotal - exemption + surcharge
   end
@@ -26,8 +27,5 @@ private
      def business_taxes
        taxes.sum(:amount)
      end
-     def set_amount
-      self.amount = self.amount_to_pay
-    end
 
 end

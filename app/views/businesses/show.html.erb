@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-sm-10">
           <div class="panel">
-            <h1 id="profile_name"><%=@business.business_name %></h1>
+            <h1 id="profile_name"><%=@business.business_name.upcase %></h1>
             <hr />
             <div class="well well-sm">
             <%=link_to ' Print Mayors Permit', business_path(@business, format: "pdf"), class: " btn btn-info fa fa-print" %>
