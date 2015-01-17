@@ -10,13 +10,11 @@
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane active" id="profile">
-    <% cache do %>
+
+
+
+<div class="row">
 <div class="col-md-12">
-<div class="well well-sm">
-  <% if policy(Business.new).create? %>
-  <%=link_to ' New Business', new_business_path, class: "btn btn-primary fa fa-marker",  'data-no-turbolinks' => true  %>
-  <% end %>
-</div>
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="table-responsive">
@@ -34,7 +32,7 @@
             <tr>
               <td><%=link_to truncate(business.business_name.upcase, length: 20), business, class: 'btn btn-link'%></td>
               <td><%=business.created_at.strftime('%B %d %Y')%></td>
-              <td class="data-halign="center" data-align="left""><%= business.owner_name %></td>
+              <td class="data-halign="center" data-align="left""><%= business.taxpayer_name %></td>
               <td><%= business.workflow_state %></td>
               <td>
                 <div class="btn-group">
@@ -55,10 +53,11 @@
    </div>
 </div>
 
-<% end %>
 </div>
 </div>
-
+</div>
+</div>
+</div>
   <div class="tab-pane" id="taxpayers">
  <%=render 'taxpayers/index' %>
 

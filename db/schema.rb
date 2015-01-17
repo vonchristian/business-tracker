@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150116143018) do
+ActiveRecord::Schema.define(version: 20150115001332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,8 +34,6 @@ ActiveRecord::Schema.define(version: 20150116143018) do
     t.string  "province"
     t.integer "addressable_id"
     t.string  "addressable_type"
-    t.integer "taxpayer_id"
-    t.integer "business_id"
   end
 
   create_table "business_fees", force: :cascade do |t|
@@ -46,7 +44,7 @@ ActiveRecord::Schema.define(version: 20150116143018) do
   end
 
   create_table "businesses", force: :cascade do |t|
-    t.integer  "owner_id"
+    t.integer  "taxpayer_id"
     t.string   "workflow_state"
     t.decimal  "asset_size"
     t.integer  "enterprise_scale"
@@ -81,11 +79,11 @@ ActiveRecord::Schema.define(version: 20150116143018) do
     t.boolean  "rented"
     t.boolean  "franchised"
     t.boolean  "branch"
+    t.string   "permit_number"
+    t.decimal  "gross_sales"
+    t.integer  "industry_type"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "industry_type"
-    t.decimal  "gross_sales"
-    t.string   "permit_number"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -104,10 +102,9 @@ ActiveRecord::Schema.define(version: 20150116143018) do
     t.integer  "workforce"
     t.integer  "type_of_business"
     t.integer  "line_of_business_id"
+    t.integer  "business_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.decimal  "mayors_permit_fee"
-    t.integer  "business_id"
   end
 
   create_table "line_of_businesses", force: :cascade do |t|
@@ -161,10 +158,17 @@ ActiveRecord::Schema.define(version: 20150116143018) do
     t.string   "tin_number"
     t.string   "workflow_state"
     t.string   "cedula_number"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.string   "address_bldg_no"
+    t.string   "address_unit_no"
+    t.string   "address_street"
+    t.string   "address_barangay"
+    t.string   "address_subdivision"
+    t.string   "address_municipality"
+    t.string   "address_province"
+    t.string   "cedula_place_issued"
     t.date     "cedula_date_issued"
-    t.string   "place_issued_cedula"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "type_of_organizations", force: :cascade do |t|

@@ -1,15 +1,17 @@
 class Business < ActiveRecord::Base
-  delegate :mayors_permit_fee, to: :fees
+
   scope :expired,            -> { where(workflow_state: :expired)            }
   scope :new_business,  -> { where(workflow_state: :new_business) }
   scope :delinquent,       -> { where(workflow_state: :delinquent)       }
   scope :retired,              -> { where(workflow_state: :retired)             }
   scope :registered,        -> { where(workflow_state: :registered)        }
-  delegate :set_mayors_fee, to: :fees
+
+
 
   before_save :set_enterprise_scale
 
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
+
   enum industry_type: [:manufacturers_importers_producers,
                                       :banks,
                                       :other_financial_institutions,
@@ -18,8 +20,7 @@ class Business < ActiveRecord::Base
                                       :transloading_operations,
                                       :other_businesses]
 
-  belongs_to  :owner, class_name: 'Taxpayer'
-  has_one :address, as: :addressable
+  belongs_to  :taxpayer
   belongs_to :type_of_organization
   has_many :line_of_businesses
 
@@ -31,11 +32,10 @@ class Business < ActiveRecord::Base
   has_many :documents, through: :required_documents
 
   validates :business_name,  presence: true
+
   validates :asset_size, numericality: { message: 'Invalid Asset Size' }
 
-  accepts_nested_attributes_for :owner
-  accepts_nested_attributes_for :address
-  accepts_nested_attributes_for :line_of_businesses, allow_destroy: true
+
   validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
 
 
@@ -55,19 +55,21 @@ class Business < ActiveRecord::Base
         state :delinquent
         state :renewed
       end
-
-  def owner_name
-    self.owner.try(:first_and_last_name)
+  def line_of_business
+    self.line_of_businesses.pluck(:description).join ' , '
+  end
+  def taxpayer_name
+    self.taxpayer.try(:first_and_last_name)
   end
 
     def cedula_number
-    self.owner.try(:cedula_number)
+    self.taxpayer.try(:cedula_number)
   end
   def date_issued
-    self.owner.try(:cedula_date_issued).strftime('%B %d, %Y')
+    self.taxpayer.try(:cedula_date_issued).strftime('%B %d, %Y')
   end
   def place_issued
-    self.owner.try(:place_issued_cedula)
+    self.taxpayer.try(:place_issued_cedula)
   end
   def official_receipt_number
     self.payments.last.official_receipt_number
@@ -76,7 +78,7 @@ class Business < ActiveRecord::Base
     self.payments.last.amount
   end
   def full_address
-    "#{address.street}, #{address.barangay}, #{address.municipality_or_city}, #{address.province}"
+    "#{address_street}, #{address_barangay}, #{address_municipality}, #{address_province}"
   end
 
     def build_fees

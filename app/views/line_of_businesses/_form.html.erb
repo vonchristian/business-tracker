@@ -1,16 +1,26 @@
-<div class='col-md-6'>
-  <div class="panel panel-default">
-    <div class="panel-heading">Line of Business Details</div>
-    <div class="panel-body well">
-      <%=simple_form_for(@line_of_business, html: {class: "form-horizontal"}) do |f| %>
-        <%=f.input :description %>
-        <%=f.input :psic_code %>
-         <%= f.select :type_of_business, LineOfBusiness.type_of_businesses.keys.map {|type_of_business| [type_of_business.titleize, type_of_business,  class: 'form-control']} , as: :radio_button%>
-        <%=f.association :taxes, collection: Tax.not_default_taxes,   input_html: { class: 'chosen-select form-control' }%>
+ <div class="col-md-12">
+   <div class="panel-body">
+   <h3>Add Line of Business</h3>
+   <hr>
+  <%= simple_form_for [@business, @line_of_business], html: { class: 'form-horizontal' },
+wrapper: :horizontal_form,
+wrapper_mappings: {
+check_boxes: :horizontal_radio_and_checkboxes,
+radio_buttons: :horizontal_radio_and_checkboxes,
+file: :horizontal_file_input,
+boolean: :horizontal_boolean
+} do |f| %>
+<%=f.error_notification %>
+          <div class="row">
+            <div class="col-md-6">
+              <%=f.input :description  %>
+              <%=f.input :psic_code  %>
+              </div>
+              </div>
         <div class="modal-footer">
-          <%=f.button :submit, class: 'btn btn-primary'%>
-        </div>
-      <% end %>
-    </div>
+         <%=f.button :submit, 'Add Line of  Business' %>
+
+
+        <% end %>
   </div>
 </div>

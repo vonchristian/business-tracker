@@ -1,8 +1,9 @@
 class Taxpayer < ActiveRecord::Base
 
-  validates :first_name, :middle_name, :last_name, :email, :mobile_number, presence: true
+  validates :first_name, :middle_name, :last_name, :email, :mobile_number,
+                  :cedula_number, :cedula_date_issued, :cedula_place_issued, presence: true
 
-  has_many :businesses, foreign_key: :owner_id
+  has_many :businesses
   has_many :payments, :through => :businesses
   has_one :address, as: :addressable
 

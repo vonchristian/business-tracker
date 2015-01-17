@@ -1,16 +1,24 @@
 class BusinessesController < ApplicationController
+  before_filter :set_current_taxpayer, only: [:new]
   def index
-    @businesses = Business.includes(:owner).all
+    @businesses = Business.includes(:taxpayer).all
     @taxpayers = Taxpayer.all
   end
   def new
-    @business = Business.new
-    @business.build_owner
-    @business.build_address
-    @business.line_of_businesses.build
+    @business = current_taxpayer.businesses.build
     authorize @business
   end
-
+ def create
+ s
+    @business = current_taxpayer.businesses.create(business_params)
+    if @business.save
+      @business.set_fees
+      @business.set_taxes
+        redirect_to @business, notice: 'registered successfully'
+    else
+      render :new
+    end
+  end
   def show
     @business = Business.find(params[:id])
     authorize @business
@@ -27,17 +35,7 @@ class BusinessesController < ApplicationController
       @business = Business.find(params[:id])
       authorize @business
   end
-  def create
-    @business = Business.new(business_params)
-    authorize @business
-    if @business.save
-      @business.set_fees
-      @business.set_taxes
-        redirect_to root_path, notice: 'registered successfully'
-    else
-      render :new
-    end
-  end
+
 
   def update
     @business = Business.find(params[:id])
@@ -56,6 +54,13 @@ class BusinessesController < ApplicationController
 
   private
   def business_params
-    params.require(:business).permit(:permit_number, :industry_type, :asset_size, :workforce_size, :business_name, :type_of_organization_id,  address_attributes: [:street, :barangay, :municipality_or_city, :province], owner_attributes: [:first_name, :middle_name, :last_name, :email, :mobile_number, :cedula_number, :cedula_date_issued, :place_issued_cedula, :tin_number])
+    params.require(:business).permit(:permit_number, :industry_type, :asset_size, :workforce_size, :business_name, :type_of_organization_id,  :taxpayer_id)
+  end
+
+  def set_current_taxpayer
+    @taxpayer = Taxpayer.find(params[:taxpayer_id])
+  end
+  def current_taxpayer
+    @taxpayer = Taxpayer.find(params[:taxpayer_id])
   end
 end

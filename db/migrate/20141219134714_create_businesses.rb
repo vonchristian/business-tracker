@@ -1,7 +1,7 @@
 class CreateBusinesses < ActiveRecord::Migration
   def change
     create_table :businesses do |t|
-      t.integer :owner_id
+      t.integer :taxpayer_id
       t.string :workflow_state
       t.decimal :asset_size
       t.integer :enterprise_scale
@@ -38,6 +38,9 @@ class CreateBusinesses < ActiveRecord::Migration
       t.boolean :rented
       t.boolean :franchised
       t.boolean :branch
+      t.string :permit_number
+      t.decimal :gross_sales
+      t.integer :industry_type
 
       t.timestamps null: false
     end

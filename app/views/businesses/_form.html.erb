@@ -1,154 +1,81 @@
-<div class="container">
 
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">Business Details</div>
-        <div class="panel-body">
-
-          <%=simple_form_for @business do |f| %>
-          <%=f.error_notification %>
+<div class='col-md-10 col-md-offset-1'>
+  <div class="panel panel-default">
+    <div class="panel-body">
+    <h3>Business Details </h3>
+    <hr>
+      <%= simple_form_for [@taxpayer, @business], html: { class: 'form-horizontal' },
+wrapper: :horizontal_form,
+wrapper_mappings: {
+check_boxes: :horizontal_radio_and_checkboxes,
+radio_buttons: :horizontal_radio_and_checkboxes,
+file: :horizontal_file_input,
+boolean: :horizontal_boolean
+} do |f| %>
+<%=f.error_notification %>
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
               <%=f.input :business_name  %>
-             </div>
 
-             <div class="col-md-3">
+
+
                <%=f.association :type_of_organization, collection: TypeOfOrganization.ownership_types.keys.to_a.map{|t| [t.titleize, t]} %>
-             </div>
 
-          <div class="row">
-            <div class="col-md-3">
+
               <%=f.input :asset_size%>
-            </div>
-            <div class="col-md-3">
+
               <%=f.input :no_of_employees, label: 'Number of Employees' %>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-6">
                <%=f.input :industry_type, collection: Business.industry_types.keys.to_a.map{ |a| [a.titleize, a]} %>
-             </div>
-          <div class="row">
-            <div class="col-md-3">
+
               <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'mm/dd/yyyy' %>
-            </div>
-            <div class="col-md-3">
+
               <%=f.input :dti_sec_reg_no, label: 'DTI/SEC Registration Number' %>
-            </div>
-                 <div class="col-md-3">
+
               <%=f.input :permit_number%>
-            </div>
-            <div class="col-md-3">
+
               <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" },  placeholder: 'mm/dd/yyyy'  %>
+              <%=f.input :rented, as: :boolean, inline_label: 'Renting' %>
+
+          <%=f.input :franchised, as: :boolean, inline_label: 'Franchise.' %>
+
+          <%=f.input :branch, as: :boolean, inline_label: 'Branch.' %>
+
+
             </div>
           </div>
-          <div class="row">
-             <div class="col-md-3">
-          <%=f.input :rented, as: :boolean, inline_label: 'Place of business is rented.' %>
-          </div>
-          <div class="col-md-3">
-          <%=f.input :franchised, as: :boolean, inline_label: 'This is a franchise.' %>
-          </div>
-           <div class="col-md-3">
-          <%=f.input :branch, as: :boolean, inline_label: 'This is a branch.' %>
-          </div>
-         </div><!--end of row -->
-      </div><!--end of panel body-->
-    </div><!--end od panel default -->
-    </div><!--end of col-md-12 -->
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">Line of Business Details</div>
-          <div class="panel-body">
-              <div class="col-md-3">
-              <%=f.simple_fields_for :line_of_businesses  do |f| %>
-              <%=f.input :description, label: 'Kind of Business'%>
-              <%=f.input :psic_code %>
-              <% end %>
-              </div>
-          </div>
+ <h3>Address Details</h3>
+<hr>
+        <%=f.simple_fields_for :address do |a| %>
+           <div class="row">
+           <div class="col-md-6">
+        <%=a.input :street %>
+        <%=a.input :house_number_or_bldg_number, label: 'House number' %>
+        <%=a.input :building_name %>
+        <%=a.input :unit_number %>
         </div>
-      </div>
-</div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">Address Details</div>
-          <div class="panel-body">
-            <%=f.simple_fields_for :address do |o| %>
-            <div class="col-md-3">
-              <%=o.input :street %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :barangay %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :municipality_or_city, label: 'Municipality', default: 'Tinoc' %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :province, default: 'Ifugao' %>
-              </div>
-            <% end %>
-          </div>
+        <div class="col-md-6">
+        <%=a.input :street %>
+        <%=a.input :barangay %>
+        <%=a.input :subdivision %>
+        <%=a.input :municipality_or_city %>
+        <%=a.input :province %>
         </div>
-      </div>
-</div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">Owner Details</div>
-          <div class="panel-body">
-            <%=f.simple_fields_for :owner do |o| %>
-            <div class="col-md-3">
-              <%=o.input :first_name %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :middle_name %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :last_name %>
-              </div>
-              <div class="col-md-3">
-              </div>
-              <div class="col-md-3">
-              <%=o.input :suffix %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :email %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :mobile_number %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :cedula_number %>
-              </div>
-
-              <div class="col-md-3">
-              <%=o.input :cedula_date_issued %>
-              </div>
-              <div class="col-md-3">
-              <%=o.input :place_issued_cedula %>
-              </div>
-
-
-              <div class="col-md-3">
-              <%=o.input :tin_number %>
-              </div>
-
-            <% end %>
-          </div>
         </div>
-      </div>
-</div>
-<div class="modal-footer">
-<% if @business.new_record? %>
-      <%=f.submit 'Register Business', class: 'btn btn-primary'%>
-      <% else %>
-         <%=f.submit 'Register Business', class: 'btn btn-primary'%>
-         <% end %>
-         </div>
-    <% end %>
+        <% end %>
+
+
+        <div class="modal-footer">
+        <% if @business.new_record? %>
+        <%=f.button :submit, 'Register Taxpayer', class: 'btn btn-primary' %>
+        <% else %>
+         <%=f.button :submit, 'Update Taxpayer' %>
+        <% end %>
+
+    </div>
   </div>
 </div>
+
+        <% end %>

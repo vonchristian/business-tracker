@@ -7,7 +7,7 @@ class BusinessPermitPdf < Prawn::Document
    # heading_content
    business_name
    permit_number
-   owner
+   taxpayer
    type_of_organization
   address
   line_of_business
@@ -50,9 +50,9 @@ class BusinessPermitPdf < Prawn::Document
     text "Permit Number", align: :center
   end
 
-  def owner
+  def taxpayer
     move_down 20
-    text  "#{@business.owner_name.upcase}", align: :center, style: :bold
+    text  "#{@business.taxpayer_name.upcase}", align: :center, style: :bold
     text "Proprietor/Manager/President", align: :center
   end
 
@@ -70,6 +70,7 @@ class BusinessPermitPdf < Prawn::Document
 
   def line_of_business
     move_down 15
+    text "#{@business.line_of_business}", align: :center, style: :bold
     text "Line of Business/Products/Business Activities", align: :center
   end
 

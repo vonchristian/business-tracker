@@ -35,9 +35,21 @@ boolean: :horizontal_boolean
         <%=f.input :tin_number %>
         </div>
         </div>
-        <hr>
-        <h3>Address Details</h3>
 
+        <h3>Cedula Details</h3>
+        <hr>
+        <div class="row">
+         <div class="col-md-6">
+           <%=f.input :cedula_date_issued, as: :string, label: 'Date Issued', placeholder: 'mm/dd/yy' %>
+          <%=f.input  :cedula_number %>
+        </div>
+         <div class="col-md-6">
+          <%=f.input :cedula_place_issued %>
+          </div>
+        </div>
+
+        <h3>Address Details</h3>
+        <hr >
         <%=f.simple_fields_for :address do |a| %>
            <div class="row">
            <div class="col-md-6">
@@ -50,7 +62,7 @@ boolean: :horizontal_boolean
         <%=a.input :street %>
         <%=a.input :barangay %>
         <%=a.input :subdivision %>
-        <%=a.input :municipality_or_city %>
+        <%=a.input :municipality_or_city, label: 'Municipality', value: 'Tinoc' %>
         <%=a.input :province %>
         </div>
         </div>

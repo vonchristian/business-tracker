@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     end
       resources :payments
       resource :required_documents
+      resources :line_of_businesses
     end
           resources :requirements
           resources :taxes

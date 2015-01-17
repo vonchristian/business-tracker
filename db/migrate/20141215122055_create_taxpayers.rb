@@ -11,6 +11,15 @@ class CreateTaxpayers < ActiveRecord::Migration
       t.string :tin_number
       t.string :workflow_state
       t.string :cedula_number
+      t.string :address_bldg_no
+      t.string :address_unit_no
+      t.string :address_street
+      t.string :address_barangay
+      t.string :address_subdivision
+      t.string :address_municipality
+      t.string :address_province
+      t.string :cedula_place_issued
+      t.date :cedula_date_issued
 
       t.timestamps null: false
     end

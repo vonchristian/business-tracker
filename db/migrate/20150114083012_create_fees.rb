@@ -7,6 +7,7 @@ class CreateFees < ActiveRecord::Migration
       t.integer :workforce
       t.integer :type_of_business
       t.integer :line_of_business_id
+      t.integer :business_id
 
       t.timestamps null: false
     end
