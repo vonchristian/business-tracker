@@ -90,7 +90,7 @@ class BusinessPermitPdf < Prawn::Document
                   Amount Paid:  P #{@business.amount_paid}.00
                   Cedula No:     #{@business.cedula_number}
                   Issued On:      #{@business.date_issued}
-                  Issued At:       #{@business.place_issued}", :at => [10, 50], :height => 100, :width => 100, size: 7, style: :italic
+                  Issued At:       #{@business.place_issued}", :at => [10, 50], :height => 100, :width => 150, size: 7, style: :italic
   end
 
   def signatory

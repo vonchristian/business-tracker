@@ -1,0 +1,43 @@
+<div class="tab-pane active" id="profile">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed">
+                <thead>
+                  <tr>
+                    <th> Business Name</th>
+                    <th>Date Registered</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @businesses.each do |business| %>
+                    <tr>
+                      <td><%=link_to truncate(business.business_name.upcase, length: 20), business, class: 'btn btn-link'%></td>
+                      <td><%=business.created_at.strftime('%B %d %Y')%></td>
+                      <td class="data-halign="center" data-align="left""><%= business.taxpayer_name %></td>
+                      <td><%= business.workflow_state %></td>
+                      <td>
+                        <div class="btn-group">
+                          <small type="button" class="glyphicon glyphicon-plus" data-toggle="dropdown" data-toggle="tooltip" title="More User Actions">
+                          </small>
+                          <ul class="dropdown-menu pull-right" role="menu">
+                            <li><%= link_to ' Renew', renew_business_path(business), class: 'fa fa-android'  if business.expired?%></li>
+                            <li><%= link_to ' New Cedula', new_business_path(business), class: 'fa fa-android' %></li>
+                            <li><%= link_to ' New Business', new_business_path(business), class: 'fa fa-android' %></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  <%end%>
+                </tbody>
+              </table>
+            </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  </div>

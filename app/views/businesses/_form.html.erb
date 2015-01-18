@@ -37,41 +37,38 @@ boolean: :horizontal_boolean
               <%=f.input :permit_number%>
 
               <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" },  placeholder: 'mm/dd/yyyy'  %>
-              <%=f.input :rented, as: :boolean, inline_label: 'Renting' %>
+
+            </div>
+          </div>
+ <h3>Address Details</h3>
+<hr>
+        <div class="row">
+        <div class="col-md-6">
+        <%=f.input :sitio, label: 'Sitio' %>
+        <%=f.input :address_street, label: 'Street' %>
+        <%=f.input :address_barangay, label: "Barangay "%>
+        </div>
+         <div class="col-md-6">
+        <%=f.input :address_subdivision, label: 'Subdivision' %>
+
+        <%=f.input :address_municipality, label: 'Municipality' %>
+        <%=f.input :address_province, label: 'Province'  %>
+        </div>
+        </div>
+
+        <%=f.input :rented, as: :boolean, inline_label: 'Renting' %>
 
           <%=f.input :franchised, as: :boolean, inline_label: 'Franchise.' %>
 
           <%=f.input :branch, as: :boolean, inline_label: 'Branch.' %>
 
 
-            </div>
-          </div>
- <h3>Address Details</h3>
-<hr>
-        <%=f.simple_fields_for :address do |a| %>
-           <div class="row">
-           <div class="col-md-6">
-        <%=a.input :street %>
-        <%=a.input :house_number_or_bldg_number, label: 'House number' %>
-        <%=a.input :building_name %>
-        <%=a.input :unit_number %>
-        </div>
-        <div class="col-md-6">
-        <%=a.input :street %>
-        <%=a.input :barangay %>
-        <%=a.input :subdivision %>
-        <%=a.input :municipality_or_city %>
-        <%=a.input :province %>
-        </div>
-        </div>
-        <% end %>
-
 
         <div class="modal-footer">
         <% if @business.new_record? %>
-        <%=f.button :submit, 'Register Taxpayer', class: 'btn btn-primary' %>
+        <%=f.button :submit, 'Register Business', class: 'btn btn-primary' %>
         <% else %>
-         <%=f.button :submit, 'Update Taxpayer' %>
+         <%=f.button :submit, 'Update Business', class: 'btn btn-warning' %>
         <% end %>
 
     </div>

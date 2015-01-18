@@ -2,13 +2,14 @@ class Payment < ActiveRecord::Base
   belongs_to :taxpayer
   belongs_to :business
   has_many :taxes, through: :business
-  validates :amount, presence: true, numericality: true
+  validates :amount,  numericality: true
+  validates :official_receipt_number, presence: true
   def total
     subtotal - exemption + surcharge
   end
   def subtotal
    business_taxes + default_taxes
-    #taxes + fees + gross_receipts_percentage - exemtions = surcharges
+
   end
 
   def exemption
