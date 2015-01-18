@@ -28,7 +28,7 @@
             <tr>
               <td><%=link_to taxpayer.full_name, taxpayer, class: 'btn btn-link'%></td>
               <td><%=taxpayer.created_at.strftime('%B %d %Y')%></td>
-              <td><%=taxpayer.address.try(:street) %></td>
+              <td><%=taxpayer.address%></td>
               <td><%=taxpayer.workflow_state %></td>
               <td>
                 <div class="btn-group">

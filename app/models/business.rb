@@ -21,12 +21,10 @@ class Business < ActiveRecord::Base
                                       :other_businesses]
 
   belongs_to  :taxpayer
+  has_many :mayors_permit_fees
   belongs_to :type_of_organization
   has_many :line_of_businesses
-
   has_many :taxes
-  has_many :business_fees
-  has_many :fees, through: :business_fees
   has_many :payments
   has_many :required_documents
   has_many :documents, through: :required_documents
@@ -81,9 +79,8 @@ class Business < ActiveRecord::Base
     "#{address_street}, #{address_barangay}, #{address_municipality}, #{address_province}"
   end
 
-    def build_fees
-       Fee.create(self)
-      self.fees.save
+    def set_mayors_permit_fee
+       self.mayors_permit_fees.set_amount(self)
     end
     def set_taxes
       if self.expired?

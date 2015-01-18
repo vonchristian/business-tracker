@@ -1,4 +1,4 @@
-class AddSitionToBusinesses < ActiveRecord::Migration
+class AddSitiosToBusinesses < ActiveRecord::Migration
   def change
     add_column :businesses, :sitio, :string
   end

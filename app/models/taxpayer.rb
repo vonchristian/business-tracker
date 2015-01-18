@@ -25,6 +25,10 @@ class Taxpayer < ActiveRecord::Base
     "#{try(:first_name).titleize} #{try(:middle_name).first.upcase}. #{try(:last_name).titleize}"
   end
 
+  def address
+     "#{try(:address_street)}, #{try(:address_barangay)}, #{try(:address_municipality)}"
+  end
+
   private
       def titleize_full_name
         self.first_name=first_name.try(:titleize)

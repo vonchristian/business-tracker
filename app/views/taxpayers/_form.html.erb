@@ -50,23 +50,15 @@ boolean: :horizontal_boolean
 
         <h3>Address Details</h3>
         <hr >
-        <%=f.simple_fields_for :address do |a| %>
-           <div class="row">
-           <div class="col-md-6">
-        <%=a.input :street %>
-        <%=a.input :house_number_or_bldg_number, label: 'House number' %>
-        <%=a.input :building_name %>
-        <%=a.input :unit_number %>
+        <div class="col-md-6">
+        <%=f.input :address_street, label: 'Street' %>
+        <%=f.input :address_barangay, label: 'Barangay' %>
         </div>
         <div class="col-md-6">
-        <%=a.input :street %>
-        <%=a.input :barangay %>
-        <%=a.input :subdivision %>
-        <%=a.input :municipality_or_city, label: 'Municipality', value: 'Tinoc' %>
-        <%=a.input :province %>
+        <%=f.input :address_municipality, label: 'Municipality', value: 'Tinoc' %>
+        <%=f.input :address_province, label: 'Province' %>
         </div>
         </div>
-        <% end %>
         <div class="modal-footer">
         <% if @taxpayer.new_record? %>
         <%=f.button :submit, 'Register Taxpayer', class: 'btn btn-primary' %>

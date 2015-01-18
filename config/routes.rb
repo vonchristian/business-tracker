@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       match :renew, via: [:get, :post]
     end
       resources :payments
+      resource :mayors_permit_fees
       resource :required_documents
       resources :line_of_businesses
     end

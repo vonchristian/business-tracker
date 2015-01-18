@@ -9,11 +9,9 @@ class BusinessesController < ApplicationController
     authorize @business
   end
  def create
- s
     @business = current_taxpayer.businesses.create(business_params)
     if @business.save
-      @business.set_fees
-      @business.set_taxes
+      @business.set_mayors_permit_fee
         redirect_to @business, notice: 'registered successfully'
     else
       render :new

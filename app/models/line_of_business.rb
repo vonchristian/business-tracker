@@ -1,5 +1,5 @@
 class LineOfBusiness < ActiveRecord::Base
- validates :description, uniqueness: true
+ validates :description, presence: true
   enum type_of_business: [:manufacturer, :wholesaler, :exporter, :retailer, :bank, :sale_of_service, :peddler]
   belongs_to :mayors_fee
   belongs_to :business
