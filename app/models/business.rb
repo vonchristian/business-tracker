@@ -79,6 +79,9 @@ class Business < ActiveRecord::Base
     def set_mayors_permit_fee
        self.mayors_permit_fees.create
     end
+    def mayors_permit_fee_amount
+      self.mayors_permit_fees.last.amount
+    end
     def set_taxes
       if self.expired?
        self.taxes.create

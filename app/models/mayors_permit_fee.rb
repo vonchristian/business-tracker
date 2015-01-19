@@ -2,8 +2,6 @@ class MayorsPermitFee < ActiveRecord::Base
   belongs_to :business
   before_save :set_amount
 
-
-
   def wholesalers_retailers_dealers_mayors_permit_fee
     self.amount=600 if business.micro?
     self.amount=900 if business.cottage?

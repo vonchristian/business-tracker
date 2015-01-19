@@ -67,10 +67,5 @@ RSpec.describe Business, :type => :model do
     end
   end
 
-  describe 'MAyors Permit Fee' do
-    it 'return 600 if industry type is wholesalers_retailers_dealers_distributors and enterprise_scale is micro' do
-      business = create(:business, industry_type: :wholesalers_retailers_dealers_distributors)
-     expect(business.mayors_permit_fees.last.amount).to eq(600)
-    end
   end
 end
