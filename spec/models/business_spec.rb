@@ -10,7 +10,7 @@ RSpec.describe Business, :type => :model do
 
   describe "associations" do
    # it { should belong_to :type_of_organization }
-    it { should belong_to :owner}
+    it { should belong_to :taxpayer}
     it { should have_many :documents }
     it { should have_many :payments }
 
@@ -64,6 +64,13 @@ RSpec.describe Business, :type => :model do
        it 'returns large scale if asset size 15_000_000 to 60_000,000' do
       business = create(:business, asset_size: 100_000_000)
       expect(business.enterprise_scale).to eq('large')
+    end
+  end
+
+  describe 'MAyors Permit Fee' do
+    it 'return 600 if industry type is wholesalers_retailers_dealers_distributors and enterprise_scale is micro' do
+      business = create(:business, industry_type: :wholesalers_retailers_dealers_distributors)
+     expect(business.mayors_permit_fees.last.amount).to eq(600)
     end
   end
 end

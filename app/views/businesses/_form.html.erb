@@ -16,12 +16,7 @@ boolean: :horizontal_boolean
           <div class="row">
             <div class="col-md-6">
               <%=f.input :business_name, autofocus: true  %>
-
-
-
-               <%=f.association :type_of_organization, collection: TypeOfOrganization.ownership_types.keys.to_a.map{|t| [t.titleize, t]} %>
-
-
+               <%=f.input :type_of_organization, collection: Business.type_of_organizations.keys.to_a.map{ |a| [a.titleize, a] }  %>
               <%=f.input :asset_size%>
 
               <%=f.input :no_of_employees, label: 'Number of Employees' %>

@@ -38,6 +38,7 @@ class BusinessesController < ApplicationController
     @business = Business.find(params[:id])
     authorize @business
     if @business.update_attributes(business_params)
+      @business.set_mayors_permit_fee
       redirect_to @business, notice: 'updated successfully'
     else
       render :edit
@@ -51,7 +52,7 @@ class BusinessesController < ApplicationController
 
   private
   def business_params
-    params.require(:business).permit(:permit_number, :industry_type, :asset_size, :workforce_size, :business_name, :type_of_organization_id,  :address_street, :address_barangay, :address_municipality_or_city, :address_province)
+    params.require(:business).permit(:type_of_organization, :permit_number, :industry_type, :asset_size, :workforce_size, :business_name,   :address_street, :address_barangay, :address_municipality, :address_province)
   end
 
   def set_current_taxpayer

@@ -1,5 +1,7 @@
 class Business < ActiveRecord::Base
 
+  enum type_of_organization: [:sole_proprietorship, :corporation]
+
   scope :expired,            -> { where(workflow_state: :expired)            }
   scope :new_business,  -> { where(workflow_state: :new_business) }
   scope :delinquent,       -> { where(workflow_state: :delinquent)       }
@@ -18,11 +20,11 @@ class Business < ActiveRecord::Base
                                       :contractors_service_establishments,
                                       :wholesalers_retailers_dealers_distributors,
                                       :transloading_operations,
-                                      :other_businesses]
+                                      :other_businesses
+                                    ]
 
   belongs_to  :taxpayer
   has_many :mayors_permit_fees
-  belongs_to :type_of_organization
   has_many :line_of_businesses
   has_many :taxes
   has_many :payments
@@ -30,13 +32,8 @@ class Business < ActiveRecord::Base
   has_many :documents, through: :required_documents
 
   validates :business_name,  presence: true
-
   validates :asset_size, numericality: { message: 'Invalid Asset Size' }
-
-
   validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
-
-
 
   include Workflow
       workflow do
@@ -76,11 +73,11 @@ class Business < ActiveRecord::Base
     self.payments.last.amount
   end
   def full_address
-    "#{address_street}, #{address_barangay}, #{address_municipality}, #{address_province}"
+    "#{address_barangay}, #{address_municipality}, #{address_province}"
   end
 
     def set_mayors_permit_fee
-       self.mayors_permit_fees.build
+       self.mayors_permit_fees.create
     end
     def set_taxes
       if self.expired?

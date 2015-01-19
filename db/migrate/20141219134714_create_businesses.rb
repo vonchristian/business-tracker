@@ -5,7 +5,7 @@ class CreateBusinesses < ActiveRecord::Migration
       t.string :workflow_state
       t.decimal :asset_size
       t.integer :enterprise_scale
-      t.belongs_to :type_of_organization
+      t.integer :type_of_organization
       t.string :address_bldg_no
       t.string :address_unit_no
       t.string :address_street

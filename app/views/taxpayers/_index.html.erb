@@ -3,7 +3,7 @@
 <% if Taxpayer.count.zero? %>
   <p class="alert alert-info">
      No taxpayers are registered yet.
-    <%=link_to "Add New Taxpayer", new_taxpayer_path, class: "btn btn-link fa fa-plus" %></p>
+    <strong><%=link_to "Register New Taxpayer", new_taxpayer_path %></strong></p>
 
 
 <% else %>

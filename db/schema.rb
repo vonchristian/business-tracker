@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20150118125017) do
     t.string   "workflow_state"
     t.decimal  "asset_size"
     t.integer  "enterprise_scale"
-    t.integer  "type_of_organization_id"
+    t.integer  "type_of_organization"
     t.string   "address_bldg_no"
     t.string   "address_unit_no"
     t.string   "address_street"
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20150118125017) do
     t.string   "permit_number"
     t.decimal  "gross_sales"
     t.integer  "industry_type"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.string   "sitio"
     t.integer  "mayors_permit_fee_id"
   end

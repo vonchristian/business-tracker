@@ -8,8 +8,7 @@ class Payment < ActiveRecord::Base
     subtotal - exemption + surcharge
   end
   def subtotal
-   business_taxes + default_taxes
-
+   business_fees
   end
 
   def exemption
@@ -19,14 +18,14 @@ class Payment < ActiveRecord::Base
    def surcharge
     0
   end
+  def mayors_permit_fee
+    self.business.mayors_permit_fees.last.amount
+  end
 
 private
-    def default_taxes
-       Tax.default_taxes.sum(:amount)
-     end
 
-     def business_taxes
-       taxes.sum(:amount)
+     def business_fees
+       mayors_permit_fee
      end
 
 end
