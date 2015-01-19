@@ -22,6 +22,7 @@
             <%=link_to ' Print Mayors Permit', business_path(@business, format: "pdf"), class: " btn btn-info fa fa-print" %>
             <%=link_to 'Add Line of Business', new_business_line_of_business_path(@business), class: "btn btn-default" %>
             <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-default" %>
+            <%=link_to 'Mayors Permit Fee', new_business_mayors_permit_fees_path(@business), class: 'btn btn-default' %>
               <%=link_to 'Edit Profile', edit_business_path(@business), class: "btn btn-default" %>
               <%=link_to 'Submit Requirements', new_business_required_documents_path(@business), class: "btn btn-default" %>
             </div>

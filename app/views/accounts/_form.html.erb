@@ -6,7 +6,7 @@
       <%=simple_form_for @account do |f| %>
       <%=f.input :subdomain do %>
            <div class="input-group">
-             <%=f.input_field :subdomain, class: 'form-control', placeholder: "Name of LGU" %>
+             <%=f.input_field :subdomain, class: 'form-control', placeholder: "Name of LGU", autofocus: true %>
              <span class="input-group-addon">.business-tracker.ph</span>
              <!--<p class="help-block">Name of Local Goverment Unit </p>-->
            </div>

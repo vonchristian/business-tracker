@@ -1,12 +1,11 @@
 class BusinessesController < ApplicationController
-  before_filter :set_current_taxpayer, only: [:new]
   def index
     @businesses = Business.includes(:taxpayer).all
     @taxpayers = Taxpayer.all
   end
   def new
-    @business = current_taxpayer.businesses.build
-    authorize @business
+    @taxpayer =  Taxpayer.find(params[:taxpayer_id])
+    @business = @taxpayer.businesses.build
   end
  def create
     @business = current_taxpayer.businesses.create(business_params)
@@ -56,9 +55,10 @@ class BusinessesController < ApplicationController
   end
 
   def set_current_taxpayer
-    @taxpayer = Taxpayer.find(params[:taxpayer_id])
+    @taxpayer = Taxpayer.find_by_id(params[:taxpayer_id])
   end
+
   def current_taxpayer
-    @taxpayer = Taxpayer.find(params[:taxpayer_id])
+    @taxpayer = Taxpayer.find_by_id(params[:taxpayer_id])
   end
 end

@@ -3,11 +3,12 @@ before_filter :current_business, only: [:new, :create]
 
 
   def new
-    @mayors_permit_fee = current_business.mayors_permit_fee.build
+    @business = Business.find(params[:business_id])
+    @mayors_permit_fee = @business.mayors_permit_fees.build
   end
 
   def create
-    @mayors_permit_fee = current_business.mayors_permit_fee.create!(mayors_permit_fee_params)
+    @mayors_permit_fee = current_business.mayors_permit_fee.create(mayors_permit_fee_params)
       @mayors_permit_fee.set_amount
       @mayors_permit_fee.save
   end

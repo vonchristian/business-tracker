@@ -80,7 +80,7 @@ class Business < ActiveRecord::Base
   end
 
     def set_mayors_permit_fee
-       self.mayors_permit_fees.set_amount(self)
+       self.mayors_permit_fees.build
     end
     def set_taxes
       if self.expired?
@@ -95,34 +95,31 @@ class Business < ActiveRecord::Base
       self.update_attributes(workflow_state: :renewed)
       self.save
     end
-    def micro_industry?
-    self.asset_size<=150_000
-  end
 
-  def cottage_industry?
-    self.asset_size<=1_500_000
-  end
-  def small_scale_industry?
-    self.asset_size<=15_000_000
-  end
-
-  def medium_industry?
-    self.asset_size<=60_000_000
-  end
-
-  def large_industry?
-    self.asset_size>60_000_000
-  end
   def set_fees
   self.fees.create!
    end
 
-  private
 
   def end_of_year
     Time.now.end_of_year?
   end
+def micro_industry?
+  self.asset_size<=150_000
+end
+def cottage_industry?
+  self.asset_size<=1_500_000
+end
 
+def small_scale_industry?
+  self.asset_size<=15_000_000
+end
+def medium_industry?
+  self.asset_size<=60_000_000
+end
+def large_industry?
+  self.asset_size>60_000_000
+end
   def set_enterprise_scale
     return self.enterprise_scale=:micro if self.micro_industry?
     return self.enterprise_scale=:cottage if self.cottage_industry?

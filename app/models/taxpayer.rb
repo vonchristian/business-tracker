@@ -5,8 +5,6 @@ class Taxpayer < ActiveRecord::Base
 
   has_many :businesses
   has_many :payments, :through => :businesses
-  has_one :address, as: :addressable
-
   after_validation :titleize_full_name
  include Workflow
       workflow do

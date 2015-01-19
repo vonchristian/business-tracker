@@ -7,7 +7,7 @@
        wrapper_mappings: {boolean: :vertical_boolean }) do |f| %>
        <%= f.input :email, label: false do %>
   <div class="input-group">
-    <%= f.input_field :email, class: 'form-control input-lg', placeholder: 'Email' %>
+    <%= f.input_field :email, class: 'form-control input-lg', placeholder: 'Email', autofocus: true %>
     <span class="input-group-addon glyphicon glyphicon-user"></span>
   </div>
   <% end %>
