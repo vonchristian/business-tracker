@@ -4,7 +4,8 @@
       <h4>Payment Breakdown </h4>
       <hr>
       <p>Local Taxes </p>
-      <p>Gross Sales Tax</p>
+      <p>Business Tax<span class="pull-right"><%=@business.capital_investment_tax %> </span></p>
+      <p>Gross Sales Tax<span class="pull-right"><%=@business.gross_sales_taxes.last.try(:amount) %></span></p>
       <hr>
       <p>Regulatory Fees and Charges</p>
             <p>Mayors Permit Fee: <span class="pull-right"><%=@business.mayors_permit_fees.last.amount %></span></p>

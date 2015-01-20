@@ -9,8 +9,9 @@ class Business < ActiveRecord::Base
   scope :registered,        -> { where(workflow_state: :registered)        }
 
 
-
+  before_save :set_capital_investment_tax
   before_save :set_enterprise_scale
+
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
 
   enum business_type: [:manufacturers_electric_power_producers_assemblers_repackers_processors,
@@ -109,9 +110,6 @@ class Business < ActiveRecord::Base
     self.gross_sales_taxes.create
   end
 
-  def set_capital_investment_tax
-    self.capital_investment_tax=self.capital_investment * 0.01 * 0.20
-  end
     def renew
       self.set_mayors_permit_fees
       self.set_gross_sales_taxes
@@ -142,13 +140,22 @@ end
 def large_industry?
   self.asset_size>60_000_000
 end
-  def set_enterprise_scale
-    return self.enterprise_scale=:micro if self.micro_industry?
-    return self.enterprise_scale=:cottage if self.cottage_industry?
-    return self.enterprise_scale=:small_scale if self.small_scale_industry?
-    return self.enterprise_scale=:medium if self.medium_industry?
-    return self.enterprise_scale=:large if self.large_industry?
+
+  def set_capital_investment_tax
+    return self.capital_investment_tax=capital_investment_tax_rate
   end
+
+  def capital_investment_tax_rate
+    self.capital_investment * 0.01 * 0.20
+  end
+private
+    def set_enterprise_scale
+      return self.enterprise_scale=:micro if self.micro_industry?
+      return self.enterprise_scale=:cottage if self.cottage_industry?
+      return self.enterprise_scale=:small_scale if self.small_scale_industry?
+      return self.enterprise_scale=:medium if self.medium_industry?
+      return self.enterprise_scale=:large if self.large_industry?
+    end
 
 
 

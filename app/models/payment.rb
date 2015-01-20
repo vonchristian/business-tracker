@@ -8,7 +8,7 @@ class Payment < ActiveRecord::Base
     subtotal - exemption + surcharge
   end
   def subtotal
-   business_fees
+   mayors_permit_fee + tax_on_capital
   end
 
   def exemption
@@ -22,10 +22,10 @@ class Payment < ActiveRecord::Base
     self.business.mayors_permit_fees.last.amount
   end
 
-private
-
-     def business_fees
-       mayors_permit_fee
-     end
-
+  def tax_on_capital
+    self.business.capital_investment_tax
+  end
+  def tax_on_gross_sales
+    self.business.gross_sales_taxes.last.amount
+  end
 end

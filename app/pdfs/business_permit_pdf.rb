@@ -15,19 +15,21 @@ class BusinessPermitPdf < Prawn::Document
   conditions
   transaction_details
   signatory
+  dry_seal
   end
   def heading_picture
     y_position = cursor
-    image "#{Rails.root}/app/assets/images/heading.jpg", width: 500, height: 100, :at => [20, y_position]
-    # text "Republic of the Philippines", align: :center
-    # text "Cordillera Administrative Region", align: :center
-    # text "Municipality of Tinoc", align: :center
-    #text " website: www.tinoc.gov.ph | email: lgu_tinoc@gmail.com", size: 6, align: :center, style: :italic
-    # move_down 5
-    # text "OFFICE OF THE MUNICIPAL MAYOR", align: :center
+   # image "#{Rails.root}/app/assets/images/heading.jpg", width: 500, height: 100, :at => [20, y_position]
+    image "#{Rails.root}/app/assets/images/logo.png", width: 80, height: 75, :at => [20, y_position]
+    text "Republic of the Philippines", align: :center
+    text "Cordillera Administrative Region", align: :center
+    text "Municipality of Tinoc", align: :center
+    text " website: www.tinoc.gov.ph | email: lgu_tinoc@gmail.com", size: 6, align: :center, style: :italic
+    move_down 5
+    text "OFFICE OF THE MUNICIPAL MAYOR", align: :center
   end
   def heading
-    move_down 120
+    move_down 20
     text "MAYOR'S PERMIT",  align: :center, size: 30, style: :bold
     stroke_horizontal_rule
   end
@@ -99,10 +101,13 @@ class BusinessPermitPdf < Prawn::Document
   end
   def transaction_details
  text_box "OR Number:    #{@business.official_receipt_number}
-                  Amount Paid:  P #{@business.amount_paid}.00
+                  Amount Paid:  P #{@business.amount_paid}
                   Cedula No:     #{@business.cedula_number}
                   Issued On:      #{@business.date_issued}
                   Issued At:       #{@business.place_issued}", :at => [10, 50], :height => 100, :width => 150, size: 7, style: :italic
+  def dry_seal
+    text "NOT VALID WITHOUT DRY SEAL"
+  end
   end
 
   def signatory
