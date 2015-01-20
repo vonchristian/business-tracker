@@ -11,6 +11,7 @@ class BusinessesController < ApplicationController
     @business = current_taxpayer.businesses.create(business_params)
     if @business.save
       @business.set_mayors_permit_fee
+      @business.set_business_fee
         redirect_to @business, notice: 'registered successfully'
     else
       render :new
@@ -52,7 +53,7 @@ class BusinessesController < ApplicationController
 
   private
   def business_params
-    params.require(:business).permit(:type_of_organization, :permit_number, :industry_type, :asset_size, :workforce_size, :business_name,   :address_street, :address_barangay, :address_municipality, :address_province)
+    params.require(:business).permit(:business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :workforce_size, :business_name,   :address_street, :address_barangay, :address_municipality, :address_province)
   end
 
   def set_current_taxpayer

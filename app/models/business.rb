@@ -11,9 +11,18 @@ class Business < ActiveRecord::Base
 
 
   before_save :set_enterprise_scale
-
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
 
+  enum business_type: [:manufacturers_electric_power_producers_assemblers_repackers_processors,
+                                       :wholesalers_dealers_distributors,
+                                       :exporters_producers_millers_manufacturers_of_essential_commodities,
+                                       :wholesalers__dealers_distributors_of_essential_commodities,
+                                       :retailers_of_essential_commodities,
+                                       :retailers,
+                                       :contractors,
+                                       :banks_and_other_financial_institutions,
+                                       :sales_of_services
+                                     ]
   enum industry_type: [:manufacturers_importers_producers,
                                       :banks,
                                       :other_financial_institutions,
@@ -25,6 +34,7 @@ class Business < ActiveRecord::Base
 
   belongs_to  :taxpayer
   has_many :mayors_permit_fees
+  has_many :gross_sales_taxes
   has_many :line_of_businesses
   has_many :taxes
   has_many :payments
@@ -47,57 +57,69 @@ class Business < ActiveRecord::Base
           event :end_of_registration, :transitions_to => :delinquent
           event :payment_of_taxes, :transitions_to => :renewed
         end
-        state :delinquent
+        state :delinquent do
+          event :payment_of_taxes, :transitions_to => :renewed
+          event :closed, :transitions_to => :closed
+        state :closed
         state :renewed
       end
+      end
+
   def line_of_business
     self.line_of_businesses.pluck(:description).join ' , '
   end
+
   def taxpayer_name
     self.taxpayer.try(:first_and_last_name)
   end
 
-    def cedula_number
+  def cedula_number
     self.taxpayer.try(:cedula_number)
   end
+
   def date_issued
     self.taxpayer.try(:cedula_date_issued).strftime('%B %d, %Y')
   end
+
   def place_issued
     self.taxpayer.try(:place_issued_cedula)
   end
+
   def official_receipt_number
     self.payments.last.official_receipt_number
   end
+
   def amount_paid
     self.payments.last.amount
   end
+
   def full_address
     "#{address_barangay}, #{address_municipality}, #{address_province}"
   end
 
-    def set_mayors_permit_fee
-       self.mayors_permit_fees.create
-    end
-    def mayors_permit_fee_amount
-      self.mayors_permit_fees.last.amount
-    end
-    def set_taxes
-      if self.expired?
-       self.taxes.create
-      self.save
-    end
+  def set_mayors_permit_fee
+    self.mayors_permit_fees.create
   end
 
+  def mayors_permit_fee_amount
+      self.mayors_permit_fees.last.amount
+  end
+
+  def set_gross_sales_taxes
+    self.gross_sales_taxes.create
+  end
+
+  def set_capital_investment_tax
+    self.capital_investment_tax=self.capital_investment * 0.01 * 0.20
+  end
     def renew
-      self.set_fees
-      self.set_taxes
-      self.update_attributes(workflow_state: :renewed)
+      self.set_mayors_permit_fees
+      self.set_gross_sales_taxes
       self.save
     end
 
   def set_fees
-  self.fees.create!
+  self.fees.create
    end
 
 

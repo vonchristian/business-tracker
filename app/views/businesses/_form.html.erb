@@ -18,12 +18,16 @@ boolean: :horizontal_boolean
               <%=f.input :business_name, autofocus: true  %>
                <%=f.input :type_of_organization, collection: Business.type_of_organizations.keys.to_a.map{ |a| [a.titleize, a] }  %>
               <%=f.input :asset_size%>
+              <% if @business.new_record? %>
+              <%=f.input :capital_investment %>
+              <% end %>
 
               <%=f.input :no_of_employees, label: 'Number of Employees' %>
             </div>
 
             <div class="col-md-6">
-               <%=f.input :industry_type, collection: Business.industry_types.keys.to_a.map{ |a| [a.titleize, a]} %>
+               <%=f.input :industry_type, collection: Business.industry_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Industry' %>
+               <%=f.input :business_type, collection: Business.business_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Type of Business' %>
 
               <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'mm/dd/yyyy' %>
 

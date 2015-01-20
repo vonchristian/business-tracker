@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150118125017) do
+ActiveRecord::Schema.define(version: 20150120014554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,10 +82,13 @@ ActiveRecord::Schema.define(version: 20150118125017) do
     t.string   "permit_number"
     t.decimal  "gross_sales"
     t.integer  "industry_type"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "sitio"
     t.integer  "mayors_permit_fee_id"
+    t.integer  "business_type"
+    t.decimal  "capital_investment"
+    t.decimal  "capital_investment_tax"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -107,6 +110,13 @@ ActiveRecord::Schema.define(version: 20150118125017) do
     t.integer  "business_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "gross_sales_taxes", force: :cascade do |t|
+    t.decimal  "amount"
+    t.integer  "business_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "line_of_businesses", force: :cascade do |t|
