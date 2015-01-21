@@ -10,6 +10,7 @@ class BusinessesController < ApplicationController
   end
  def create
     @business = current_taxpayer.businesses.create(business_params)
+    authorize @business
     if @business.save
       @business.set_mayors_permit_fee
       @business.set_capital_investment_tax
@@ -49,12 +50,14 @@ class BusinessesController < ApplicationController
 
   def renew
     @business = Business.find(params[:id])
-    @business.renew
+      if @business.save
+        @business.renew
+      end
   end
 
   private
   def business_params
-    params.require(:business).permit(:capital_investment, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :workforce_size, :business_name,   :address_street, :address_barangay, :address_municipality, :address_province)
+    params.require(:business).permit(:workflow_state, :capital_investment, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :workforce_size, :business_name,   :address_street, :address_barangay, :address_municipality, :address_province)
   end
 
   def set_current_taxpayer

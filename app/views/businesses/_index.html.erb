@@ -17,13 +17,16 @@
                 <tbody>
                   <% @businesses.each do |business| %>
                     <tr>
-                      <td><%=link_to truncate(business.business_name.upcase, length: 20), business, class: 'btn btn-link'%></td>
+                      <td><%=link_to truncate(business.business_name.upcase, length: 30), business, class: 'btn btn-link'%></td>
                       <td><%=business.created_at.strftime('%B %d %Y')%></td>
                       <td class="data-halign="center" data-align="left""><%= business.taxpayer_name %></td>
                       <td><%= business.workflow_state.humanize %></td>
                       <td>
                       <% if business.payment_pending? %>
                        <%=link_to 'Pay', new_business_payment_path(business)%>
+                       <% end %>
+                         <% if business.expired? %>
+                       <%=link_to 'Renew', renew_business_path(business)%>
                        <% end %>
 
                       </td>

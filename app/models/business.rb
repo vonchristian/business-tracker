@@ -12,7 +12,7 @@ class Business < ActiveRecord::Base
 
   before_save :set_capital_investment_tax
   before_save :set_enterprise_scale
-
+  enum status: [:payment_pending, :registered, :expired, :renewed, :delinquent]
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
 
   enum business_type: [:manufacturers_electric_power_producers_assemblers_repackers_processors,
@@ -122,7 +122,7 @@ class Business < ActiveRecord::Base
   end
 
     def renew
-      self.set_mayors_permit_fees
+      self.set_mayors_permit_fee
       self.set_gross_sales_taxes
       self.save
     end
@@ -133,8 +133,10 @@ class Business < ActiveRecord::Base
 
 
   def end_of_year
-    Time.now.end_of_year?
+   if  Time.now.end_of_year?
+    self.update_attributes(workflow_state: :expired)
   end
+end
 def micro_industry?
   self.asset_size<=150_000
 end

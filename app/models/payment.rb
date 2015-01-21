@@ -3,7 +3,7 @@ class Payment < ActiveRecord::Base
   belongs_to :taxpayer
   belongs_to :business
   has_many :taxes, through: :business
-  validates :official_receipt_number, presence: true
+  validates :official_receipt_number, presence: true, uniqueness: true
   after_save :set_status_to_paid
   before_save :set_amount_paid
   def total

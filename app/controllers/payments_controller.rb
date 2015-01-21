@@ -3,7 +3,9 @@ def index
   @payments = Payment.all
 end
 def new
+  unless current_business.registered?
   @payment = current_business.payments.build
+end
 end
 
 def create
