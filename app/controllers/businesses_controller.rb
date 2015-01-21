@@ -1,11 +1,12 @@
 class BusinessesController < ApplicationController
   def index
-    @businesses = Business.includes(:taxpayer).all
+    @businesses = BusinessPolicy::Scope.new(current_user, Business).resolve
     @taxpayers = Taxpayer.all
   end
   def new
     @taxpayer =  Taxpayer.find(params[:taxpayer_id])
     @business = @taxpayer.businesses.build
+    authorize @business
   end
  def create
     @business = current_taxpayer.businesses.create(business_params)

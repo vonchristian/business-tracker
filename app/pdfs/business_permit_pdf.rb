@@ -1,10 +1,8 @@
 class BusinessPermitPdf < Prawn::Document
   def initialize(business)
-   super(top_margin: 30)
+   super(margin: 30, page_size: 'A4')
    @business = business
    heading_picture
-   heading
-   # heading_content
    business_name
    permit_number
    taxpayer
@@ -13,26 +11,23 @@ class BusinessPermitPdf < Prawn::Document
   line_of_business
   content
   conditions
-  transaction_details
   signatory
   dry_seal
+  transaction_details
   end
   def heading_picture
     y_position = cursor
-   # image "#{Rails.root}/app/assets/images/heading.jpg", width: 500, height: 100, :at => [20, y_position]
-    image "#{Rails.root}/app/assets/images/logo.png", width: 80, height: 75, :at => [20, y_position]
-    text "Republic of the Philippines", align: :center
-    text "Cordillera Administrative Region", align: :center
-    text "Municipality of Tinoc", align: :center
-    text " website: www.tinoc.gov.ph | email: lgu_tinoc@gmail.com", size: 6, align: :center, style: :italic
-    move_down 5
-    text "OFFICE OF THE MUNICIPAL MAYOR", align: :center
+       image "#{Rails.root}/app/assets/images/border.png", width: 530, height: 790, :at => [0, y_position]
+    image "#{Rails.root}/app/assets/images/heading.jpg", width: 500, height: 90, :at => [15, 767]
+
+    # text "Republic of the Philippines", size: 10, align: :center
+    # text "Cordillera Administrative Region", size: 10,  align: :center
+    # text "Municipality of Tinoc", size: 10, align: :center
+    # text " website: www.tinoc.gov.ph | email: lgu_tinoc@gmail.com", size: 6, align: :center, style: :italic
+    # move_down 5
+    # text "OFFICE OF THE MUNICIPAL MAYOR", align: :center
   end
-  def heading
-    move_down 20
-    text "MAYOR'S PERMIT",  align: :center, size: 30, style: :bold
-    stroke_horizontal_rule
-  end
+
 
   # def heading_content
   #   move_down 15
@@ -42,21 +37,30 @@ class BusinessPermitPdf < Prawn::Document
   # end
 
   def business_name
-    move_down 20
-   text "#{@business.business_name.upcase}", size: 25, style: :bold, align: :center
+    move_down 110
+    y_position =cursor
+    image "#{Rails.root}/app/assets/images/permit_background.png", width: 488, height: 670, :at => [10, y_position]
+    move_down 10
+   text "MAYOR'S PERMIT",  align: :center, size: 25, style: :bold
+   stroke do
+    horizontal_line 50, 500 ,at: 638
+  end
+  text "Pursuant to the provisions of the Revised Municipal Revenue Code 2014 - 03
+          of the Municipality of Tinoc, PERMIT is hereby granted to:", align: :center, size: 10
+   move_down 8
+   text "#{@business.business_name.upcase}", size: 16, style: :bold, align: :center
    text "Business Trade Name", align: :center
   end
 
   def permit_number
     move_down 10
-    text "<u>#{Time.current.year} -  #{@business.permit_number}</u>", align: :center, style: :bold, inline_format: true
-    text "Permit Number", align: :center
+    text "<u>PERMIT NUMBER: #{Time.current.year} -  #{@business.permit_number}</u>", size: 12, align: :center, style: :bold, inline_format: true
   end
 
   def taxpayer
     move_down 10
     text  "#{@business.taxpayer_name.upcase}", align: :center, style: :bold
-    text "Proprietor/Manager/President", align: :center
+    text "Proprietor/Manager", align: :center
   end
 
   def type_of_organization
@@ -79,8 +83,9 @@ class BusinessPermitPdf < Prawn::Document
 
   def content
     move_down 10
-    text "Permit is hereby granted to the above mentioned person/firm/corporation to engange in the above stated business subject
-    to the provisions of the  Revenue Code of 2014-03 of the Municipality of Tinoc and other ordinances or regulations governing the business, trade or activity.", align: :center, size: 10
+    text "Permit is hereby granted to the above mentioned person/firm/corporation to engange in the above
+    stated business subject to the provisions of the  Revenue Code of 2014-03 of the Municipality of Tinoc
+    and other ordinances or regulations governing the business, trade or activity.", align: :center, size: 10
     move_down 10
      text "Any violation  hereof shall cause the immediate revocation of this permit and the forfeitures of all fees
      and other taxes paid in favor of the Municipal Government of Tinoc.", align: :center, size: 10
@@ -90,31 +95,30 @@ class BusinessPermitPdf < Prawn::Document
     text "Given this <u>#{Time.current.strftime('%B %d, %Y')}</u> at Tinoc, Ifugao.", align: :center, size: 10, inline_format: true
   end
   def conditions
-    move_down 15
-    text "CONDITIONS FOR THE VALIDITY OF THIS PERMIT"
-    text "1. This permit is not valid if not signed by the Municipal Mayor.", size: 10
-    text "2. This permit is renewable within the first Twenty Days of January in every year.", size: 10
-    text "3. This permit must be displayed in a conspicous place within the business establishment.", size: 10
-    text "4. NO SELLING OF LIQUOR", size: 10
-    text "5. This permit is NON-TRANSFERABLE", size: 10
-    text "6. Non-compliance to the above stated conditions means cancellation of permit to operate", size: 10
+    text_box "CONDITIONS FOR THE VALIDITY OF THIS PERMIT
+    1. This permit is not valid if not signed by the Municipal Mayor.
+     2. This permit is renewable within the first Twenty Days of January in every year.
+     3. This permit must be displayed in a conspicous place within the business establishment.
+     4. NO SELLING OF LIQUOR.
+     5. This permit is NON-TRANSFERABLE.
+     6. Non-compliance to the above stated conditions means cancellation of permit.", :at => [40,250], height: 100, width: 400, size: 10
   end
+
+
+  def signatory
+    text_box "MARCELO G. CATALINO, Ph.D.
+                            Municipal Mayor", :at => [250, 80], align: :center, style: :bold
+
+end
+  def dry_seal
+    text_box "NOT VALID WITHOUT SEAL", :at=>[40, 12], size: 8
+  end
+
   def transaction_details
  text_box "OR Number:    #{@business.official_receipt_number}
                   Amount Paid:  P #{@business.amount_paid}
                   Cedula No:     #{@business.cedula_number}
                   Issued On:      #{@business.date_issued}
-                  Issued At:       #{@business.place_issued}", :at => [10, 50], :height => 100, :width => 150, size: 7, style: :italic
-  def dry_seal
-    text "NOT VALID WITHOUT DRY SEAL"
-  end
-  end
-
-  def signatory
-    move_down 80
-    text "MARCELO G. CATALINO, Ph.D.", align: :center, style: :bold
-    text "Municipal Mayor", align: :center
-    move_down 40
-
+                  Issued At:       #{@business.place_issued}", :at => [40, 70], :height => 100, :width => 150, size: 7, style: :italic
   end
 end

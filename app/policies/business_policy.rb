@@ -15,7 +15,7 @@ class BusinessPolicy < ApplicationPolicy
   end
 
   def create?
-  user.system_administrator? or user.application_officer? or not user.payment_officer?
+  user.system_administrator? or user.application_officer?
   end
 
   def new?
@@ -23,7 +23,7 @@ class BusinessPolicy < ApplicationPolicy
   end
 
   def update?
-    user.system_administrator? or user.application_officer?
+    user.system_administrator? or user.application_officer? or user.payment_officer?
   end
 
   def edit?
@@ -47,8 +47,14 @@ class BusinessPolicy < ApplicationPolicy
     end
 
     def resolve
-      scope
+      if user.system_administrator?
+        scope.all
+      elsif user.payment_officer?
+        scope.where(workflow_state: :payment_pending)
+    elsif user.application_officer?
+      scope.all
     end
+  end
   end
 end
 

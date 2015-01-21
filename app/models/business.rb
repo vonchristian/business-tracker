@@ -1,5 +1,6 @@
 class Business < ActiveRecord::Base
 
+
   enum type_of_organization: [:sole_proprietorship, :corporation]
 
   scope :expired,            -> { where(workflow_state: :expired)            }
@@ -7,7 +8,7 @@ class Business < ActiveRecord::Base
   scope :delinquent,       -> { where(workflow_state: :delinquent)       }
   scope :retired,              -> { where(workflow_state: :retired)             }
   scope :registered,        -> { where(workflow_state: :registered)        }
-
+  scope :payment_pending, -> {where(workflow_state: :payment_pending)}
 
   before_save :set_capital_investment_tax
   before_save :set_enterprise_scale
@@ -34,6 +35,7 @@ class Business < ActiveRecord::Base
                                     ]
 
   belongs_to  :taxpayer
+  has_many :police_clearance_fees
   has_many :mayors_permit_fees
   has_many :gross_sales_taxes
   has_many :line_of_businesses
@@ -48,8 +50,9 @@ class Business < ActiveRecord::Base
 
   include Workflow
       workflow do
-        state :new_business do
-          event :payment_of_taxes, :transitions_to => :registered
+
+        state :payment_pending do
+          event :payment, :transitions_to => :registered
         end
         state :registered do
           event :end_of_year, :transitions_to => :expired
@@ -66,8 +69,16 @@ class Business < ActiveRecord::Base
       end
       end
 
+
+  def payment
+    self.update_attributes(workflow_state: :registered)
+  end
   def line_of_business
     self.line_of_businesses.pluck(:description).join ' , '
+  end
+
+  def police_clearance_fee
+    50
   end
 
   def taxpayer_name

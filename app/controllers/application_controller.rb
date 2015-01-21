@@ -39,6 +39,6 @@ class ApplicationController < ActionController::Base
         end
 
         def permission_denied
-head 403
+redirect_to root_path, alert: 'Permision Denied'
 end
 end

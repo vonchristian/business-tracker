@@ -9,6 +9,7 @@
       <hr>
       <p>Regulatory Fees and Charges</p>
             <p>Mayors Permit Fee: <span class="pull-right"><%=@business.mayors_permit_fees.last.amount %></span></p>
+            <p>Police Clearance Fee: <span class="pull-right"><%=@business.police_clearance_fee %></span></p>
       <hr>
       <p>Subtotal: <span class="pull-right"><%=@payment.subtotal %></span></p>
       <p>Exemptions: <span class="pull-right"><%=@payment.exemption %></span></p>
@@ -17,7 +18,6 @@
       <p>AMOUNT TO PAY <span class="pull-right"><%=@payment.total %></span></p>
       <hr>
       <%=simple_form_for [@business, @payment] do |f| %>
-        <%=f.input :amount, autofocus: true %>
         <%=f.input :official_receipt_number %>
         <div class="modal-footer">
           <%=f.submit 'Register Payment ', class: 'btn btn-primary'%>

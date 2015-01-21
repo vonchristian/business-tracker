@@ -7,9 +7,11 @@ class TaxpayersController < ApplicationController
 
   def new
     @taxpayer = Taxpayer.new
+    authorize @taxpayer
   end
 
   def edit
+    authorize @taxpayer
   end
 
   def create
@@ -30,6 +32,7 @@ class TaxpayersController < ApplicationController
 end
 
   def show
+    @business = Business.new
   end
 
   def destroy

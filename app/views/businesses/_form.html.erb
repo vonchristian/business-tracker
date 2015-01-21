@@ -7,8 +7,8 @@
       <%= simple_form_for [@taxpayer, @business], html: { class: 'form-horizontal' },
 wrapper: :horizontal_form,
 wrapper_mappings: {
-check_boxes: :horizontal_radio_and_checkboxes,
-radio_buttons: :horizontal_radio_and_checkboxes,
+check_boxes: :vertical_radio_and_checkboxes,
+radio_buttons: :vertical_radio_and_checkboxes,
 file: :horizontal_file_input,
 boolean: :horizontal_boolean
 } do |f| %>
@@ -17,25 +17,25 @@ boolean: :horizontal_boolean
             <div class="col-md-6">
               <%=f.input :business_name, autofocus: true  %>
                <%=f.input :type_of_organization, collection: Business.type_of_organizations.keys.to_a.map{ |a| [a.titleize, a] }  %>
-              <%=f.input :asset_size%>
+              <%=f.input :asset_size, as: :string%>
               <% if @business.new_record? %>
-              <%=f.input :capital_investment %>
+              <%=f.input :capital_investment, as: :string %>
               <% end %>
 
-              <%=f.input :no_of_employees, label: 'Number of Employees' %>
+              <%=f.input :no_of_employees, label: 'Number of Employees', as: :string %>
             </div>
 
             <div class="col-md-6">
                <%=f.input :industry_type, collection: Business.industry_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Industry' %>
                <%=f.input :business_type, collection: Business.business_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Type of Business' %>
 
-              <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'mm/dd/yyyy' %>
+              <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'dd/mm/yyyy' %>
 
-              <%=f.input :dti_sec_reg_no, label: 'DTI/SEC Registration Number' %>
+              <%=f.input :dti_sec_reg_no, label: 'DTI/SEC Registration Number', as: :string %>
 
               <%=f.input :permit_number%>
 
-              <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" },  placeholder: 'mm/dd/yyyy'  %>
+              <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" },  placeholder: 'dd/mm/yyyy'  %>
 
             </div>
           </div>
@@ -48,7 +48,6 @@ boolean: :horizontal_boolean
         <%=f.input :address_barangay, label: "Barangay "%>
         </div>
          <div class="col-md-6">
-        <%=f.input :address_subdivision, label: 'Subdivision' %>
 
         <%=f.input :address_municipality, label: 'Municipality' %>
         <%=f.input :address_province, label: 'Province'  %>
@@ -60,7 +59,6 @@ boolean: :horizontal_boolean
           <%=f.input :franchised, as: :boolean, inline_label: 'Franchise.' %>
 
           <%=f.input :branch, as: :boolean, inline_label: 'Branch.' %>
-
 
 
         <div class="modal-footer">

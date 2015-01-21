@@ -19,7 +19,9 @@
             <h1 id="profile_name"><%=@business.business_name.upcase %></h1>
             <hr />
             <div class="well well-sm">
+            <% if @business.payments.present? %>
             <%=link_to ' Print Mayors Permit', business_path(@business, format: "pdf"), class: " btn btn-info fa fa-print" %>
+            <% end %>
             <%=link_to 'Add Line of Business', new_business_line_of_business_path(@business), class: "btn btn-default" %>
             <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-default" %>
             <%=link_to 'Mayors Permit Fee', new_business_mayors_permit_fees_path(@business), class: 'btn btn-default' %>

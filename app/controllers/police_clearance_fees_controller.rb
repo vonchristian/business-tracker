@@ -1,0 +1,4 @@
+class PoliceClearanceFee < ApplicationController
+
+
+end

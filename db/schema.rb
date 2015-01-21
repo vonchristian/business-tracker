@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120014554) do
+ActiveRecord::Schema.define(version: 20150121060410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,14 @@ ActiveRecord::Schema.define(version: 20150120014554) do
     t.string   "official_receipt_number"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "status"
+  end
+
+  create_table "police_clearance_fees", force: :cascade do |t|
+    t.decimal  "amount"
+    t.integer  "business_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "required_documents", force: :cascade do |t|

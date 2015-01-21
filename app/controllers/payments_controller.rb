@@ -1,10 +1,14 @@
 class PaymentsController < ApplicationController
+def index
+  @payments = Payment.all
+end
 def new
   @payment = current_business.payments.build
 end
 
 def create
   @payment =current_business.payments.build(payment_params)
+  @payment.business.payment
   if @payment.save
     redirect_to current_business, notice: 'payment successfully made'
   else

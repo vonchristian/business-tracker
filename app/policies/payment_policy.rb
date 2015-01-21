@@ -15,7 +15,7 @@ class PaymentPolicy < ApplicationPolicy
   end
 
   def create?
-  user.system_administrator?
+  user.system_administrator? || user.payment_officer?
   end
 
   def new?

@@ -4,7 +4,7 @@
     <div class="panel-body">
       <%=simple_form_for @user do |f| %>
       <%=f.error_notification %>
-        <%=f.input :first_name %>
+        <%=f.input :first_name, autofocus: true  %>
         <%=f.input :last_name %>
         <%=f.input :email %>
          <%= f.select :role, User.roles.keys.map {|role| [role.titleize,role,  class: 'form-control']} , as: :radio_buttons%>
