@@ -1,5 +1,6 @@
 class Taxpayer < ActiveRecord::Base
-
+  include PgSearch
+  pg_search_scope :search_last_name, :against => [:last_name]
   validates :first_name, :middle_name, :last_name, :email, :mobile_number,
                   :cedula_number, :cedula_date_issued, :cedula_place_issued, presence: true
 

@@ -57,7 +57,7 @@
           <% @business.payments.each do |payment| %>
             <tr>
               <td><%= number_to_currency(payment.amount, {:unit =>'PHP '}) %> </td>
-              <td> <%= payment.created_at %> </td>
+              <td> <%= payment.created_at.strftime('%B %d %Y %H') %> </td>
             </tr>
           <% end %>
         </tbody>
