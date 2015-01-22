@@ -14,7 +14,6 @@ source 'https://rubygems.org'
   gem 'figaro'
   gem "sidekiq"
   gem "geocoder"
-  gem 'workflow'
   gem 'friendly_id'
   gem 'public_activity'
   gem 'jquery-turbolinks'

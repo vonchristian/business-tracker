@@ -1,20 +1,13 @@
 class Taxpayer < ActiveRecord::Base
+  enum status:[:new_taxpayer, :old, :deliquent]
   include PgSearch
   pg_search_scope :search_last_name, :against => [:last_name]
-  validates :first_name, :middle_name, :last_name, :email, :mobile_number,
+  validates :first_name, :middle_name, :last_name, :mobile_number,
                   :cedula_number, :cedula_date_issued, :cedula_place_issued, presence: true
 
   has_many :businesses
   has_many :payments, :through => :businesses
   after_validation :titleize_full_name
- include Workflow
-      workflow do
-        state :new do
-          event :end_of_year, :transitions_to => :old
-        end
-        state :old
-      end
-
 
   def full_name
     "#{try(:last_name)}, #{try(:first_name)} #{try(:middle_name).first}."
@@ -25,7 +18,7 @@ class Taxpayer < ActiveRecord::Base
   end
 
   def address
-     "#{try(:address_street)}, #{try(:address_barangay)}, #{try(:address_municipality)}"
+     "#{try(:address_street)}, #{try(:address_barangay)}, #{try(:address_municipality)}, #{try(:address_province)}"
   end
 
   private

@@ -10,7 +10,7 @@ end
 
 def create
   @payment =current_business.payments.build(payment_params)
-  @payment.business.payment
+  @payment.business.update_payment
   if @payment.save
     redirect_to current_business, notice: 'payment successfully made'
   else

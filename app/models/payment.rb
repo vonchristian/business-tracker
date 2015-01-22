@@ -14,11 +14,15 @@ class Payment < ActiveRecord::Base
   end
 
 def fees
-  police_clearance_fee + mayors_permit_fee
+ mayors_permit_fee
 end
 
 def taxes
+
+
+
   tax_on_capital
+
 end
   def exemption
     0
@@ -27,18 +31,16 @@ end
    def surcharge
     0
   end
-  def police_clearance_fee
-    self.business.police_clearance_fee
-  end
+
   def mayors_permit_fee
-    self.business.mayors_permit_fees.last.amount
+    self.business.mayors_permit_fee_amount
   end
 
   def tax_on_capital
-    self.business.capital_investment_tax
+    self.business.capital_tax
   end
   def tax_on_gross_sales
-    self.business.gross_sales_taxes.last.amount
+    self.business.gross_sales_taxes_amount
   end
 
   private

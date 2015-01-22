@@ -22,7 +22,11 @@
             <% if @business.payments.present? %>
             <%=link_to ' Print Mayors Permit', business_path(@business, format: "pdf"), class: " btn btn-info fa fa-print" %>
             <% end %>
+            <% if @business.line_of_businesses.blank? %>
             <%=link_to 'Add Line of Business', new_business_line_of_business_path(@business), class: "btn btn-default" %>
+            <% else %>
+              <%=link_to 'Edit Line of Business', edit_line_of_business_path(@business), class: "btn btn-default" %>
+              <% end %>
             <% if @business.payment_pending? %>
             <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-default" %>
             <% end %>

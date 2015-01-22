@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121060410) do
+ActiveRecord::Schema.define(version: 20150120032919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,19 +23,6 @@ ActiveRecord::Schema.define(version: 20150121060410) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "addresses", force: :cascade do |t|
-    t.string  "house_number_or_bldg_number"
-    t.string  "building_name"
-    t.string  "unit_number"
-    t.string  "street"
-    t.string  "barangay"
-    t.string  "subdivision"
-    t.string  "municipality_or_city"
-    t.string  "province"
-    t.integer "addressable_id"
-    t.string  "addressable_type"
-  end
-
   create_table "business_fees", force: :cascade do |t|
     t.integer  "business_id"
     t.integer  "fee_id"
@@ -45,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150121060410) do
 
   create_table "businesses", force: :cascade do |t|
     t.integer  "taxpayer_id"
-    t.string   "workflow_state"
+    t.integer  "status"
     t.decimal  "asset_size"
     t.integer  "enterprise_scale"
     t.integer  "type_of_organization"
@@ -69,8 +56,6 @@ ActiveRecord::Schema.define(version: 20150121060410) do
     t.integer  "pin_no"
     t.integer  "business_area"
     t.integer  "no_of_employees_lgu"
-    t.integer  "psic_code"
-    t.integer  "capital_for_business"
     t.string   "first_name_lessor"
     t.string   "middle_name_lessor"
     t.string   "last_name_lessor"
@@ -82,13 +67,13 @@ ActiveRecord::Schema.define(version: 20150121060410) do
     t.string   "permit_number"
     t.decimal  "gross_sales"
     t.integer  "industry_type"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "business_type"
+    t.decimal  "capital"
+    t.decimal  "capital_tax"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.string   "sitio"
     t.integer  "mayors_permit_fee_id"
-    t.integer  "business_type"
-    t.decimal  "capital_investment"
-    t.decimal  "capital_investment_tax"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -142,11 +127,11 @@ ActiveRecord::Schema.define(version: 20150121060410) do
   create_table "payments", force: :cascade do |t|
     t.decimal  "amount"
     t.integer  "business_id"
+    t.integer  "status"
     t.integer  "tax_id"
     t.string   "official_receipt_number"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "status"
   end
 
   create_table "police_clearance_fees", force: :cascade do |t|
@@ -194,6 +179,7 @@ ActiveRecord::Schema.define(version: 20150121060410) do
     t.string   "address_province"
     t.string   "cedula_place_issued"
     t.date     "cedula_date_issued"
+    t.integer  "status"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end

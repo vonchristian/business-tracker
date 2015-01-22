@@ -29,19 +29,22 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-4">
+            <div class="col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <h3>Taxpayer Details</h3>
+                  <hr>
+                  <p>Name: <%=@taxpayer.full_name%></p>
+                  <p>Address: <%=@taxpayer.address %></p>
+                  <p>Mobile Number: <%=@taxpayer.mobile_number %></p>
+          </div>
+          </div>
+          <div class="col-md-6">
           <div class="panel panel-default">
-            <div class="panel=heading">Taxpayer Details</div>
-            <div class="panel-body">
-              <tr>
-              <td>Email:</td>
-              <td> <%=@taxpayer.email %></td>
-
-
-            </tr>
-               <%=@taxpayer.mobile_number %>
-
-            </div>
+          <div class="panel-body">
+          <h3>Business Details</h3>
+          </div>
+          </div>
           </div>
         </div>
       </div>

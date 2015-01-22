@@ -20,6 +20,7 @@ class CreateTaxpayers < ActiveRecord::Migration
       t.string :address_province
       t.string :cedula_place_issued
       t.date :cedula_date_issued
+      t.integer :status
 
       t.timestamps null: false
     end

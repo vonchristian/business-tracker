@@ -3,15 +3,16 @@ class Business < ActiveRecord::Base
 
   enum type_of_organization: [:sole_proprietorship, :corporation]
 
-  scope :expired,            -> { where(workflow_state: :expired)            }
-  scope :new_business,  -> { where(workflow_state: :new_business) }
-  scope :delinquent,       -> { where(workflow_state: :delinquent)       }
-  scope :retired,              -> { where(workflow_state: :retired)             }
-  scope :registered,        -> { where(workflow_state: :registered)        }
-  scope :payment_pending, -> {where(workflow_state: :payment_pending)}
+  scope :expired,            -> { where(status: :expired)            }
+  scope :new_business,  -> { where(status: :new_business) }
+  scope :delinquent,       -> { where(status: :delinquent)       }
+  scope :retired,              -> { where(status: :retired)             }
+  scope :registered,        -> { where(status: :registered)        }
+  scope :payment_pending, -> {where(status: :payment_pending)}
 
-  before_save :set_capital_investment_tax
+  before_save :set_capital_tax
   before_save :set_enterprise_scale
+  before_save :set_permit_number
   enum status: [:payment_pending, :registered, :expired, :renewed, :delinquent]
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
 
@@ -45,34 +46,13 @@ class Business < ActiveRecord::Base
   has_many :documents, through: :required_documents
 
   validates :business_name,  presence: true
-  validates :asset_size, numericality: { message: 'Invalid Asset Size' }
-  validates :gross_sales, numericality: { message: 'Invalid Asset Size' }
+  validates :asset_size,  numericality:{ message: 'Invalid Amount'}
+  validates :capital, numericality: { message: 'Invalid Amount aAmount'}, on: :create
+ validates :gross_sales, numericality: { message: 'Invalid Amount or less than the required amount', :greater_than =>30000}, on: :edit
+ # validates :gross_sales, numericality: { message: 'Invalid Asset Size' }
   #validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
-
-  include Workflow
-      workflow do
-
-        state :payment_pending do
-          event :payment, :transitions_to => :registered
-        end
-        state :registered do
-          event :end_of_year, :transitions_to => :expired
-        end
-        state :expired do
-          event :end_of_registration, :transitions_to => :delinquent
-          event :renew, :transitions_to => :renewed
-        end
-        state :delinquent do
-          event :payment_of_taxes, :transitions_to => :renewed
-          event :closed, :transitions_to => :closed
-        state :closed
-        state :renewed
-      end
-      end
-
-
-  def payment
-    self.update_attributes(workflow_state: :registered)
+  def update_payment
+    self.update_attributes(status: :registered)
   end
   def line_of_business
     self.line_of_businesses.pluck(:description).join ' , '
@@ -81,6 +61,8 @@ class Business < ActiveRecord::Base
   def police_clearance_fee
     50
   end
+
+
 
   def taxpayer_name
     self.taxpayer.try(:first_and_last_name)
@@ -95,7 +77,7 @@ class Business < ActiveRecord::Base
   end
 
   def place_issued
-    self.taxpayer.try(:place_issued_cedula)
+    self.taxpayer.try(:cedula_place_issued)
   end
 
   def official_receipt_number
@@ -118,13 +100,18 @@ class Business < ActiveRecord::Base
       self.mayors_permit_fees.last.amount
   end
 
+  def gross_sales_taxes_amount
+      self.gross_sales_taxes.last.amount
+  end
+
   def set_gross_sales_taxes
     self.gross_sales_taxes.create
   end
 
     def renew
       self.set_mayors_permit_fee
-      self.set_gross_sales_taxes
+      self.gross_sales_taxes.create
+      self.update_attributes(status: :payment_pending)
       self.save
     end
 
@@ -135,7 +122,7 @@ class Business < ActiveRecord::Base
 
   def end_of_year
    if  Time.now.end_of_year?
-    self.update_attributes(workflow_state: :expired)
+    self.update_attributes(status: :expired)
   end
 end
 def micro_industry?
@@ -155,12 +142,16 @@ def large_industry?
   self.asset_size>60_000_000
 end
 
-  def set_capital_investment_tax
-    return self.capital_investment_tax=capital_investment_tax_rate
+  def set_capital_tax
+     self.capital_tax=capital_tax_rate
   end
 
-  def capital_investment_tax_rate
-    self.capital_investment * 0.01 * 0.20
+  def capital_tax_rate
+    self.capital * 0.01 * 0.20
+  end
+
+  def set_status_to_payment_pending
+    self.update_attributes(status: :payment_pending)
   end
 private
     def set_enterprise_scale
@@ -170,6 +161,11 @@ private
       return self.enterprise_scale=:medium if self.medium_industry?
       return self.enterprise_scale=:large if self.large_industry?
     end
+def set_permit_number
+  if permit_number.blank?
+   self.permit_number=self.id
+ end
+end
 
 
 

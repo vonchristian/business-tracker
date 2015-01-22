@@ -13,7 +13,8 @@ class BusinessesController < ApplicationController
     authorize @business
     if @business.save
       @business.set_mayors_permit_fee
-      @business.set_capital_investment_tax
+      @business.set_capital_tax
+      @business.set_status_to_payment_pending
         redirect_to @business, notice: 'registered successfully'
     else
       render :new
@@ -50,15 +51,18 @@ class BusinessesController < ApplicationController
 
   def renew
     @business = Business.find(params[:id])
-   @business.gross_sales_taxes.build
-   @business.renew
+    @business.gross_sales_taxes.build
+    if @business.valid?
+      @business.renew
+    end
+
 end
 
 
 
   private
   def business_params
-    params.require(:business).permit(:gross_sales, :workflow_state, :capital_investment, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :workforce_size, :business_name,   :address_street, :address_barangay, :address_municipality, :address_province)
+    params.require(:business).permit(:no_of_employees, :gross_sales, :workflow_state, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :workforce_size, :business_name,   :address_street, :address_barangay, :address_municipality, :address_province)
   end
 
   def set_current_taxpayer
