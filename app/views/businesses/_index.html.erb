@@ -26,7 +26,7 @@
                        <%=link_to 'Pay', new_business_payment_path(business)%>
                        <% end %>
                          <% if business.expired? %>
-                       <%=link_to 'Renew', renew_business_path(business)%>
+                       <%=link_to 'Renew', renew_business_path(business), method: :get %>
                        <% end %>
 
                       </td>

@@ -5,7 +5,9 @@
 <p>Renew</p>
 <%=simple_form_for @business do |f| %>
 <%=f.input :asset_size %>
+<%if @business.expired? %>
 <%=f.input :gross_sales %>
+<% end %>
 <div class="modal-footer">
 <%=f.submit 'Renew Business', class: 'btn btn-success'%>
 </div>

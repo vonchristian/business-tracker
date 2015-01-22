@@ -23,7 +23,7 @@ class BusinessPolicy < ApplicationPolicy
   end
 
   def update?
-    user.system_administrator? or user.application_officer? or user.payment_officer?
+    user.system_administrator? or user.application_officer?
   end
 
   def edit?

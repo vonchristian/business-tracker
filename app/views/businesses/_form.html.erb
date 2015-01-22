@@ -32,9 +32,9 @@ boolean: :horizontal_boolean
               <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'dd/mm/yyyy' %>
 
               <%=f.input :dti_sec_reg_no, label: 'DTI/SEC Registration Number', as: :string %>
-
-              <%=f.input :permit_number%>
-
+              <% if @business.persisted? %>
+              <%=f.input :permit_number %>
+              <% end %>
               <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" },  placeholder: 'dd/mm/yyyy'  %>
 
             </div>

@@ -1,15 +1,15 @@
-class GrossReceiptsController < ApplicationController
+class GrossSalesTaxesController < ApplicationController
   def index
-    @gross_receipts  = GrossReceipt.all
+    @gross_sales_taxes  = GrossSalesTax.all
   end
   def new
-    @gross_receipt = GrossReceipt.new
+    @gross_sales_tax=current_business.gross_sales_taxes.build
   end
 
   def create
     @gross_receipt = GrossReceipt.create(gross_receipt_params)
     if @gross_receipt.save
-      redirect_to gross_receipts_path
+      redirect_to @business
     else
       render :new
     end

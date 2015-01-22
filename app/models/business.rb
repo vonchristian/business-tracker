@@ -46,7 +46,8 @@ class Business < ActiveRecord::Base
 
   validates :business_name,  presence: true
   validates :asset_size, numericality: { message: 'Invalid Asset Size' }
-  validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
+  validates :gross_sales, numericality: { message: 'Invalid Asset Size' }
+  #validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
 
   include Workflow
       workflow do
@@ -59,7 +60,7 @@ class Business < ActiveRecord::Base
         end
         state :expired do
           event :end_of_registration, :transitions_to => :delinquent
-          event :payment_of_taxes, :transitions_to => :renewed
+          event :renew, :transitions_to => :renewed
         end
         state :delinquent do
           event :payment_of_taxes, :transitions_to => :renewed

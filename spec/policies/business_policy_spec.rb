@@ -6,9 +6,9 @@ describe BusinessPolicy do
   let(:business) { FactoryGirl.create(:business) }
 
   context "for an application officer" do
-    let(:user) { create(:user, role: 'application_officer') }
+    let(:user) { FactoryGirl.create(:user, role: 'application_officer') }
 
-    it { should     permit_authorization(:show)    }
+    it { should permit_authorization(:show)    }
 
     it { should permit_authorization(:create)  }
     it { should permit_authorization(:new)     }
@@ -29,12 +29,12 @@ describe BusinessPolicy do
   end
 
   context "for a payment officer" do
-    let(:user) { FactoryGirl.create(:user, role: 'system_administrator') }
+    let(:user) { FactoryGirl.create(:user, role: 'payment_officer') }
 
     it { should permit_authorization(:show)    }
     it { should_not permit_authorization(:create)  }
-    it { should_not permit_authorization(:new)     }
-    it { should_not permit_authorization(:update)  }
+    it { should permit_authorization(:new)     }
+    it { should permit_authorization(:update)  }
     it { should_not permit_authorization(:edit)    }
     it { should_not permit_authorization(:destroy) }
   end
