@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       resource :address
     end
     resources :businesses do
-      match :renew, via: [:get, :post], on: :member
+      match :renew, via: [:get], on: :member
        match :retire, via: [:get, :post], on: :member
       resources :payments
       resource :mayors_permit_fees

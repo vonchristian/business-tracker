@@ -2,29 +2,16 @@ source 'https://rubygems.org'
     ruby '2.2.0'
     gem 'rails', '4.2.0'
 
-  gem 'will_paginate'
-  gem 'chosen-rails'
-  gem 'nested_form_fields'
-  gem 'wicked'
   gem 'bootstrap-datepicker-rails'
   gem 'prawn'
   gem 'apartment'
-  gem 'mini_magick'
-  gem "refile", require: ["refile/rails", "refile/image_processing"]
-  gem 'figaro'
-  gem "sidekiq"
-  gem "geocoder"
-  gem 'friendly_id'
   gem 'public_activity'
   gem 'jquery-turbolinks'
   gem 'devise'
   gem 'kaminari'
   gem 'pundit'
   gem 'font-awesome-rails'
-  gem 'ionicons-rails'
   gem 'simple_form'
-  gem 'sunspot_rails'
-  gem 'sunspot_solr'
   gem 'jquery-ui-rails'
   gem 'whenever', require: false
   gem 'sass-rails'
@@ -39,11 +26,8 @@ source 'https://rubygems.org'
 group :development do
   gem 'spring'
   gem 'binding_of_caller'
-  gem 'better_errors'
   gem 'quiet_assets'
   gem 'rails_layout'
-  gem 'capistrano-rails'
-  gem 'capistrano-rbenv', require: false
 end
 
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -55,7 +39,6 @@ group :production do
   gem 'pg',  group: :development
   gem 'rails_12factor'
   gem "unicorn-rails"
-  gem 'newrelic_rpm'
 end
 group :test do
   gem 'selenium-webdriver'

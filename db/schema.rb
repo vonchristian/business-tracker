@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120032919) do
+ActiveRecord::Schema.define(version: 20150119104120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,24 +23,15 @@ ActiveRecord::Schema.define(version: 20150120032919) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "business_fees", force: :cascade do |t|
-    t.integer  "business_id"
-    t.integer  "fee_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "businesses", force: :cascade do |t|
     t.integer  "taxpayer_id"
     t.integer  "status"
     t.decimal  "asset_size"
     t.integer  "enterprise_scale"
     t.integer  "type_of_organization"
-    t.string   "address_bldg_no"
-    t.string   "address_unit_no"
+    t.string   "address_sitio"
     t.string   "address_street"
     t.string   "address_barangay"
-    t.string   "address_subdivision"
     t.string   "address_municipality"
     t.string   "address_province"
     t.date     "application_date"
@@ -52,18 +43,11 @@ ActiveRecord::Schema.define(version: 20150120032919) do
     t.string   "business_name"
     t.string   "position"
     t.integer  "no_of_employees"
-    t.integer  "phone_no"
-    t.integer  "pin_no"
     t.integer  "business_area"
-    t.integer  "no_of_employees_lgu"
     t.string   "first_name_lessor"
     t.string   "middle_name_lessor"
     t.string   "last_name_lessor"
     t.integer  "monthly_rental"
-    t.boolean  "tax_incentive"
-    t.boolean  "rented"
-    t.boolean  "franchised"
-    t.boolean  "branch"
     t.string   "permit_number"
     t.decimal  "gross_sales"
     t.integer  "industry_type"
@@ -72,29 +56,6 @@ ActiveRecord::Schema.define(version: 20150120032919) do
     t.decimal  "capital_tax"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-    t.string   "sitio"
-    t.integer  "mayors_permit_fee_id"
-  end
-
-  create_table "documents", force: :cascade do |t|
-    t.string   "description"
-    t.string   "office"
-    t.date     "date_issued"
-    t.boolean  "default"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "fees", force: :cascade do |t|
-    t.decimal  "amount_of_fee_per_anum"
-    t.integer  "enterprise_scale"
-    t.decimal  "asset_size"
-    t.integer  "workforce"
-    t.integer  "type_of_business"
-    t.integer  "line_of_business_id"
-    t.integer  "business_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
   end
 
   create_table "gross_sales_taxes", force: :cascade do |t|
@@ -106,16 +67,11 @@ ActiveRecord::Schema.define(version: 20150120032919) do
 
   create_table "line_of_businesses", force: :cascade do |t|
     t.integer  "business_id"
-    t.integer  "tax_id"
-    t.integer  "type_of_business"
     t.string   "description"
     t.string   "psic_code"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
-
-  add_index "line_of_businesses", ["business_id"], name: "index_line_of_businesses_on_business_id", using: :btree
-  add_index "line_of_businesses", ["tax_id"], name: "index_line_of_businesses_on_tax_id", using: :btree
 
   create_table "mayors_permit_fees", force: :cascade do |t|
     t.decimal  "amount"
@@ -128,35 +84,9 @@ ActiveRecord::Schema.define(version: 20150120032919) do
     t.decimal  "amount"
     t.integer  "business_id"
     t.integer  "status"
-    t.integer  "tax_id"
     t.string   "official_receipt_number"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-  end
-
-  create_table "police_clearance_fees", force: :cascade do |t|
-    t.decimal  "amount"
-    t.integer  "business_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "required_documents", force: :cascade do |t|
-    t.string   "description"
-    t.string   "office"
-    t.date     "date_issued"
-    t.integer  "business_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "taxes", force: :cascade do |t|
-    t.string   "description"
-    t.boolean  "default"
-    t.integer  "business_id"
-    t.decimal  "amount"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
   create_table "taxpayers", force: :cascade do |t|
@@ -166,12 +96,9 @@ ActiveRecord::Schema.define(version: 20150120032919) do
     t.string   "suffix"
     t.string   "email"
     t.string   "mobile_number"
-    t.string   "telephone_number"
     t.string   "tin_number"
-    t.string   "workflow_state"
     t.string   "cedula_number"
-    t.string   "address_bldg_no"
-    t.string   "address_unit_no"
+    t.string   "address_sitio"
     t.string   "address_street"
     t.string   "address_barangay"
     t.string   "address_subdivision"

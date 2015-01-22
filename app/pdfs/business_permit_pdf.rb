@@ -92,7 +92,7 @@ class BusinessPermitPdf < Prawn::Document
     move_down 10
     text "Valid until #{Time.current.end_of_year.strftime('%B %d, %Y')} and shall be renewed on or before the 20th day of January #{Time.now.next_year.year}.", align: :center, size: 10
     move_down 10
-    text "Given this <u>#{Time.current.strftime('%B %d, %Y')}</u> at Tinoc, Ifugao.", align: :center, size: 10, inline_format: true
+    text "Given this <u>#{Time.now.strftime('%B %d, %Y')}</u> at Tinoc, Ifugao.", align: :center, size: 10, inline_format: true
   end
   def conditions
     text_box "CONDITIONS FOR THE VALIDITY OF THIS PERMIT

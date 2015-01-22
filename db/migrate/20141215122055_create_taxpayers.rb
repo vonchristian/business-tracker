@@ -7,12 +7,9 @@ class CreateTaxpayers < ActiveRecord::Migration
       t.string :suffix
       t.string :email
       t.string :mobile_number
-      t.string :telephone_number
       t.string :tin_number
-      t.string :workflow_state
       t.string :cedula_number
-      t.string :address_bldg_no
-      t.string :address_unit_no
+      t.string :address_sitio
       t.string :address_street
       t.string :address_barangay
       t.string :address_subdivision

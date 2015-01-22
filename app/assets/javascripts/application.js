@@ -12,9 +12,7 @@
 //
 
 //= require bootstrap-sprockets
-//= require chosen-jquery
 //= require bootstrap-datepicker
-//= require nested_form_fields
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
