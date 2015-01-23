@@ -49,4 +49,7 @@ end
   def set_amount_paid
     self.amount=total
   end
+  def self.collection_amount
+    Payment.sum(:amount)
+  end
 end

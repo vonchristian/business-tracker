@@ -1,5 +1,4 @@
-<br>
-<div class="tab-pane active" id="profile">
+
     <div class="row">
       <div class="col-md-8">
         <div class="panel panel-default">
@@ -30,5 +29,11 @@
            </div>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="well">
+         <h3>Collection Details</h3>
+      <hr>
+          <p>Collection: <%=number_to_currency(@payments.collection_amount, unit: ' P ')%></p>
+        </div>
+      </div>
     </div>
-  </div>
