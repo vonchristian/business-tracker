@@ -9,7 +9,9 @@ class Business < ActiveRecord::Base
   scope :retired,                   -> { where(status: :retired)             }
   scope :registered,             -> { where(status: :registered)        }
   scope :payment_pending, -> {where(status: :payment_pending)}
+  scope :latest, -> {where("created_at >=?", Time.zone.now.beginning_of_day)}
 
+  before_create :set_status_to_payment_pending
   before_save :set_capital_tax
   before_save :set_enterprise_scale
   before_save :set_permit_number
@@ -45,6 +47,7 @@ class Business < ActiveRecord::Base
   has_many :required_documents
   has_many :documents, through: :required_documents
 
+  #validates :status, inclusion: {in: Business.statuses.keys}
   validates :business_name,  presence: true
   validates :asset_size,  numericality:{ message: 'Invalid Amount'}
   validates :capital, numericality: { message: 'Invalid Amount aAmount'}, on: :create
@@ -108,18 +111,11 @@ class Business < ActiveRecord::Base
     self.gross_sales_taxes.create
   end
 
-    def renew
-      if self.gross_sales.present?
-      self.set_mayors_permit_fee
-      self.gross_sales_taxes.create
-      self.update_attributes(status: :payment_pending)
-    end
+  def renew
+    self.set_mayors_permit_fee
+    self.set_gross_sales_taxes if self.gross_sales.present?
+    self.update_attributes(status: 'payment_pending')
   end
-
-  def set_fees
-  self.fees.create
-   end
-
 
   def end_of_year
    if  Time.now.end_of_year?
@@ -152,8 +148,9 @@ end
   end
 
   def set_status_to_payment_pending
-    self.update_attributes(status: :payment_pending)
+    self.status=:payment_pending
   end
+
 private
     def set_enterprise_scale
       return self.enterprise_scale=:micro if self.micro_industry?

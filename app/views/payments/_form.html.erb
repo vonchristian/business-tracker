@@ -10,10 +10,10 @@
   <hr>
   <p><b>Type of Business:</b> <span class="pull-right"><%=@business.business_type.titleize %></span></p>
   <hr>
-  <p><b>Asset size:</b> <span class="pull-right"><%=@business.asset_size %></span></p>
+  <p><b>Asset size:</b> <span class="pull-right"><%=number_to_currency(@business.asset_size, unit: ' P ') %></span></p>
   <hr>
   <% if @business.gross_sales.present? %>
-  <p><b>Gross Sales:</b> <span class="pull-right"><%=@business.gross_sales %></span></p>
+  <p><b>Gross Sales:</b> <span class="pull-right"><%=number_to_currency(@business.gross_sales, unit: ' P ') %></span></p>
   <% end %>
 </div>
 </div>
@@ -25,20 +25,20 @@
       <hr>
       <p class="label-info-tax">Local Taxes </p>
  <% if @business.gross_sales.blank? %>
-      <p>Business Tax<span class="pull-right"><%=@business.capital_tax %> </span></p>
+      <p>Business Tax<span class="pull-right"><%=number_to_currency(@business.capital_tax, unit: ' P ') %> </span></p>
       <% end %>
    <% unless @business.gross_sales.blank? %>
-         <p>Gross Sales Tax<span class="pull-right"><%=@business.gross_sales_taxes_amount %> </span></p>
+         <p>Gross Sales Tax<span class="pull-right"><%=number_to_currency(@business.gross_sales_taxes_amount, unit: 'P ') %> </span></p>
   <% end %>
       <hr>
       <p class="label-info-tax">Regulatory Fees and Charges</p>
-            <p>Mayors Permit Fee: <span class="pull-right"><%=@business.mayors_permit_fee_amount %></span></p>
+            <p>Mayors Permit Fee: <span class="pull-right"><%=number_to_currency(@business.mayors_permit_fee_amount, unit: ' P ') %></span></p>
       <hr>
-      <p>Subtotal: <span class="pull-right"><%=@payment.subtotal %></span></p>
+      <p>Subtotal: <span class="pull-right"><%=number_to_currency(@payment.subtotal, unit: ' P ') %></span></p>
       <p>Exemptions: <span class="pull-right"><%=@payment.exemption %></span></p>
       <p>Surcharges: <span class="pull-right"><%=@payment.surcharge %></span></p>
       <hr>
-      <p>AMOUNT TO PAY <span class="pull-right"><%=@payment.total %></span></p>
+      <p>AMOUNT TO PAY <span class="pull-right"><%=number_to_currency(@payment.total, unit: ' P ') %></span></p>
       <hr>
       <%=simple_form_for [@business, @payment] do |f| %>
         <%=f.input :official_receipt_number %>

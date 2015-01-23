@@ -43,7 +43,6 @@ class BusinessesController < ApplicationController
     @business = Business.find(params[:id])
     authorize @business
     if @business.update_attributes(business_params)
-      @business.set_mayors_permit_fee
       @business.set_gross_sales_taxes if @business.gross_sales.present?
       @business.renew if @business.expired?
       redirect_to @business, notice: 'updated successfully'
@@ -57,10 +56,9 @@ class BusinessesController < ApplicationController
 end
 
 
-
   private
   def business_params
-    params.require(:business).permit(:no_of_employees, :gross_sales, :workflow_state, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :workforce_size, :business_name,   :address_street, :address_barangay, :address_municipality, :address_province)
+    params.require(:business).permit(:status, :no_of_employees, :gross_sales, :workflow_state, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :workforce_size, :business_name,   :address_street, :address_barangay, :address_municipality, :address_province)
   end
 
   def set_current_taxpayer

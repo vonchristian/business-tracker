@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-   enum role: [:system_administrator, :application_officer, :payment_officer, :approval_officer]
+   enum role: [:system_administrator, :application_officer, :payment_officer]
 
   after_initialize :set_default_role, :if => :new_record?
 

@@ -52,7 +52,7 @@ class BusinessPolicy < ApplicationPolicy
       elsif user.payment_officer?
         scope.where(status: 'payment_pending')
     elsif user.application_officer?
-      scope.where(status: :registered)
+      scope.all
     end
   end
   end

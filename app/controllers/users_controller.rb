@@ -29,11 +29,6 @@ before_action :authenticate_user!
     save_user or render 'edit'
   end
 
-  def destroy
-    load_user
-    @user.destroy
-    redirect_to users_path, :notice => 'User was successfully deleted.'
-  end
 end
 private
   def user_params

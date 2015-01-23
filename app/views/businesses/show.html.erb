@@ -30,7 +30,7 @@
             <% if @business.payment_pending? %>
             <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-default" %>
             <% end %>
-              <%=link_to 'Edit Profile', edit_business_path(@business), class: "btn btn-default" %>
+              <%=link_to 'Edit Business', edit_business_path(@business), class: "btn btn-default" %>
             </div>
           </div>
         </div>
@@ -69,8 +69,7 @@
   </div>
 
 
-  <div class="tab-pane" id="settings">.s..</div>
-
+  <div class="tab-pane" id="settings">
 
   <div class="tab-pane" id="timeline">.ts..</div>
 </div>
