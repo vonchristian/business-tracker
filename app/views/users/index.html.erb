@@ -1,4 +1,4 @@
-<div class="container">
+<div class="row">
 <div class="row col-md-8">
   <h2>List of Employees</h2>
 
@@ -17,7 +17,7 @@
              <tr>
                <td><%=user.full_name %></td>
                <td><%=user.email %></td>
-               <td><%=user.try(:role) %></td>
+               <td><%=user.try(:role).humanize %></td>
                 <% if current_user.system_administrator? %>
                <td><%=link_to 'Edit', edit_user_path(user)%></td>
                <% end %>
@@ -27,11 +27,9 @@
       </table>
     </div>
   </div>
-  </div>
     <% if current_user.system_administrator? %>
-  <div clas="row">
-<div class="well">
-  <%=link_to 'New Employee', new_user_path %>
+<div class="well well-sm">
+  <%=link_to 'New Employee', new_user_path, class: 'btn btn-success' %>
   </div>
   <% end %>
   </div>

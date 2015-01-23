@@ -5,11 +5,13 @@ end
 def new
   unless current_business.registered?
   @payment = current_business.payments.build
+  authorize @payment
 end
 end
 
 def create
   @payment =current_business.payments.build(payment_params)
+  authorize @payment
       @payment.collecting_officer= current_user.full_name
   if @payment.save
     @payment.business.update_payment_status
