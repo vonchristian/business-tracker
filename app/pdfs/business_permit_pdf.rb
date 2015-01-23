@@ -54,7 +54,7 @@ class BusinessPermitPdf < Prawn::Document
 
   def permit_number
     move_down 10
-    text "<u>PERMIT NUMBER: #{Time.current.year} -  #{@business.permit_number}</u>", size: 12, align: :center, style: :bold, inline_format: true
+    text "<u>PERMIT NUMBER: #{Time.current.year}  -  #{@business.permit_number}</u>", size: 12, align: :center, style: :bold, inline_format: true
   end
 
   def taxpayer

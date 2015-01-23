@@ -10,8 +10,10 @@ end
 
 def create
   @payment =current_business.payments.build(payment_params)
-  @payment.business.update_payment
+      @payment.collecting_officer= current_user.full_name
   if @payment.save
+    @payment.business.update_payment_status
+
     redirect_to businesses_path, notice: 'payment successfully made'
   else
     render :new

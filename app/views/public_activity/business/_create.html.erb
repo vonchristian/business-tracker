@@ -1,0 +1,6 @@
+registered a new business
+<% if  activity.trackable %>
+<%=link_to activity.trackable.business.business_name, activity.trackable.business %>
+<% else %>
+which has since been retired
+<% end %>

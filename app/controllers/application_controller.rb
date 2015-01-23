@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include PublicActivity::StoreController
   include Pundit
   include ActionController::MimeResponds
   include ActionController::ImplicitRender
@@ -14,9 +15,6 @@ class ApplicationController < ActionController::Base
 
   # Enforces access right checks for collections
  # after_filter :verify_policy_scoped, :only => :index
-
-
-
 
   private
         def load_schema
@@ -39,7 +37,7 @@ class ApplicationController < ActionController::Base
         end
 
         def permission_denied
-redirect_to root_path, alert: 'Permision Denied'
+redirect_to root_path, alert: 'Unauthorized Access!'
 end
 
 

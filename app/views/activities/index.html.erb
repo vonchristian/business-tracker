@@ -1,0 +1,7 @@
+<h1>Activities </h1>
+<%=@activities.each do |activity| %>
+<div class="activity">
+  <%=activity.owner.full_name if activity.owner  %>
+  <%=render_activity activity %>
+</div>
+<% end %>

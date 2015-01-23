@@ -1,13 +1,13 @@
 class Business < ActiveRecord::Base
+  include PublicActivity::Common
 
+  enum type_of_organization: [:sole_proprietorship, :corporation, :partnership]
 
-  enum type_of_organization: [:sole_proprietorship, :corporation]
-
-  scope :expired,            -> { where(status: :expired)            }
-  scope :new_business,  -> { where(status: :new_business) }
-  scope :delinquent,       -> { where(status: :delinquent)       }
-  scope :retired,              -> { where(status: :retired)             }
-  scope :registered,        -> { where(status: :registered)        }
+  scope :expired,                 -> { where(status: :expired)            }
+  scope :new_business,       -> { where(status: :new_business) }
+  scope :delinquent,             -> { where(status: :delinquent)       }
+  scope :retired,                   -> { where(status: :retired)             }
+  scope :registered,             -> { where(status: :registered)        }
   scope :payment_pending, -> {where(status: :payment_pending)}
 
   before_save :set_capital_tax
@@ -51,7 +51,7 @@ class Business < ActiveRecord::Base
  # validates :gross_sales, numericality: { message: 'Invalid Amount or less than the required amount', :greater_than =>30000}, on: :update
  # validates :gross_sales, numericality: { message: 'Invalid Asset Size' }
   #validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
-  def update_payment
+  def update_payment_status
     self.update_attributes(status: :registered)
   end
   def line_of_business

@@ -15,6 +15,7 @@ class BusinessesController < ApplicationController
       @business.set_mayors_permit_fee
       @business.set_capital_tax
       @business.set_status_to_payment_pending
+      @business.create_activity :create, owner: current_user
         redirect_to @business, notice: 'registered successfully'
     else
       render :new
@@ -43,6 +44,7 @@ class BusinessesController < ApplicationController
     authorize @business
     if @business.update_attributes(business_params)
       @business.set_mayors_permit_fee
+      @business.set_gross_sales_taxes if @business.gross_sales.present?
       @business.renew if @business.expired?
       redirect_to @business, notice: 'updated successfully'
     else

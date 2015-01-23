@@ -25,5 +25,6 @@ class Taxpayer < ActiveRecord::Base
       def titleize_full_name
         self.first_name=first_name.try(:titleize)
       end
-
+      def set_status
+      end
 end
