@@ -4,8 +4,9 @@ class Payment < ActiveRecord::Base
   belongs_to :business
   has_many :taxes, through: :business
   validates :official_receipt_number, presence: true, uniqueness: true
-  after_save :set_status_to_paid
+  before_save :set_status_to_paid, :set_collecting_officer
   before_save :set_amount_paid
+
   def total
     subtotal - exemption + surcharge
   end
@@ -46,5 +47,9 @@ end
   end
   def set_amount_paid
     self.amount=total
+  end
+
+  def set_collecting_officer
+    self.collecting_officer=current_user
   end
 end

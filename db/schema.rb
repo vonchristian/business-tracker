@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119104120) do
+ActiveRecord::Schema.define(version: 20150123010016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20150119104120) do
     t.string   "official_receipt_number"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "collecting_officer"
   end
 
   create_table "taxpayers", force: :cascade do |t|

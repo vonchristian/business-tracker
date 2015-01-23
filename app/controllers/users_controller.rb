@@ -11,6 +11,7 @@ before_action :authenticate_user!
 
   def new
     build_user
+
   end
 
   def edit
@@ -47,6 +48,7 @@ private
   end
   def build_user
     @user ||= user_scope.build
+    authorize @user
     @user.attributes = user_params
   end
   def save_user

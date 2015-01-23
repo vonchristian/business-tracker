@@ -1,4 +1,24 @@
-<div class='col-md-4 col-md-offset-4'>
+<div class="row">
+<div class="col-md-4">
+<div class="panel panel-success">
+   <div class="panel-body">
+   <h3>Business Details</h3>
+   <hr>
+  <p><b>Name of Business:</b> <span class="pull-right"><%=@business.business_name %></span></p>
+  <hr>
+  <p><b>Industry:</b> <span class="pull-right"><%=@business.industry_type.titleize %></span></p>
+  <hr>
+  <p><b>Type of Business:</b> <span class="pull-right"><%=@business.business_type.titleize %></span></p>
+  <hr>
+  <p><b>Asset size:</b> <span class="pull-right"><%=@business.asset_size %></span></p>
+  <hr>
+  <% if @business.gross_sales.present? %>
+  <p><b>Gross Sales:</b> <span class="pull-right"><%=@business.gross_sales %></span></p>
+  <% end %>
+</div>
+</div>
+</div>
+<div class='col-md-4 col-md-offset-1'>
 <div class="panel panel-default">
    <div class="panel-body">
       <h4>Payment Breakdown </h4>
@@ -28,4 +48,6 @@
       <% end %>
     </div>
   </div>
+</div>
+
 </div>

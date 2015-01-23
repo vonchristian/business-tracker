@@ -24,7 +24,8 @@ before_filter :current_business, only: [:new, :create]
   def update
     @line_of_business = LineOfBusiness.find(params[:id])
     if @line_of_business.update(line_of_business_params)
-      redirect_to line_of_businesses_path
+      redirect_to business_path
+
     else
       render :edit
     end

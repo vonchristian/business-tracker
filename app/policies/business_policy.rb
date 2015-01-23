@@ -50,9 +50,9 @@ class BusinessPolicy < ApplicationPolicy
       if user.system_administrator?
         scope.all
       elsif user.payment_officer?
-        scope.where(workflow_state: :payment_pending)
+        scope.where(status: 'payment_pending')
     elsif user.application_officer?
-      scope.where(workflow_state: :registered)
+      scope.where(status: :registered)
     end
   end
   end
