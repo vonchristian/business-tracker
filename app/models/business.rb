@@ -48,7 +48,7 @@ class Business < ActiveRecord::Base
   validates :business_name,  presence: true
   validates :asset_size,  numericality:{ message: 'Invalid Amount'}
   validates :capital, numericality: { message: 'Invalid Amount aAmount'}, on: :create
- validates :gross_sales, numericality: { message: 'Invalid Amount or less than the required amount', :greater_than =>30000}, if: -> {expired?}
+ # validates :gross_sales, numericality: { message: 'Invalid Amount or less than the required amount', :greater_than =>30000}, on: :update
  # validates :gross_sales, numericality: { message: 'Invalid Asset Size' }
   #validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
   def update_payment

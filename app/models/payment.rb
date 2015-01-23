@@ -20,7 +20,6 @@ end
 def taxes
   return tax_on_capital if self.business.gross_sales.blank?
   return tax_on_gross_sales if self.business.gross_sales.present?
-
 end
   def exemption
     0
