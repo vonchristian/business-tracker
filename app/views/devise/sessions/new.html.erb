@@ -3,7 +3,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">Business Permit Licensing System</div>
 <div class="panel-body">
-<%=image_tag("logo.png", height: 120, width: 120), class: 'centered' %>
+<%=image_tag("logo.png", height: 120, width: 120) %>
 <%= simple_form_for(resource, as: resource_name, :url => session_path(resource_name),
        wrapper_mappings: {boolean: :vertical_boolean }) do |f| %>
        <%= f.input :email, label: false do %>
