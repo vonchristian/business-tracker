@@ -1,7 +1,7 @@
 class Business < ActiveRecord::Base
   include PublicActivity::Common
 
-  enum type_of_organization: [:sole_proprietorship, :corporation, :partnership]
+  enum type_of_organization: [:sole_proprietorship, :corporation, :partnership, :association]
 
   scope :expired,                 -> { where(status: :expired)            }
   scope :new_business,       -> { where(status: :new_business) }
