@@ -48,7 +48,9 @@ class Business < ActiveRecord::Base
   has_many :documents, through: :required_documents
 
   #validates :status, inclusion: {in: Business.statuses.keys}
-  validates :business_name,  presence: true
+  validates :business_name, :industry_type, :business_type,
+                :address_barangay, :address_sitio, :address_municipality, :address_province,
+                :asset_size, :no_of_employees, :type_of_organization, presence: true
   validates :asset_size,  numericality:{ message: 'Invalid Amount'}
   validates :capital, numericality: { message: 'Invalid Amount aAmount'}, on: :create
  # validates :gross_sales, numericality: { message: 'Invalid Amount or less than the required amount', :greater_than =>30000}, on: :update

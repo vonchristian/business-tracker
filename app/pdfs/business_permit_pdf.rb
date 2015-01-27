@@ -65,8 +65,10 @@ class BusinessPermitPdf < Prawn::Document
   end
 
   def image_taxpayer
+    if @business.taxpayer.image.present?
     image "#{@business.taxpayer.image.path(:thumb)}", :at => [40, 170]
   end
+end
 
   def type_of_organization
     move_down 10
