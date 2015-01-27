@@ -84,6 +84,10 @@ GEM
     childprocess (0.5.5)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.5)
+      climate_control (>= 0.0.3, < 1.0)
     code_analyzer (0.4.5)
       sexp_processor
     coderay (1.1.0)
@@ -195,6 +199,11 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
+    paperclip (4.2.1)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     pdf-core (0.4.0)
     pg (0.18.1)
     pg_search (0.7.8)
@@ -405,6 +414,7 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   letter_opener
+  paperclip (~> 4.2)
   pg
   pg_search
   prawn

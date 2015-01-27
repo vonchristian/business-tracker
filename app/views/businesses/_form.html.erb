@@ -55,7 +55,6 @@
         <div class="row">
         <div class="col-md-6">
         <%=f.input :address_sitio, label: 'Sitio' %>
-        <%=f.input :address_street, label: 'Street' %>
         <%=f.input :address_barangay, label: "Barangay "%>
         </div>
          <div class="col-md-6">
@@ -64,6 +63,7 @@
         <%=f.input :address_province, label: 'Province'  %>
         </div>
         </div>
+
         <div class="modal-footer">
         <% if @business.new_record? %>
         <%=f.button :submit, 'Register Business', class: 'btn btn-primary' %>

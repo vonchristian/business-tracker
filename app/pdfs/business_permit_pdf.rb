@@ -6,6 +6,7 @@ class BusinessPermitPdf < Prawn::Document
    business_name
    permit_number
    taxpayer
+   image_taxpayer
    type_of_organization
   address
   line_of_business
@@ -60,7 +61,11 @@ class BusinessPermitPdf < Prawn::Document
   def taxpayer
     move_down 10
     text  "#{@business.taxpayer_name.upcase}", align: :center, style: :bold
-    text "Proprietor/Manager", align: :center
+    text "Taxpayer/Proprietor/Manager", align: :center
+  end
+
+  def image_taxpayer
+    image "#{@business.taxpayer.image.path(:thumb)}", :at => [40, 170]
   end
 
   def type_of_organization
@@ -101,17 +106,17 @@ class BusinessPermitPdf < Prawn::Document
      3. This permit must be displayed in a conspicous place within the business establishment.
      4. NO SELLING OF LIQUOR.
      5. This permit is NON-TRANSFERABLE.
-     6. Non-compliance to the above stated conditions means cancellation of permit.", :at => [40,250], height: 100, width: 400, size: 10
+     6. Non-compliance to the above stated conditions means cancellation of permit.", :at => [40,260], height: 100, width: 400, size: 10
   end
 
 
   def signatory
     text_box "MARCELO G. CATALINO, Ph.D.
-                            Municipal Mayor", :at => [250, 80], align: :center, style: :bold
+                            Municipal Mayor", :at => [250, 100], align: :center, style: :bold
 
 end
   def dry_seal
-    text_box "NOT VALID WITHOUT SEAL", :at=>[40, 12], size: 8
+    text_box "NOT VALID WITHOUT SEAL", :at=>[360, 12], size: 8
   end
 
   def transaction_details
@@ -119,6 +124,6 @@ end
                   Amount Paid:  P #{@business.amount_paid}
                   Cedula No:     #{@business.cedula_number}
                   Issued On:      #{@business.date_issued}
-                  Issued At:       #{@business.place_issued}", :at => [40, 70], :height => 100, :width => 150, size: 7, style: :italic
+                  Issued At:       #{@business.place_issued}", :at => [360, 60], :height => 100, :width => 150, size: 7, style: :italic
   end
 end

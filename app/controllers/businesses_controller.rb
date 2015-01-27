@@ -44,6 +44,7 @@ class BusinessesController < ApplicationController
     authorize @business
     if @business.update_attributes(business_params)
       @business.set_gross_sales_taxes if @business.gross_sales.present?
+      @business.set_mayors_permit_fee
       @business.renew if @business.expired?
       redirect_to @business, notice: 'updated successfully'
     else

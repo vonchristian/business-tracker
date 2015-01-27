@@ -11,6 +11,7 @@ class TaxpayersController < ApplicationController
   end
 
   def edit
+    @taxpayer = Taxpayer.find(params[:id])
     authorize @taxpayer
   end
 
@@ -48,7 +49,7 @@ def set_taxpayer
   redirect_to taxpayers_path
 end
 def taxpayer_params
-  params.require(:taxpayer).permit(:first_name, :middle_name, :last_name, :email,
+  params.require(:taxpayer).permit(:image, :first_name, :middle_name, :last_name, :email,
                           :mobile_number, :cedula_number, :cedula_date_issued, :cedula_place_issued,
                           :address_street, :address_barangay, :address_municipality, :address_province)
 end

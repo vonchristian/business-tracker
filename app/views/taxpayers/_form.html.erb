@@ -4,7 +4,7 @@
     <div class="panel-body">
     <h3>Taxpayer Details </h3>
     <hr>
-      <%= simple_form_for @taxpayer, html: { class: 'form-horizontal' },
+      <%= simple_form_for @taxpayer,  html: { class: 'form-horizontal', multipart: true },
 wrapper: :horizontal_form,
 wrapper_mappings: {
 check_boxes: :horizontal_radio_and_checkboxes,
@@ -14,6 +14,9 @@ boolean: :horizontal_boolean
 } do |f| %>
 <div class="row">
 <div class="col-md-6">
+
+<%= f.file_field :image%>
+<br>
         <%=f.input :first_name, autofocus: true %>
         <%=f.input :middle_name %>
         <%=f.input :last_name %>
@@ -29,8 +32,8 @@ boolean: :horizontal_boolean
         <hr>
         <div class="row">
          <div class="col-md-6">
-           <%=f.input :cedula_date_issued, as: :string, label: 'Date Issued', placeholder: 'mm/dd/yy' %>
           <%=f.input  :cedula_number %>
+           <%=f.input :cedula_date_issued, as: :string, label: 'Date Issued', placeholder: 'mm/dd/yy' %>
         </div>
          <div class="col-md-6">
           <%=f.input :cedula_place_issued %>
