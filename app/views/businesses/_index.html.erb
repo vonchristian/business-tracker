@@ -30,7 +30,7 @@
                         <% if business.delinquent? %>
                        <%=link_to 'Pay Dues', renew_business_path(business)%>
                        <% end %>
-                       <% if business.registered? && current_user.system_administrator?%>
+                       <% if business.registered? && current_user.system_administrator? && business.line_of_businesses.present?%>
                        <%=link_to ' Print Mayors Permit', business_path(business, format: "pdf"), class: " btn  fa fa-print" %>
                        <% end %>
 

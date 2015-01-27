@@ -1,6 +1,7 @@
 class GrossSalesTax  < ActiveRecord::Base
   belongs_to :business
   before_save :set_amount
+  before_save :check_amount_of_contractors_tax_in_excess_of_two_million
 
   def manufacturers_electric_power_producers_assemblers_repackers_processors_tax
     self.amount=181.50   if business.gross_sales<10_000
@@ -124,16 +125,44 @@ def sales_of_services_tax
     self.amount=10_150  if business.gross_sales>=500_000...749_999
     self.amount=11_270  if business.gross_sales>=750_000...999_999
     self.amount=12_600  if business.gross_sales>=1_000_000...1_999_999
-    self.amount=business.gross_sales*0.0150 if business.gross_sales>2_000_000
+    self.amount=business.gross_sales*0.01 *0.50 if business.gross_sales>2_000_000
+end
+
+def contractors_tax
+    self.amount=30   if business.gross_sales<5_000
+    self.amount=67        if business.gross_sales>=5_000...9_999
+    self.amount=114        if business.gross_sales>=10_000...14_999
+    self.amount=180       if business.gross_sales>=15_000...19_999
+    self.amount=300      if business.gross_sales>=20_000...29_999
+    self.amount=420      if business.gross_sales>=30_000...39_999
+    self.amount=600      if business.gross_sales>=40_000...49_999
+    self.amount=965      if business.gross_sales>=50_000...74_999
+    self.amount=1_450      if business.gross_sales>=75_000...99_999
+    self.amount=2_170      if business.gross_sales>=100_000...149_999
+    self.amount=2_900       if business.gross_sales>=150_000...199_999
+    self.amount=3_990       if business.gross_sales>=200_000...249_999
+    self.amount=5_080      if business.gross_sales>=250_000...299_999
+    self.amount=6_770      if business.gross_sales>=300_000...399_999
+    self.amount=9_075  if business.gross_sales>=400_000...499_999
+    self.amount=10_150  if business.gross_sales>=500_000...749_999
+    self.amount=11_270  if business.gross_sales>=750_000...999_999
+    self.amount=12_600  if business.gross_sales>=1_000_000...1_999_999
+    self.amount = self.business.gross_sales * 0.01 * 0.50 if  self.business.gross_sales>=2_000_000
 end
 
     private
+    def check_amount_of_contractors_tax_in_excess_of_two_million
+      if  self.business.contractors? || self.business.sales_of_services? && self.business.gross_sales>=2_000_000 && self.amount<12_600
+      self.amount=12_600
+      end
+    end
 
     def set_amount
       return manufacturers_electric_power_producers_assemblers_repackers_processors_tax if self.business.manufacturers_electric_power_producers_assemblers_repackers_processors?
       return wholesalers_dealers_distributors_tax if self.business.wholesalers_dealers_distributors?
       return retailers_tax if self.business.retailers?
       return sales_of_services_tax if self.business.sales_of_services?
+      return contractors_tax if self.business.contractors?
    end
 end
 
