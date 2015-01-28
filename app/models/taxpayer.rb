@@ -1,5 +1,5 @@
 class Taxpayer < ActiveRecord::Base
-  has_attached_file :image, :styles => { :medium => "200x200>", :thumb => "120x120>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :image, :styles => { :medium => "200x200>", :thumb => "120x120>", :small => "50x50" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   enum status:[:new_taxpayer, :old, :deliquent]
 

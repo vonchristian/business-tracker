@@ -1,5 +1,5 @@
     <% cache do %>
- <nav class="navbar navbar-default">
+ <nav class="navbar navbar-default ">
     <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -11,11 +11,20 @@
       </button>
 
       <%=link_to current_subdomain, root_path, class: 'navbar-brand' %>
+
     </div>
+<%=form_tag businesses_path, class: 'navbar-form navbar-left', method: :get do %>
+<div class="form-group">
+  <%=text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search for Businesses, Taxpayers, etc.' %>
+  <%=submit_tag  'Search', name: :nil, class: 'btn btn-default '%>
+
+</div>
+<% end %>
 
     <ul class="nav navbar-nav navbar-right">
 
         <% if user_signed_in? %>
+
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">  Payments <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
