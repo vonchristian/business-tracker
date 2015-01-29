@@ -1,19 +1,22 @@
 
 <ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#profile" role="tab" data-toggle="tab">Businesses <span class="badge text-info"><%=@businesses.count %></span></a></li>
+  <li class="active"><a href="#businesses" role="tab" data-toggle="tab">Businesses <span class="badge"><%=@businesses.count %></span></a></li>
   <li><a href="#taxpayers" role="tab" data-toggle="tab">Taxpayers <span class="badge"><%=@taxpayers.count%></span></a></li>
+   <li><a href="#expired-permits" role="tab" data-toggle="tab">Expired Permits <span class="badge"><%=@businesses.expired.count%></span></a></li>
 
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
+<div class="tab-pane active" id="businesses">
   <%=render 'businesses/index' %>
-
+</div>
   <div class="tab-pane" id="taxpayers">
  <%=render 'taxpayers/index' %>
-
   </div>
-
+  <div class="tab-pane" id="expired-permits">
+ <%=render 'businesses/expired_permits' %>
+  </div>
 </div>
 
 

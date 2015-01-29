@@ -1,4 +1,5 @@
 class Payment < ActiveRecord::Base
+
   attr_accessor :current_user
   enum status: [:paid, :unpaid]
   belongs_to :taxpayer

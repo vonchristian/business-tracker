@@ -40,7 +40,7 @@ Rails.application.routes.draw do
           resources :fees
           resources :payments
           resources :activities
-          resource :searches
+
   end
 
    constraints(SubdomainBlank) do

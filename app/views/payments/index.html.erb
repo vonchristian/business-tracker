@@ -12,6 +12,7 @@
                     <th> Taxpayer</th>
                     <th>Date of Payment</th>
                     <th>Amount</th>
+                    <th>O.R. Number</th>
                     <th>Collecting Officer</th>
 
                   </tr>
@@ -21,7 +22,8 @@
                     <tr>
                       <td><%=payment.business.taxpayer_name%></td>
                       <td><%=payment.created_at.strftime('%B %d %Y')%></td>
-                      <td><%=payment.amount %></td>
+                      <td class="pull-right"><%=number_to_currency(payment.amount, unit: ' P ' )%></td>
+                      <td><%=payment.official_receipt_number %></td>
                       <td><%=payment.collecting_officer%></td>
                     </tr>
                   <%end%>

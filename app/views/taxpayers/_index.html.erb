@@ -27,7 +27,7 @@
         <tbody>
           <% @taxpayers.each do |taxpayer| %>
             <tr>
-            <td><%= image_tag taxpayer.image.url(:small), class: 'img-rounded' %></td>
+            <td><%= image_tag taxpayer.image.url(:small), class: 'img-circle' %></td>
               <td><%=link_to taxpayer.full_name, taxpayer, class: 'btn btn-link'%></td>
               <td><%=taxpayer.created_at.strftime('%B %d %Y')%></td>
               <td><%=taxpayer.address%></td>
@@ -45,3 +45,4 @@
    </div>
 </div>
 <% end %>
+</div>
