@@ -3,6 +3,7 @@ source 'https://rubygems.org'
     gem 'rails', '4.2.0'
 
   gem "paperclip", "~> 4.2"
+  gem 'mechanize'
   gem 'bootstrap-datepicker-rails'
   gem 'prawn'
   gem 'prawn-table'
