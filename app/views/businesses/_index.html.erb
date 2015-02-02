@@ -14,9 +14,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% @businesses.each do |business| %>
+                  <% @businesses.registered.each do |business| %>
                     <tr>
-                      <td><%=link_to truncate(business.business_name.upcase, length: 30), business, class: 'btn btn-link'%></td>
+                      <td><%=link_to truncate(business.business_name.upcase, length: 30), business, class: 'text-success'%></td>
                       <td class="data-halign="center" data-align="left""><%= business.taxpayer_name %></td>
                       <td><%=business.status.titleize%></td>
                       <td>

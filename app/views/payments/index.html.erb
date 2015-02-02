@@ -20,7 +20,7 @@
                 <tbody>
                   <% @payments.each do |payment| %>
                     <tr>
-                      <td><%=payment.business.taxpayer_name%></td>
+                      <td><%=payment.business.try(:taxpayer_name)%></td>
                       <td><%=payment.created_at.strftime('%B %d %Y')%></td>
                       <td class="pull-right"><%=number_to_currency(payment.amount, unit: ' P ' )%></td>
                       <td><%=payment.official_receipt_number %></td>

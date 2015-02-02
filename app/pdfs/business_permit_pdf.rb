@@ -66,7 +66,7 @@ class BusinessPermitPdf < Prawn::Document
 
   def image_taxpayer
     if @business.taxpayer.image.present?
-    image "#{@business.taxpayer.image.path(:thumb)}", :at => [40, 170]
+    image "#{@business.taxpayer.image.path(:thumb)}", :at => [40, 160]
   end
 end
 
@@ -108,7 +108,7 @@ end
      3. This permit must be displayed in a conspicous place within the business establishment.
      4. NO SELLING OF LIQUOR.
      5. This permit is NON-TRANSFERABLE.
-     6. Non-compliance to the above stated conditions means cancellation of permit.", :at => [40,260], height: 100, width: 400, size: 10
+     6. Non-compliance to the above stated conditions means cancellation of permit.", :at => [40,240], height: 100, width: 400, size: 10
   end
 
 

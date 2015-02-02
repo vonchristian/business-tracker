@@ -40,7 +40,7 @@ Rails.application.routes.draw do
           resources :fees
           resources :payments
           resources :activities
-
+    get 'reports' => 'reports#index', as: 'reports'
   end
 
    constraints(SubdomainBlank) do

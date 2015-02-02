@@ -2,6 +2,13 @@ class BusinessesController < ApplicationController
   def index
     @businesses = BusinessPolicy::Scope.new(current_user, Business).resolve
     @taxpayers = Taxpayer.all
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = PermitReportPdf.new(@businesses)
+        send_data pdf.render, filename: "permit.pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
   end
   def new
     @taxpayer =  Taxpayer.find(params[:taxpayer_id])

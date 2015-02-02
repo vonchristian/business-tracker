@@ -5,6 +5,7 @@ source 'https://rubygems.org'
   gem "paperclip", "~> 4.2"
   gem 'bootstrap-datepicker-rails'
   gem 'prawn'
+  gem 'prawn-table'
   gem 'apartment'
   gem 'public_activity'
   gem 'jquery-turbolinks'
