@@ -112,6 +112,8 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    domain_name (0.5.23)
+      unf (>= 0.0.5, < 1.0.0)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -156,6 +158,8 @@ GEM
     highline (1.6.21)
     hike (1.2.3)
     hitimes (1.2.2)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
     jbuilder (2.2.6)
@@ -188,17 +192,29 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mechanize (2.7.3)
+      domain_name (~> 0.5, >= 0.5.1)
+      http-cookie (~> 1.0)
+      mime-types (~> 2.0)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 2.5, >= 2.5.2)
+      nokogiri (~> 1.4)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (>= 0.0.9, < 0.2)
     method_source (0.8.2)
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
     multi_json (1.10.1)
     nenv (0.2.0)
+    net-http-digest_auth (1.4)
+    net-http-persistent (2.9.4)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     notiffany (0.0.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    ntlm-http (0.1.1)
     orm_adapter (0.5.0)
     paperclip (4.2.1)
       activemodel (>= 3.0.0)
@@ -363,6 +379,9 @@ GEM
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.6)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -378,6 +397,7 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (~> 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    webrobots (0.1.1)
     websocket (1.2.1)
     whenever (0.9.4)
       chronic (>= 0.6.3)
@@ -412,6 +432,7 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   letter_opener
+  mechanize
   paperclip (~> 4.2)
   pg
   pg_search
