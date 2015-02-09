@@ -41,6 +41,21 @@ Rails.application.routes.draw do
           resources :payments
           resources :activities
     get 'reports' => 'reports#index', as: 'reports'
+    get 'delinquents_ahin' => 'businesses#delinquents_ahin'
+    get 'delinquents_apapid' => 'businesses#delinquents_apapid'
+    get 'delinquents_binablayan' => 'businesses#delinquents_binablayan'
+    get 'delinquents_danggo' => 'businesses#delinquents_danggo'
+    get 'delinquents_eheb' => 'businesses#delinquents_eheb'
+    get 'delinquents_gumhang' => 'businesses#delinquents_gumhang'
+    get 'delinquents_impugong' => 'businesses#delinquents_impugong'
+    get 'delinquents_luhong' => 'businesses#delinquents_luhong'
+    get 'delinquents_poblacion' => 'businesses#delinquents_poblacion'
+    get 'delinquents_tukucan' => 'businesses#delinquents_tukucan'
+    get 'delinquents_tulludan' => 'businesses#delinquents_tulludan'
+    get 'delinquents_wangwang' => 'businesses#delinquents_wangwang'
+     get 'dole_report' => 'businesses#dole_report'
+      get 'bir_report' => 'businesses#bir_report'
+
   end
 
    constraints(SubdomainBlank) do

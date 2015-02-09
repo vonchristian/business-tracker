@@ -12,7 +12,7 @@
         boolean: :horizontal_boolean
         } do |f| %>
           <%=f.error_notification %>
-          <% if @business.expired? || @business.payment_pending?%>
+          <% if @business.expired? || @business.payment_pending? || @business.delinquent?%>
             <h3>Gross Sales Details</h3>
             <hr>
             <div class="row">

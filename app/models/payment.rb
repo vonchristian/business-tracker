@@ -22,14 +22,23 @@ end
 
 def taxes
   return tax_on_capital if self.business.gross_sales.blank?
-  return tax_on_gross_sales if self.business.gross_sales
+  return tax_on_gross_sales if self.business.gross_sales.present?
+  return tax_on_cooperatives if self.business.cooperative?
 end
   def exemption
-    0
+    if self.business.cooperative?
+      self.tax_on_gross_sales
+    else
+   0
+ end
   end
 
-   def surcharge
-    0
+  def surcharge
+    if registration_date_lapsed? && self.business.delinquent?
+      fees * 0.25
+   else
+      0
+    end
   end
 
   def mayors_permit_fee
@@ -44,6 +53,9 @@ end
   end
 
   private
+  def tax_on_cooperatives
+    0
+  end
   def set_status_to_paid
     self.status=:paid
   end
@@ -52,5 +64,8 @@ end
   end
   def self.collection_amount
     Payment.sum(:amount)
+  end
+  def registration_date_lapsed?
+    self.business.updated_at > Time.now.beginning_of_year + 20.days
   end
 end

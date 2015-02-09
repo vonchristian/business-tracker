@@ -8,13 +8,13 @@ class BusinessPermitPdf < Prawn::Document
    taxpayer
    image_taxpayer
    type_of_organization
-  address
-  line_of_business
-  content
-  conditions
-  signatory
-  dry_seal
-  transaction_details
+   address
+   line_of_business
+   content
+   conditions
+   signatory
+   dry_seal
+   transaction_details
   end
   def heading_picture
     y_position = cursor

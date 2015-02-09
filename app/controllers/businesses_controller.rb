@@ -1,4 +1,124 @@
 class BusinessesController < ApplicationController
+  def delinquents_poblacion
+    @businesses = Business.delinquent.where(address_barangay: 'Poblacion')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "permit.pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_impugong
+    @businesses = Business.delinquent.where(address_barangay: 'Impugong')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Impugong).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_ahin
+    @businesses = Business.delinquent.where(address_barangay: 'Ahin')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Ahin).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_apapid
+    @businesses = Business.delinquent.where(address_barangay: 'Ap-apid')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Ap-apid).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_binablayan
+    @businesses = Business.delinquent.where(address_barangay: 'Binablayan')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Binablayan).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_wangwang
+    @businesses = Business.delinquent.where(address_barangay: 'Wangwang')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Wangwang).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_eheb
+    @businesses = Business.delinquent.where(address_barangay: 'Eheb')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Eheb).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_danggo
+    @businesses = Business.delinquent.where(address_barangay: 'Danggo')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Danggo).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_luhong
+    @businesses = Business.delinquent.where(address_barangay: 'Luhong')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Luhong).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_gumhang
+    @businesses = Business.delinquent.where(address_barangay: 'Gumhang')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Gumhang).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_tulludan
+    @businesses = Business.delinquent.where(address_barangay: 'Tulludan')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Tulludan).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def delinquents_tukucan
+    @businesses = Business.delinquent.where(address_barangay: 'Tukucan')
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = DelinquencyReportPdf.new(@businesses)
+        send_data pdf.render, filename: "delinquent(Tukucan).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
   def index
     @businesses = BusinessPolicy::Scope.new(current_user, Business).resolve
     @taxpayers = Taxpayer.all
@@ -7,6 +127,28 @@ class BusinessesController < ApplicationController
       format.pdf do
         pdf = PermitReportPdf.new(@businesses)
         send_data pdf.render, filename: "permit.pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def dole_report
+    @businesses = BusinessPolicy::Scope.new(current_user, Business).resolve
+    @taxpayers = Taxpayer.all
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = PermitReportPdf.new(@businesses)
+        send_data pdf.render, filename: "dole_report.pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+   def bir_report
+    @businesses = BusinessPolicy::Scope.new(current_user, Business).resolve
+    @taxpayers = Taxpayer.all
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = BirReportPdf.new(@businesses)
+        send_data pdf.render, filename: "bir_report.pdf", type: 'application/pdf', disposition: "inline"
       end
     end
   end
@@ -66,7 +208,7 @@ end
 
   private
   def business_params
-    params.require(:business).permit(:status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
+    params.require(:business).permit(:application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
   end
 
   def set_current_taxpayer

@@ -14,11 +14,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% @businesses.registered.each do |business| %>
+                  <% @businesses.each do |business| %>
                     <tr>
                       <td><%=link_to truncate(business.business_name.upcase, length: 30), business, class: 'text-success'%></td>
                       <td class="data-halign="center" data-align="left""><%= business.taxpayer_name %></td>
-                      <td><%=business.status.titleize%></td>
+                      <td><%=business.status%></td>
                       <td>
                       <% if business.payment_pending?  %>
                        <%=link_to 'Pay', new_business_payment_path(business)%>
@@ -28,7 +28,7 @@
                        <% end %>
 
                         <% if business.delinquent? %>
-                       <%=link_to 'Pay Dues', renew_business_path(business)%>
+                       <%=link_to 'Pay Dues', renew_business_path(business), method: :get %>
                        <% end %>
                        <% if business.registered? && current_user.system_administrator? && business.line_of_businesses.present?%>
                        <%=link_to ' Print Mayors Permit', business_path(business, format: "pdf"), class: " btn  fa fa-print" %>

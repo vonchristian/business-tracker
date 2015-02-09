@@ -27,7 +27,7 @@
             <% else %>
               <%=link_to 'Edit Line of Business', edit_line_of_business_path(@business, @line_of_business), class: "btn btn-default" %>
               <% end %>
-            <% if @business.payment_pending? %>
+            <% if @business.payment_pending? || @business.delinquent?%>
             <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-default" %>
             <% end %>
               <%=link_to 'Edit Business', edit_business_path(@business), class: "btn btn-default" %>

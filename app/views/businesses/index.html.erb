@@ -2,7 +2,7 @@
 <ul class="nav nav-tabs" role="tablist">
   <li class="active"><a href="#businesses" role="tab" data-toggle="tab">Businesses <span class="badge"><%=@businesses.count %></span></a></li>
   <li><a href="#taxpayers" role="tab" data-toggle="tab">Taxpayers <span class="badge"><%=@taxpayers.count%></span></a></li>
-   <li><a href="#expired-permits" role="tab" data-toggle="tab">Expired Permits <span class="badge"><%=@businesses.expired.count%></span></a></li>
+   <li><a href="#delinquent-businesses" role="tab" data-toggle="tab">Delinquent Businesses <span class="badge badge-danger"><%=@businesses.delinquent.count%></span></a></li>
 
 </ul>
 
@@ -14,8 +14,8 @@
   <div class="tab-pane" id="taxpayers">
  <%=render 'taxpayers/index' %>
   </div>
-  <div class="tab-pane" id="expired-permits">
- <%=render 'businesses/expired_permits' %>
+  <div class="tab-pane" id="delinquent-businesses">
+ <%=render 'businesses/delinquent_businesses' %>
   </div>
 </div>
 

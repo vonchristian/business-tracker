@@ -30,15 +30,16 @@
    <% unless @business.gross_sales.blank? %>
          <p>Gross Sales Tax<span class="pull-right"><%=number_to_currency(@business.gross_sales_taxes_amount, unit: 'P ') %> </span></p>
   <% end %>
+
       <hr>
       <p class="label-info-tax">Regulatory Fees and Charges</p>
             <p>Mayors Permit Fee: <span class="pull-right"><%=number_to_currency(@business.mayors_permit_fee_amount, unit: ' P ') %></span></p>
       <hr>
       <p>Subtotal: <span class="pull-right"><%=number_to_currency(@payment.subtotal, unit: ' P ') %></span></p>
-      <p>Exemptions: <span class="pull-right"><%=@payment.exemption %></span></p>
-      <p>Surcharges: <span class="pull-right"><%=@payment.surcharge %></span></p>
+      <p>Exemptions: <span class="pull-right text-success"> - <%=@payment.exemption %></span></p>
+      <p>Surcharges: <span class="pull-right text-danger"><%=@payment.surcharge %></span></p>
       <hr>
-      <p>AMOUNT TO PAY <span class="pull-right"><%=number_to_currency(@payment.total, unit: ' P ') %></span></p>
+      <p>AMOUNT TO PAY <span class="pull-right text-info"><strong><%=number_to_currency(@payment.total, unit: ' P ') %></strong></span></p>
       <hr>
       <%=simple_form_for [@business, @payment] do |f| %>
         <%=f.input :official_receipt_number %>

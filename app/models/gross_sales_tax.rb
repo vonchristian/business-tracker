@@ -1,6 +1,6 @@
 class GrossSalesTax  < ActiveRecord::Base
   belongs_to :business
-  before_save :set_amount
+  before_create :set_amount
   after_save :check_amount_of_contractors_tax_in_excess_of_two_million
 
   def manufacturers_electric_power_producers_assemblers_repackers_processors_tax
@@ -137,6 +137,7 @@ end
       return sales_of_services_tax if self.business.sales_of_services?
       return contractors_tax if self.business.contractors?
       return retailers_of_essential_commodities if self.business.retailers_of_essential_commodities?
+      return banks_and_other_financial_institutions_tax if self.business.other_financial_institutions?
    end
 end
 

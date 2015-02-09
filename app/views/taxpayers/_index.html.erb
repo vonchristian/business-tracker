@@ -18,10 +18,10 @@
       <table class="table table-hover table-condensed">
         <thead>
           <tr>
+            <th></th>
             <th>Name</th>
             <th>Date Registered</th>
             <th>Address</th>
-            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -31,7 +31,6 @@
               <td><%=link_to taxpayer.full_name, taxpayer, class: 'btn btn-link'%></td>
               <td><%=taxpayer.created_at.strftime('%B %d %Y')%></td>
               <td><%=taxpayer.address%></td>
-              <td><%=taxpayer.status%></td>
               <td>
               <% if current_user.system_administrator? %>
                        <%=link_to ' Edit', edit_taxpayer_path(taxpayer)%>

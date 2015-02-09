@@ -1,23 +1,8 @@
 class Business < ActiveRecord::Base
   include PublicActivity::Common
-
   enum type_of_organization: [:sole_proprietorship, :corporation, :partnership, :association, :cooperative]
-
-  scope :expired,                 -> { where(status: :expired)            }
-  scope :new_business,       -> { where(status: :new_business) }
-  scope :delinquent,             -> { where(status: :delinquent)       }
-  scope :retired,                   -> { where(status: :retired)             }
-  scope :registered,             -> { where(status: :registered)        }
-  scope :payment_pending, -> {where(status: :payment_pending)}
-  scope :latest, -> {where("created_at >=?", Time.zone.now.beginning_of_day)}
-
-  before_create :set_status_to_payment_pending
-  before_save :set_capital_tax
-  before_save :set_enterprise_scale
-  before_save :set_permit_number
   enum status: [:payment_pending, :registered, :expired, :renewed, :delinquent]
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
-
   enum business_type: [:manufacturers_electric_power_producers_assemblers_repackers_processors,
                                        :wholesalers_dealers_distributors,
                                        :exporters_producers_millers_manufacturers_of_essential_commodities,
@@ -26,16 +11,24 @@ class Business < ActiveRecord::Base
                                        :retailers,
                                        :contractors,
                                        :banks_and_other_financial_institutions,
-                                       :sales_of_services
-                                     ]
+                                       :sales_of_services]
   enum industry_type: [:manufacturers_importers_producers,
                                       :banks,
                                       :other_financial_institutions,
                                       :contractors_service_establishments,
                                       :wholesalers_retailers_dealers_distributors,
                                       :transloading_operations,
-                                      :other_businesses
-                                    ]
+                                      :other_businesses]
+
+
+  scope :latest, -> {where("created_at >=?", Time.zone.now.beginning_of_year + 20.days)}
+
+  before_create :set_status_to_payment_pending
+  before_save :set_capital_tax
+  before_save :set_enterprise_scale
+  before_save :set_permit_number, :capitalize_barangay
+
+
 
   belongs_to  :taxpayer
   has_many :police_clearance_fees
@@ -52,7 +45,7 @@ class Business < ActiveRecord::Base
                 :address_barangay, :address_sitio, :address_municipality, :address_province,
                 :asset_size, :no_of_employees, :type_of_organization, presence: true
   validates :asset_size,  numericality:{ message: 'Invalid Amount'}
-  validates :capital, numericality: { message: 'Invalid Amount aAmount'}, on: :create
+  validates :capital, numericality: { message: 'Invalid Amount'}, on: :create
  # validates :gross_sales, numericality: { message: 'Invalid Amount or less than the required amount', :greater_than =>30000}, on: :update
  # validates :gross_sales, numericality: { message: 'Invalid Asset Size' }
   #validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
@@ -71,6 +64,10 @@ class Business < ActiveRecord::Base
 
   def taxpayer_name
     self.taxpayer.try(:first_and_last_name)
+  end
+
+   def taxpayer_mobile_number
+    self.taxpayer.try(:mobile_number)
   end
 
   def cedula_number
@@ -94,7 +91,7 @@ class Business < ActiveRecord::Base
   end
 
   def full_address
-    "#{address_barangay}, #{address_municipality}, #{address_province}"
+    "#{address_sitio}, #{address_barangay}, #{address_municipality}, #{address_province}"
   end
 
   def set_mayors_permit_fee
@@ -165,6 +162,10 @@ def set_permit_number
   if permit_number.blank?
    self.permit_number=self.id
  end
+end
+
+def capitalize_barangay
+  self.address_barangay=self.address_barangay.capitalize
 end
 
 
