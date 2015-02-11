@@ -61,7 +61,7 @@ class BusinessPermitPdf < Prawn::Document
   def taxpayer
     move_down 10
     text  "#{@business.taxpayer_name.upcase}", align: :center, style: :bold
-    text "Taxpayer/Proprietor/Manager", align: :center
+    text "Taxpayer/Proprietor/Manager/President", align: :center
   end
 
   def image_taxpayer

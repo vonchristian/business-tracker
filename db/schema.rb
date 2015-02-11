@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150127003419) do
+ActiveRecord::Schema.define(version: 20150209030846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150127003419) do
     t.integer  "business_type"
     t.decimal  "capital"
     t.decimal  "capital_tax"
+    t.boolean  "bir_registered"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
@@ -115,11 +116,27 @@ ActiveRecord::Schema.define(version: 20150127003419) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "police_clearances", force: :cascade do |t|
+    t.text     "other_identification_marks"
+    t.text     "remarks"
+    t.string   "purpose"
+    t.string   "build"
+    t.string   "height"
+    t.string   "weight"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "taxpayers", force: :cascade do |t|
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
     t.string   "suffix"
+    t.string   "civil_status"
+    t.date     "date_of_birth"
+    t.string   "place_of_birth"
+    t.string   "occupation"
+    t.string   "gender"
     t.string   "email"
     t.string   "mobile_number"
     t.string   "tin_number"

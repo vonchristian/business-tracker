@@ -22,6 +22,9 @@
             <% if policy(@business).new? %>
               <%=link_to 'New Business', new_taxpayer_business_path(@taxpayer), class: "btn btn-success" %>
               <% end %>
+
+              <%=link_to 'Police Clearance', new_taxpayer_police_clearance_path(@taxpayer), class: "btn btn-primary" %>
+
               <% if policy(@taxpayer).edit? %>
               <%=link_to 'Edit Profile', edit_taxpayer_path(@taxpayer), class: "btn btn-warning" %>
               <% end %>

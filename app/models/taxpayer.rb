@@ -10,6 +10,7 @@ class Taxpayer < ActiveRecord::Base
                   :cedula_number, :cedula_date_issued, :cedula_place_issued, presence: true
 
   has_many :businesses
+  has_one :police_clearance
   has_many :payments, :through => :businesses
   after_validation :titleize_full_name
 

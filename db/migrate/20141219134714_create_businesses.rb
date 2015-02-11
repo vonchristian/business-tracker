@@ -31,6 +31,7 @@ class CreateBusinesses < ActiveRecord::Migration
       t.integer :business_type
       t.decimal :capital
       t.decimal :capital_tax
+      t.boolean :bir_registered
       t.timestamps null: false
     end
   end

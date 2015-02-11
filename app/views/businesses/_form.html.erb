@@ -63,6 +63,13 @@
         <%=f.input :address_province, label: 'Province'  %>
         </div>
         </div>
+ <h3>Documents Submitted</h3>
+<hr>
+        <div class="row">
+        <div class="col-md-6">
+        <%=f.input :bir_registered, as: :boolean%>
+        </div>
+        </div>
 
         <div class="modal-footer">
         <% if @business.new_record? %>

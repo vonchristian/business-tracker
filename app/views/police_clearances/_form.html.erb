@@ -1,0 +1,56 @@
+
+<div class='col-md-10 col-md-offset-1'>
+  <div class="panel panel-default">
+    <div class="panel-body">
+    <div class="row">
+    <div class="col-md-4">
+    <%= image_tag @taxpayer.image.url(:medium), class: 'img-rounded' %>
+    </div>
+    <div class="col-md-6">
+    <ul class="list-group">
+    <li class="list-group-item">Present Address: <%=@taxpayer.address %></li>
+    <li class="list-group-item">Present Address: <%=@taxpayer.address %></li>
+    <li class="list-group-item">Present Address: <%=@taxpayer.address %></li>
+    <li class="list-group-item">Present Address: <%=@taxpayer.address %></li>
+    </div>
+    </div>
+
+      <%= simple_form_for [@taxpayer, @police_clearance], html: { class: 'form-horizontal' },
+        wrapper: :horizontal_form,
+        wrapper_mappings: {
+        check_boxes: :vertical_radio_and_checkboxes,
+        radio_buttons: :vertical_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+        } do |f| %>
+          <%=f.error_notification %>
+
+          <h3> Additional Details </h3>
+          <hr>
+               <div class="row">
+                 <div class="col-md-6">
+
+                  <%=f.input :purpose %>
+                  <%=f.input :build %>
+                  <%=f.input :height %>
+                  <%=f.input :weight %>
+                  </div>
+                  <div class="col-md-6">
+
+                  <%=f.input :other_identification_marks, as: :text%>
+                  <%=f.input :remarks, as: :text %>
+                  </div>
+                </div>
+
+        <div class="modal-footer">
+        <% if @police_clearance.new_record? %>
+        <%=f.button :submit, 'Register Police Clearance', class: 'btn btn-primary' %>
+        <% else %>
+         <%=f.button :submit, 'Update Police Clearance', class: 'btn btn-warning' %>
+        <% end %>
+
+    </div>
+  </div>
+</div>
+
+        <% end %>

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :users
     resources :taxpayers do
       resources :businesses
+       resources :police_clearances
       resources :payments
       resource :address
     end
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
       resources :line_of_businesses
     end
           resources :requirements
+
           resources :taxes
           resources :documents
           resources :line_of_businesses

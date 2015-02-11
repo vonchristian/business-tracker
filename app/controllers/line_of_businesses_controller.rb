@@ -1,5 +1,5 @@
 class LineOfBusinessesController < ApplicationController
-before_filter :current_business, only: [:new, :create]
+before_filter :current_business, only: [:new, :create, :edit]
   def index
    @line_of_businesses = LineOfBusiness.all
   end
@@ -33,7 +33,7 @@ before_filter :current_business, only: [:new, :create]
 
   private
       def line_of_business_params
-        params.require(:line_of_business).permit(:type_of_business, :description, :psic_code, :tax_ids =>[] )
+        params.require(:line_of_business).permit( :description, :psic_code, :tax_ids =>[] )
       end
 
       def current_business

@@ -131,18 +131,18 @@ class BusinessesController < ApplicationController
     end
   end
   def dole_report
-    @businesses = BusinessPolicy::Scope.new(current_user, Business).resolve
+    @businesses = Business.registered
     @taxpayers = Taxpayer.all
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = PermitReportPdf.new(@businesses)
+        pdf = DoleReportPdf.new(@businesses)
         send_data pdf.render, filename: "dole_report.pdf", type: 'application/pdf', disposition: "inline"
       end
     end
   end
    def bir_report
-    @businesses = BusinessPolicy::Scope.new(current_user, Business).resolve
+    @businesses = Business.registered.where(bir_registered: nil)
     @taxpayers = Taxpayer.all
     respond_to do |format|
       format.html
@@ -208,7 +208,7 @@ end
 
   private
   def business_params
-    params.require(:business).permit(:application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
+    params.require(:business).permit(:bir_registered, :application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
   end
 
   def set_current_taxpayer

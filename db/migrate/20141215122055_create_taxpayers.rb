@@ -5,6 +5,12 @@ class CreateTaxpayers < ActiveRecord::Migration
       t.string :middle_name
       t.string :last_name
       t.string :suffix
+      t.string :civil_status
+      t.date   :date_of_birth
+      t.string :place_of_birth
+      t.string :occupation
+      t.string :gender
+
       t.string :email
       t.string :mobile_number
       t.string :tin_number
