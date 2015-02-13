@@ -1,7 +1,7 @@
 class Taxpayer < ActiveRecord::Base
   has_attached_file :image, :styles => { :medium => "200x200>", :thumb => "120x120>", :small => "50x50" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-  enum status:[:new_taxpayer, :old, :deliquent]
+  enum status:[:new_taxpayer, :old, :deliquent, :cedula_expired]
 
   include PgSearch
  multisearchable :against => [:last_name, :first_name]
@@ -13,7 +13,11 @@ class Taxpayer < ActiveRecord::Base
   has_one :police_clearance
   has_many :payments, :through => :businesses
   after_validation :titleize_full_name
-
+  def self.update_cedula_status
+    if Time.now.end_of_year
+      update_attributes(status: :cedula_expired)
+    end
+  end
   def full_name
     "#{try(:last_name)}, #{try(:first_name)} #{try(:middle_name).first}."
   end

@@ -203,7 +203,12 @@ class BusinessesController < ApplicationController
 
   def renew
     @business = Business.find(params[:id])
-end
+  end
+
+   def revoke
+    @business = Business.find(params[:id])
+    @business.revoke
+  end
 
 
   private

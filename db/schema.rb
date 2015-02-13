@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209030846) do
+ActiveRecord::Schema.define(version: 20150209025100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,23 +22,6 @@ ActiveRecord::Schema.define(version: 20150209030846) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "activities", force: :cascade do |t|
-    t.integer  "trackable_id"
-    t.string   "trackable_type"
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.string   "key"
-    t.text     "parameters"
-    t.integer  "recipient_id"
-    t.string   "recipient_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
-  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
-  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "businesses", force: :cascade do |t|
     t.integer  "taxpayer_id"
@@ -71,60 +54,9 @@ ActiveRecord::Schema.define(version: 20150209030846) do
     t.integer  "business_type"
     t.decimal  "capital"
     t.decimal  "capital_tax"
-    t.boolean  "bir_registered"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-  end
-
-  create_table "gross_sales_taxes", force: :cascade do |t|
-    t.decimal  "amount"
-    t.integer  "business_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "line_of_businesses", force: :cascade do |t|
-    t.integer  "business_id"
-    t.string   "description"
-    t.string   "psic_code"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "mayors_permit_fees", force: :cascade do |t|
-    t.decimal  "amount"
-    t.integer  "business_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "payments", force: :cascade do |t|
-    t.decimal  "amount"
-    t.integer  "business_id"
-    t.integer  "status"
-    t.string   "official_receipt_number"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "collecting_officer"
-  end
-
-  create_table "pg_search_documents", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "searchable_id"
-    t.string   "searchable_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  create_table "police_clearances", force: :cascade do |t|
-    t.text     "other_identification_marks"
-    t.text     "remarks"
-    t.string   "purpose"
-    t.string   "build"
-    t.string   "height"
-    t.string   "weight"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "bir_registered"
   end
 
   create_table "taxpayers", force: :cascade do |t|
@@ -132,11 +64,6 @@ ActiveRecord::Schema.define(version: 20150209030846) do
     t.string   "middle_name"
     t.string   "last_name"
     t.string   "suffix"
-    t.string   "civil_status"
-    t.date     "date_of_birth"
-    t.string   "place_of_birth"
-    t.string   "occupation"
-    t.string   "gender"
     t.string   "email"
     t.string   "mobile_number"
     t.string   "tin_number"
@@ -152,16 +79,6 @@ ActiveRecord::Schema.define(version: 20150209030846) do
     t.integer  "status"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-  end
-
-  create_table "type_of_organizations", force: :cascade do |t|
-    t.integer  "business_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,7 +1,7 @@
 class Business < ActiveRecord::Base
   include PublicActivity::Common
   enum type_of_organization: [:sole_proprietorship, :corporation, :partnership, :association, :cooperative]
-  enum status: [:payment_pending, :registered, :expired, :renewed, :delinquent]
+  enum status: [:payment_pending, :registered, :expired, :renewed, :delinquent, :revoked]
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
   enum business_type: [:manufacturers_electric_power_producers_assemblers_repackers_processors,
                                        :wholesalers_dealers_distributors,
@@ -49,7 +49,15 @@ class Business < ActiveRecord::Base
  # validates :gross_sales, numericality: { message: 'Invalid Amount or less than the required amount', :greater_than =>30000}, on: :update
  # validates :gross_sales, numericality: { message: 'Invalid Asset Size' }
   #validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
-  def update_payment_status
+
+ def revoke
+  if self.payments.empty?
+   self.update_attributes(status: :revoked)
+ else
+  false
+ end
+end
+ def update_payment_status
     self.update_attributes(status: :registered)
   end
   def line_of_business
