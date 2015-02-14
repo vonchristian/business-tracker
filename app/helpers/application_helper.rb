@@ -9,7 +9,7 @@ module ApplicationHelper
 end
 
 def current_subdomain
- "Local Government Unit of Tinoc"
+ "LOCAL GOVERNMENT UNIT OF TINOC"
 end
 
 def site_name

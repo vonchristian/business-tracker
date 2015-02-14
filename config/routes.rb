@@ -1,21 +1,9 @@
 
-class SubdomainPresent
-  def self.matches?(request)
-    request.subdomain.present?
-  end
-end
-
-class SubdomainBlank
-  def self.matches?(request)
-    request.subdomain.blank?
-  end
-end
-
 Rails.application.routes.draw do
 
 
-  constraints(SubdomainPresent) do
-    root 'businesses#index', as: :subdomain_root
+
+    root 'businesses#index'
     devise_for :users, :controllers => { :registrations => "users" }
 
     resources :users
@@ -60,9 +48,5 @@ Rails.application.routes.draw do
 
   end
 
-   constraints(SubdomainBlank) do
-    root 'static_pages#landing_page'
-    resources :accounts, only: [:new, :create]
-  end
 
-end
+

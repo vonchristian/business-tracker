@@ -2,18 +2,20 @@ source 'https://rubygems.org'
     ruby '2.2.0'
     gem 'rails', '4.2.0'
 
-  gem "paperclip", "~> 4.2"
+  gem 'turbolinks'
+  gem 'mini_magick'
+  gem "refile", require: ["refile/rails", "refile/image_processing"]
   gem 'mechanize'
   gem 'bootstrap-datepicker-rails'
   gem 'prawn'
   gem 'prawn-table'
-  gem 'apartment'
   gem 'public_activity'
   gem 'jquery-turbolinks'
   gem 'devise'
   gem 'kaminari'
   gem 'pundit'
   gem 'font-awesome-rails'
+  gem 'ionicons-rails'
   gem 'simple_form'
   gem 'jquery-ui-rails'
   gem 'whenever', require: false

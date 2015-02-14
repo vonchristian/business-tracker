@@ -16,13 +16,6 @@ ActiveRecord::Schema.define(version: 20150209030846) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accounts", force: :cascade do |t|
-    t.string   "subdomain"
-    t.integer  "owner_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
     t.string   "trackable_type"
@@ -75,11 +68,10 @@ ActiveRecord::Schema.define(version: 20150209030846) do
     t.boolean  "police_clearance_cleared"
     t.boolean  "sanitary_inspection_cleared"
     t.boolean  "health_certificate_cleared"
+    t.string   "logo_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
-
-  add_index "businesses", ["taxpayer_id"], name: "index_businesses_on_taxpayer_id", using: :btree
 
   create_table "gross_sales_taxes", force: :cascade do |t|
     t.decimal  "amount"
@@ -143,6 +135,7 @@ ActiveRecord::Schema.define(version: 20150209030846) do
     t.string   "place_of_birth"
     t.string   "occupation"
     t.string   "gender"
+    t.string   "profile_image_id"
     t.string   "email"
     t.string   "mobile_number"
     t.string   "tin_number"
@@ -158,10 +151,6 @@ ActiveRecord::Schema.define(version: 20150209030846) do
     t.integer  "status"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
   end
 
   create_table "type_of_organizations", force: :cascade do |t|
@@ -174,6 +163,7 @@ ActiveRecord::Schema.define(version: 20150209030846) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "mobile_number"
+    t.string   "profile_image_id"
     t.integer  "role"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false

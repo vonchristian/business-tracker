@@ -18,6 +18,9 @@
   <%=render 'layouts/header' %>
     <%=render 'layouts/flash' %>
     <div class="container">
+    <% if user_signed_in? %>
+    <%=render 'layouts/nav_aside' %>
+    <% end %>
         <%= yield %>
         </div>
 

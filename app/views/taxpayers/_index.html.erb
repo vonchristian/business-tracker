@@ -27,7 +27,7 @@
         <tbody>
           <% @taxpayers.each do |taxpayer| %>
             <tr>
-            <td><%= image_tag taxpayer.image.url(:small), class: 'img-circle' %></td>
+            <td><%= attachment_image_tag(taxpayer, :profile_image, :fill, 40, 50, fallback: "default.png") %></td>
               <td><%=link_to taxpayer.full_name, taxpayer, class: 'btn btn-link'%></td>
               <td><%=taxpayer.created_at.strftime('%B %d %Y')%></td>
               <td><%=taxpayer.address%></td>

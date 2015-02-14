@@ -35,8 +35,8 @@ class CreateBusinesses < ActiveRecord::Migration
       t.boolean :police_clearance_cleared
       t.boolean :sanitary_inspection_cleared
       t.boolean :health_certificate_cleared
+      t.string :logo_id
       t.timestamps null: false
     end
-    add_index :businesses, :taxpayer_id
   end
 end

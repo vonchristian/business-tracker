@@ -1,12 +1,25 @@
 <div class="row">
-<div class="col-md-4 col-md-offset-4">
+<div class="col-md-6">
 <div class="panel panel-default">
-<div class="panel-heading">Business Permit Licensing System</div>
 <div class="panel-body">
-<%=image_tag("logo.png", height: 120, width: 120) %>
+<%=image_tag("logo.png", height: 120, width: 120, class: 'centered') %>
+<p>Local Goverment Unit of Tinoc</p>
+<p>Business Permit and Licensing Office</p>
+<hr>
+<h4>Business Permits and Licensing System</h4>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+
+<div class="well">
+
 <%= simple_form_for(resource, as: resource_name, :url => session_path(resource_name),
        wrapper_mappings: {boolean: :vertical_boolean }) do |f| %>
        <%= f.input :email, label: false do %>
+ <%=image_tag("signin.jpeg", height: 120, width: 120, class: 'img-circle img-responsive center-block') %>
+ <br>
+
   <div class="input-group">
     <%= f.input_field :email, class: 'form-control input-lg', placeholder: 'Email', autofocus: true %>
     <span class="input-group-addon glyphicon glyphicon-user"></span>
@@ -18,13 +31,11 @@
       <%=f.input_field :password, class: 'form-control input-lg', placeholder: 'Password' %>
       <span class="input-group-addon glyphicon glyphicon-lock"></span>
     </div>
-    <small class="help-text"><%= render "devise/shared/links" %></small>
     <% end %>
 
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
     <hr>
-
-    <%= f.button :submit, "Sign in", class: "btn btn-default" %>
+    <%= f.button :submit, "Sign in", class: "btn btn-block btn-success btn-lg" %>
 <% end %>
 <br>
 </div>

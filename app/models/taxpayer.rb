@@ -1,12 +1,10 @@
 class Taxpayer < ActiveRecord::Base
-  has_attached_file :image, :styles => { :medium => "200x200>", :thumb => "120x120>", :small => "50x50" }, :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-  enum status:[:new_taxpayer, :old, :deliquent, :cedula_expired]
+  attachment :profile_image
 
   include PgSearch
  multisearchable :against => [:last_name, :first_name]
 
-  validates :first_name, :middle_name, :last_name, :mobile_number,
+  validates :profile_image, :first_name, :middle_name, :last_name, :mobile_number,
                   :cedula_number, :cedula_date_issued, :cedula_place_issued, presence: true
 
   has_many :businesses

@@ -10,6 +10,7 @@ class CreateTaxpayers < ActiveRecord::Migration
       t.string :place_of_birth
       t.string :occupation
       t.string :gender
+      t.string :profile_image_id
 
       t.string :email
       t.string :mobile_number
