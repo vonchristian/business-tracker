@@ -4,13 +4,14 @@ class Taxpayer < ActiveRecord::Base
   include PgSearch
  multisearchable :against => [:last_name, :first_name]
 
-  validates :profile_image, :first_name, :middle_name, :last_name, :mobile_number,
+  validates  :first_name, :middle_name, :last_name, :mobile_number,
                   :cedula_number, :cedula_date_issued, :cedula_place_issued, presence: true
 
   has_many :businesses
   has_one :police_clearance
   has_many :payments, :through => :businesses
   after_validation :titleize_full_name
+  before_save :set_id
   def self.update_cedula_status
     if Time.now.end_of_year
       update_attributes(status: :cedula_expired)
@@ -33,5 +34,10 @@ class Taxpayer < ActiveRecord::Base
         self.first_name=first_name.try(:titleize)
       end
       def set_status
+      end
+      def set_id
+        if self.id.blank?
+        self.id = Taxpayer.last.id.succ
+      end
       end
 end

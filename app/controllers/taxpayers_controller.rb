@@ -49,7 +49,7 @@ def set_taxpayer
   redirect_to taxpayers_path
 end
 def taxpayer_params
-  params.require(:taxpayer).permit(:profile_image, :first_name, :middle_name, :last_name, :email,
+  params.require(:taxpayer).permit(:id, :profile_image, :first_name, :middle_name, :last_name, :email,
                           :mobile_number, :cedula_number, :cedula_date_issued, :cedula_place_issued,
                           :address_street, :address_barangay, :address_municipality, :address_province)
 end

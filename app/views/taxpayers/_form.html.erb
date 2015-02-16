@@ -17,6 +17,7 @@ boolean: :horizontal_boolean
 
 <%= f.attachment_field :profile_image%>
 <br>
+        <%=f.input :id, autofocus: true %>
         <%=f.input :first_name, autofocus: true %>
         <%=f.input :middle_name %>
         <%=f.input :last_name %>
@@ -33,7 +34,8 @@ boolean: :horizontal_boolean
         <div class="row">
          <div class="col-md-6">
           <%=f.input  :cedula_number %>
-           <%=f.input :cedula_date_issued, as: :string, label: 'Date Issued', placeholder: 'mm/dd/yy' %>
+            <%=f.input :cedula_date_issued, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'dd/mm/yyyy' %>
+
         </div>
          <div class="col-md-6">
           <%=f.input :cedula_place_issued %>

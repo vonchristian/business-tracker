@@ -1,5 +1,4 @@
 
-<div class="col-md-12">
 <% if Taxpayer.count.zero? %>
   <p class="alert alert-info">
      No taxpayers are registered yet.
@@ -20,16 +19,16 @@
           <tr>
             <th></th>
             <th>Name</th>
-            <th>Date Registered</th>
+
             <th>Address</th>
           </tr>
         </thead>
         <tbody>
           <% @taxpayers.each do |taxpayer| %>
             <tr>
-            <td><%= attachment_image_tag(taxpayer, :profile_image, :fill, 40, 50, fallback: "default.png") %></td>
+            <td><%= attachment_image_tag(taxpayer, :profile_image, :fill, 50, 50, fallback: "default.png") %></td>
               <td><%=link_to taxpayer.full_name, taxpayer, class: 'btn btn-link'%></td>
-              <td><%=taxpayer.created_at.strftime('%B %d %Y')%></td>
+
               <td><%=taxpayer.address%></td>
               <td>
               <% if current_user.system_administrator? %>
@@ -44,4 +43,4 @@
    </div>
 </div>
 <% end %>
-</div>
+
