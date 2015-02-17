@@ -2,6 +2,7 @@ source 'https://rubygems.org'
     ruby '2.2.0'
     gem 'rails', '4.2.0'
 
+  gem "paperclip"
   gem 'turbolinks'
   gem 'mini_magick'
   gem "refile", require: ["refile/rails", "refile/image_processing"]

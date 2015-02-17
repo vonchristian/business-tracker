@@ -1,56 +1,75 @@
 class TaxpayersController < ApplicationController
-  before_filter :set_taxpayer, only: [:edit, :show, :update, :destroy]
 
   def index
-    @taxpayers = Taxpayer.all
+    load_taxpayers
+  end
+
+
+  def show
+    load_taxpayer
+    new_business
   end
 
   def new
-    @taxpayer = Taxpayer.new
-    authorize @taxpayer
-  end
-
-  def edit
-    @taxpayer = Taxpayer.find(params[:id])
-    authorize @taxpayer
+    build_taxpayer
   end
 
   def create
-    @taxpayer = Taxpayer.new(taxpayer_params)
-    if @taxpayer.save
-      redirect_to @taxpayer, notice: 'Taxpayer registered successfully.'
-    else
-      render :new
-    end
+    build_taxpayer
+    save_taxpayer or render 'new'
+  end
+
+  def edit
+    load_taxpayer
+    build_taxpayer
   end
 
   def update
-    if @taxpayer.update(taxpayer_params)
-    redirect_to @taxpayer,   notice: 'Taxpayer updated successfully.'
-  else
-    render :edit
-  end
+   load_taxpayer
+   build_taxpayer
+   save_taxpayer or render 'edit'
 end
 
-  def show
-    @business = Business.new
-  end
 
   def destroy
+    load_taxpayer
     @taxpayer.destroy
     redirect_to taxpayers_path
     end
 private
+    def load_taxpayers
+      @taxpayers ||= taxpayer_scope.to_a
+    end
 
-def set_taxpayer
-  @taxpayer = Taxpayer.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
+    def load_taxpayer
+      @taxpayer ||= taxpayer_scope.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
   flash[:alert] = "The taxpayer you were looking for could not be found."
   redirect_to taxpayers_path
-end
+    end
+
+    def build_taxpayer
+      @taxpayer ||=taxpayer_scope.build
+      @taxpayer.attributes = taxpayer_params
+    end
+
+    def save_taxpayer
+      if @taxpayer.save
+        redirect_to @taxpayer
+      end
+    end
+    def new_business
+      @business=Business.new
+    end
+
+    def taxpayer_scope
+      Taxpayer.all
+    end
+
 def taxpayer_params
-  params.require(:taxpayer).permit(:id, :profile_image, :first_name, :middle_name, :last_name, :email,
+  taxpayer_params = params[:taxpayer]
+  taxpayer_params ? taxpayer_params.permit(:id, :photo, :first_name, :middle_name, :last_name, :email,
                           :mobile_number, :cedula_number, :cedula_date_issued, :cedula_place_issued,
-                          :address_street, :address_barangay, :address_municipality, :address_province)
+                          :address_street, :address_barangay, :address_municipality, :address_province) : {}
 end
 end
