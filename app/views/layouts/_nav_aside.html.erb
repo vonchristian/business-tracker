@@ -1,3 +1,10 @@
-<div class="well">
-<%=link_to 'Businesses', businesses_path %>
-</div>
+
+<a href="#" class="list-group-item danger">
+     Statistics
+    </a>
+    <ul class="list-group">
+      <li class="list-group-item"><%=link_to 'Businesses', businesses_path %> <span class="badge pull-right"> <%=Business.count %></span></li>
+      <li class="list-group-item"><%=link_to 'Taxpayers', taxpayers_path %> <span class="badge pull-right"> <%=Taxpayer.count %></span></li>
+
+    </ul>
+

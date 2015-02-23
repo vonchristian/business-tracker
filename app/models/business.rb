@@ -1,7 +1,13 @@
 class Business < ActiveRecord::Base
+   include PgSearch
+  pg_search_scope :text_search, against: [:business_name],
+    using: {tsearch: {dictionary: "english", prefix: true}},
+    associated_against: {taxpayer: [:last_name, :first_name]}
+    # ignoring: :accents
   include PublicActivity::Common
   enum type_of_organization: [:sole_proprietorship, :corporation, :partnership, :association, :cooperative]
   enum status: [:payment_pending, :registered, :expired, :renewed, :delinquent, :revoked]
+  enum type_of_business: [:new_business, :old]
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
   enum business_type: [:manufacturers_electric_power_producers_assemblers_repackers_processors,
                                        :wholesalers_dealers_distributors,
@@ -24,6 +30,7 @@ class Business < ActiveRecord::Base
   scope :latest, -> {where("created_at >=?", Time.zone.now.beginning_of_year + 20.days)}
 
   before_create :set_status_to_payment_pending
+  before_create :set_type_of_business_to_new_business
   before_save :set_capital_tax
   before_save :set_enterprise_scale
   before_save :set_permit_number, :capitalize_barangay
@@ -46,6 +53,7 @@ class Business < ActiveRecord::Base
                 :asset_size, :no_of_employees, :type_of_organization, presence: true
   validates :asset_size,  numericality:{ message: 'Invalid Amount'}
   validates :capital, numericality: { message: 'Invalid Amount'}, on: :create
+  # validates :business_name, uniqueness: {scope: :address_barangay}
  # validates :gross_sales, numericality: { message: 'Invalid Amount or less than the required amount', :greater_than =>30000}, on: :update
  # validates :gross_sales, numericality: { message: 'Invalid Asset Size' }
   #validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
@@ -157,6 +165,21 @@ end
   def set_status_to_payment_pending
     self.status=:payment_pending
   end
+ def set_type_of_business_to_new_business
+    self.type_of_business=:new_business
+  end
+
+  #  def self.text_search(query)
+  #   if query.present?
+  #     # search(query)
+  #     rank = <<-RANK
+  #       ts_rank(to_tsvector(business_name), plainto_tsquery(#{sanitize(query)}))
+  #     RANK
+  #     where("to_tsvector('english', business_name) @@ :q or to_tsvector('english', permit_number) @@ :q", q: query).order("#{rank} desc")
+  #   else
+  #    all
+  #   end
+  # end
 
 private
     def set_enterprise_scale

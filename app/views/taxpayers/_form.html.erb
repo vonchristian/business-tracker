@@ -1,58 +1,50 @@
-
-<div class='col-md-10 col-md-offset-1'>
-  <div class="panel panel-default">
-    <div class="panel-body">
-    <h3>Taxpayer Details </h3>
-    <hr>
-      <%= simple_form_for @taxpayer,  html: { class: 'form-horizontal', multipart: true },
-wrapper: :horizontal_form,
-wrapper_mappings: {
-check_boxes: :horizontal_radio_and_checkboxes,
-radio_buttons: :horizontal_radio_and_checkboxes,
-file: :horizontal_file_input,
-boolean: :horizontal_boolean
-} do |f| %>
 <div class="row">
-<div class="col-md-6">
+  <div class='col-md-6 col-md-offset-2'>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3>Taxpayer Details </h3>
+        <hr>
+        <%= simple_form_for @taxpayer,  html: { class: 'form-horizontal', multipart: true },
+          wrapper: :horizontal_form,
+          wrapper_mappings: {
+          check_boxes: :horizontal_radio_and_checkboxes,
+          radio_buttons: :horizontal_radio_and_checkboxes,
+          file: :horizontal_file_input,
+          boolean: :horizontal_boolean
+          } do |f| %>
+            <div class="centered">
+              <%=image_tag("avatar.gif", :class=>"img-polaroid center-block") %>
+              <%= f.file_field :photo, :class=> "center-block" %>
+            </div>
+            <hr>
+            <%=f.input :first_name, autofocus: true %>
+            <%=f.input :middle_name %>
+             <%=f.input :last_name %>
 
-<%= f.file_field :photo%>
-<br>
-        <%=f.input :id, autofocus: true %>
-        <%=f.input :first_name, autofocus: true %>
-        <%=f.input :middle_name %>
-        <%=f.input :last_name %>
-        </div>
-        <div class="col-md-6">
         <%=f.input :email %>
         <%=f.input :mobile_number %>
-        <%=f.input :tin_number %>
-        </div>
-        </div>
+        <%=f.input :tin_number, label: 'TIN Number' %>
+
 
         <h3>Cedula Details</h3>
         <hr>
-        <div class="row">
-         <div class="col-md-6">
-          <%=f.input  :cedula_number %>
-            <%=f.input :cedula_date_issued, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'dd/mm/yyyy' %>
 
-        </div>
-         <div class="col-md-6">
-          <%=f.input :cedula_place_issued %>
-          </div>
-        </div>
+          <%=f.input  :cedula_number %>
+            <%=f.input :cedula_date_issued, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'dd/mm/yyyy', label: 'Date Issued' %>
+
+
+          <%=f.input :cedula_place_issued, label: 'Place Issued' %>
+
 
         <h3>Address Details</h3>
         <hr >
-        <div class="col-md-6">
+
         <%=f.input :address_street, label: 'Sitio' %>
         <%=f.input :address_barangay, label: 'Barangay' %>
-        </div>
-        <div class="col-md-6">
+
         <%=f.input :address_municipality, label: 'Municipality', value: 'Tinoc' %>
         <%=f.input :address_province, label: 'Province' %>
-        </div>
-        </div>
+
         <div class="modal-footer">
         <% if @taxpayer.new_record? %>
         <%=f.button :submit, 'Register Taxpayer', class: 'btn btn-primary' %>
@@ -60,6 +52,22 @@ boolean: :horizontal_boolean
          <%=f.button :submit, 'Update Taxpayer' %>
         <% end %>
       <% end %>
+       <%= link_to 'or Cancel', root_path, class: 'btn btn-link' %>
     </div>
   </div>
+
+<div class="col-md-4">
+<div class="panel panel-info">
+<div class="panel-heading">Fill up the following Details</div>
+<div class="panel-body">
+
+<ul >
+  <li>Member Details</li>
+  <li>Address Details</li>
+  <li>Savings Account Details</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>

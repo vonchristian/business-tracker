@@ -3,6 +3,7 @@ source 'https://rubygems.org'
     gem 'rails', '4.2.0'
 
   gem "paperclip"
+  gem 'will_paginate'
   gem 'turbolinks'
   gem 'mini_magick'
   gem "refile", require: ["refile/rails", "refile/image_processing"]
@@ -13,10 +14,8 @@ source 'https://rubygems.org'
   gem 'public_activity'
   gem 'jquery-turbolinks'
   gem 'devise'
-  gem 'kaminari'
   gem 'pundit'
   gem 'font-awesome-rails'
-  gem 'ionicons-rails'
   gem 'simple_form'
   gem 'jquery-ui-rails'
   gem 'whenever', require: false
@@ -50,14 +49,16 @@ group :test do
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'rake'
+  gem 'capybara'
+  gem 'database_cleaner'
 end
 
 group :test, :development do
   gem 'web-console'
-  gem 'database_cleaner'
+
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
-  gem 'capybara'
+
   gem 'spring-commands-rspec'
   gem 'guard'
   gem 'guard-rspec'

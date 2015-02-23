@@ -16,8 +16,7 @@
 <%=form_tag businesses_path, class: 'navbar-form navbar-left', method: :get do %>
 <div class="form-group">
   <%=text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search for Businesses, Taxpayers, etc.' %>
-  <%=submit_tag  'Search', name: :nil, class: 'btn btn-default '%>
-
+  <%=submit_tag  'Search', name: nil, class: 'btn btn-primary '%>
 </div>
 <% end %>
 

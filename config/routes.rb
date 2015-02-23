@@ -44,6 +44,8 @@ Rails.application.routes.draw do
     get 'delinquents_tulludan' => 'businesses#delinquents_tulludan'
     get 'delinquents_wangwang' => 'businesses#delinquents_wangwang'
      get 'dole_report' => 'businesses#dole_report'
+      get 'registered_businesses_report' => 'businesses#registered_businesses_report'
+      get 'unrenewed_businesses_report' => 'businesses#unrenewed_businesses_report'
       get 'bir_report' => 'businesses#bir_report'
 
   end

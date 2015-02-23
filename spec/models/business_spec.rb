@@ -13,12 +13,14 @@ RSpec.describe Business, :type => :model do
     it { should belong_to :taxpayer}
     it { should have_many :documents }
     it { should have_many :payments }
+      it { should have_many :gross_sales_taxes }
+
 
   end
 
   describe 'enterprise_scale' do
-    it 'returns micro if asset size is less than or equal to 150_000' do
-      business = create(:business, asset_size: 15_000)
+    it 'returns micro if asset size is less than 150_000' do
+      business = create(:business,  asset_size: 15_000)
       expect(business.enterprise_scale).to eq('micro')
     end
     it 'returns micro if asset size is less than or equal to 150_000' do
@@ -65,7 +67,5 @@ RSpec.describe Business, :type => :model do
       business = create(:business, asset_size: 100_000_000)
       expect(business.enterprise_scale).to eq('large')
     end
-  end
-
   end
 end

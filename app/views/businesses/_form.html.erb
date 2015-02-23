@@ -68,7 +68,11 @@
         <div class="row">
         <div class="col-md-6">
         <%=f.input :bir_registered, as: :boolean%>
+<%= f.check_box :renting, :"data-selects-visibility" => ".triggered_by_checkbox" %>
 
+<div class="triggered_by_checkbox" data-show-for="_checked">
+  only shown when checkbox is checked
+</div>
         </div>
         </div>
 

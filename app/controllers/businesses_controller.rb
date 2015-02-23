@@ -119,8 +119,12 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
   def index
-    @businesses = BusinessPolicy::Scope.new(current_user, Business).resolve
+    if params[:query].present?
+    @businesses = Business.text_search(params[:query]).page(params[:page]).per_page(30)
+  else
+    @businesses = Business.page(params[:page]).per_page(30)
     @taxpayers = Taxpayer.all
     respond_to do |format|
       format.html
@@ -128,6 +132,7 @@ class BusinessesController < ApplicationController
         pdf = PermitReportPdf.new(@businesses)
         send_data pdf.render, filename: "permit.pdf", type: 'application/pdf', disposition: "inline"
       end
+    end
     end
   end
   def dole_report
@@ -138,6 +143,28 @@ class BusinessesController < ApplicationController
       format.pdf do
         pdf = DoleReportPdf.new(@businesses)
         send_data pdf.render, filename: "dole_report.pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+   def registered_businesses_report
+    @businesses = Business.registered
+    @taxpayers = Taxpayer.all
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = RegisteredBusinessesReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered_businesses_report.pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def unrenewed_businesses_report
+    @businesses = Business.delinquent
+    @taxpayers = Taxpayer.all
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = UnrenewedBusinessesReportPdf.new(@businesses)
+        send_data pdf.render, filename: "unrenewed_businesses_report.pdf", type: 'application/pdf', disposition: "inline"
       end
     end
   end

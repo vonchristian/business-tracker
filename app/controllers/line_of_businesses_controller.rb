@@ -1,5 +1,5 @@
 class LineOfBusinessesController < ApplicationController
-before_filter :current_business, only: [:new, :create, :edit]
+before_filter :current_business, only: [:new, :create]
   def index
    @line_of_businesses = LineOfBusiness.all
   end

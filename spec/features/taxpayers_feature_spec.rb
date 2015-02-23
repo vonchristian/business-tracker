@@ -1,13 +1,14 @@
 require 'rails_helper'
-
+include Warden::Test::Helpers
+Warden.test_mode!
 describe 'Taxpayer registrations' do
-  let (:account) { create (:account_with_schema) }
-  let (:user) { account.owner}
 
-  before do
-    set_subdomain(account.subdomain)
-    sign_user_in(user)
+
+  before (:each) do
+   user = FactoryGirl.create(:user)
+login_as(user, :scope => :user)
   end
+
 
   it "allows taxpayers to be registered" do
     visit taxpayers_path
@@ -19,6 +20,9 @@ describe 'Taxpayer registrations' do
     fill_in "Email", with: 'itworks@example.com'
     fill_in "Mobile number", with: '09123456789'
     fill_in "Tin", with: '000-111-22223-55'
+    fill_in "Cedula date issued", with: '1/1/2014'
+    fill_in "Cedula number", with: '1111'
+    fill_in "Cedula place issued", with: 'Tinoc'
     click_button "Register Taxpayer"
 
     expect(page).to have_text "registered successfully"

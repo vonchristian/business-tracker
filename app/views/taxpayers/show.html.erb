@@ -9,21 +9,22 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
+<br>
   <div class="tab-pane active" id="profile">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
-          <div class="panel">
-<span class='text-center'><%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 120, 120), class: 'img-rounded'%></span>
-            <h1 id="profile_name"><%=@taxpayer.first_and_last_name %></h1>
+        <div class="col-md-10">
+        <div class="panel panel-default">
+          <div class="panel-body">
+<td class="text-center"><%=image_tag @taxpayer.photo.url(:small), :class=> 'img-circle' %></td>
+<h1 class="text-center"><%=@taxpayer.first_and_last_name %></h1>
+            <span class="text-center help-block"><%=@taxpayer.address %></span>
             <hr />
 
-            <div class="well well-sm">
-            <% if policy(@business).new? %>
-              <%=link_to 'New Business', new_taxpayer_business_path(@taxpayer), class: "btn btn-success" %>
-              <% end %>
 
-              <%=link_to 'Police Clearance', new_taxpayer_police_clearance_path(@taxpayer), class: "btn btn-primary" %>
+            <% if policy(@business).new? %>
+              <%=link_to 'New Business', new_taxpayer_business_path(@taxpayer), class: "btn btn-default" %>
+              <% end %>
 
               <% if policy(@taxpayer).edit? %>
               <%=link_to 'Edit Profile', edit_taxpayer_path(@taxpayer), class: "btn btn-warning" %>
@@ -33,28 +34,7 @@
             </div>
           </div>
         </div>
-            <div class="col-md-6">
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <h3>Taxpayer Details</h3>
-                  <hr>
-
-                  <p>Name: <%=@taxpayer.full_name%></p>
-                  <p>Address: <%=@taxpayer.address %></p>
-                  <p>Mobile Number: <%=@taxpayer.mobile_number %></p>
-          </div>
-          </div>
-          <div class="col-md-6">
-          <div class="panel panel-default">
-          <div class="panel-body">
-          <h3>Business Details</h3>
-
-
-          </div>
-          </div>
-          </div>
-        </div>
-      </div>
+       </div>
     </div>
   </div>
 

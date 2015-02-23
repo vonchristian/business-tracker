@@ -1,24 +1,14 @@
-<div class="row">
-<div class="col-md-6">
-<div class="panel panel-default">
-<div class="panel-body">
-<%=image_tag("logo.png", height: 120, width: 120, class: 'centered') %>
-<p>Local Goverment Unit of Tinoc</p>
-<p>Business Permit and Licensing Office</p>
-<hr>
-<h4>Business Permits and Licensing System</h4>
-</div>
-</div>
-</div>
-<div class="col-md-4">
+
+<div class="col-md-4 col-md-offset-5">
 
 <div class="well">
 
 <%= simple_form_for(resource, as: resource_name, :url => session_path(resource_name),
        wrapper_mappings: {boolean: :vertical_boolean }) do |f| %>
        <%= f.input :email, label: false do %>
- <%=image_tag("signin.jpeg", height: 120, width: 120, class: 'img-circle img-responsive center-block') %>
- <br>
+ <%=image_tag("logo.png", height: 120, width: 120, class: 'img-circle img-responsive center-block') %>
+ <span class="help-block text-center">Business Permits and Licensing System</span>
+
 
   <div class="input-group">
     <%= f.input_field :email, class: 'form-control input-lg', placeholder: 'Email', autofocus: true %>
@@ -41,4 +31,4 @@
 </div>
 
 </div>
-</div>
+
