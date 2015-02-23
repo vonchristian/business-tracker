@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :businesses
        resources :police_clearances
       resources :payments
-      resource :address
+      resources :cedulas
     end
     resources :businesses do
       match :renew, via: [:get], on: :member

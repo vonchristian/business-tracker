@@ -14,7 +14,7 @@
           } do |f| %>
             <div class="centered">
               <%=image_tag("avatar.gif", :class=>"img-polaroid center-block") %>
-              <%= f.file_field :photo, :class=> "center-block" %>
+              <%= f.file_field :profile_image, :class=> "center-block" %>
             </div>
             <hr>
             <%=f.input :first_name, autofocus: true %>
@@ -49,11 +49,13 @@
         <% if @taxpayer.new_record? %>
         <%=f.button :submit, 'Register Taxpayer', class: 'btn btn-primary' %>
         <% else %>
-         <%=f.button :submit, 'Update Taxpayer' %>
+         <%=f.button :submit, 'Update Taxpayer', class: 'btn btn-primary' %>
         <% end %>
       <% end %>
        <%= link_to 'or Cancel', root_path, class: 'btn btn-link' %>
     </div>
+  </div>
+  </div>
   </div>
 
 <div class="col-md-4">
@@ -62,9 +64,9 @@
 <div class="panel-body">
 
 <ul >
-  <li>Member Details</li>
+  <li>Taxpayer Details</li>
+  <li>Cedula Details</li>
   <li>Address Details</li>
-  <li>Savings Account Details</li>
 </ul>
 </div>
 </div>

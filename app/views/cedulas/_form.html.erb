@@ -1,0 +1,68 @@
+<div class="col-md-10 col-md-offset-1">
+<div class="panel panel-primary">
+<div class="panel-heading">Cedula Details </div>
+<div class="panel-body">
+  <div class="row">
+    <div class="col-md-3">
+<%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 100, 100), class: 'img-responsive img-rounded'%>
+</div>
+<div class="col-md-9">
+<h2><%=@taxpayer.first_and_last_name %></h2>
+<span class="help-block"><%=@taxpayer.occupation%> | <%=@taxpayer.address %></span>
+<hr>
+</div>
+
+</div>
+
+  <%= simple_form_for [@taxpayer, @cedula], html: { class: 'form-horizontal' },
+        wrapper: :horizontal_form,
+        wrapper_mappings: {
+        check_boxes: :vertical_radio_and_checkboxes,
+        radio_buttons: :horizontal_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+        } do |f| %>
+        <div class="row">
+        <div class="col-md-6">
+        <%=f.input :date_of_issue, as: :string %>
+        </div>
+        <div class="col-md-6">
+        <%=f.input :place_of_issue %>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-md-6">
+<%=f.input :occupation %>
+</div>
+<div class="col-md-6">
+<%=f.input :citizenship %>
+</div>
+<div class="col-md-4">
+<%=f.input :gender, collection: Taxpayer.genders.keys.to_a.map { |a| [a.titleize]}, as: :radio_buttons%>
+</div>
+</div>
+<%=f.input :date_of_birth, as: :string %>
+<%=f.input :place_of_birth %>
+<%=f.input :height %>
+<%=f.input :weight %>
+<%=f.input :basic_community_tax, as: :string, autofocus: true %>
+
+<div id="subtotal">
+<%=f.input :subtotal %>
+<%=f.input :basic_community_tax, as: :string, autofocus: true %>
+
+<%=f.input :additional_tax %>
+<%=f.input :gross_receipts_of_business %>
+<%=f.input :gross_receipts_of_earnings %>
+<%=f.input :interest %>
+<%=f.input :total_amount %>
+
+<div class="modal-footer">
+<%=f.button :submit, 'Save Cedula', class: 'btn btn-primary'%>
+<% end %>
+  <%= link_to 'or Cancel', taxpayers_path, class: 'btn btn-link' %>
+  </div>
+  </div>
+</div>
+</div>
+</div>

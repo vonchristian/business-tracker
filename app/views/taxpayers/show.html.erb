@@ -16,8 +16,7 @@
         <div class="col-md-10">
         <div class="panel panel-default">
           <div class="panel-body">
-<td class="text-center"><%=image_tag @taxpayer.photo.url(:small), :class=> 'img-circle' %></td>
-<h1 class="text-center"><%=@taxpayer.first_and_last_name %></h1>
+   <%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%><h1 class="text-center"><%=@taxpayer.first_and_last_name %></h1>
             <span class="text-center help-block"><%=@taxpayer.address %></span>
             <hr />
 
@@ -29,6 +28,8 @@
               <% if policy(@taxpayer).edit? %>
               <%=link_to 'Edit Profile', edit_taxpayer_path(@taxpayer), class: "btn btn-warning" %>
               <% end %>
+               <%=link_to 'Cedula', new_taxpayer_cedula_path(@taxpayer), class: "btn btn-primary" %>
+  <%=link_to 'Police Clearance', new_taxpayer_police_clearance_path(@taxpayer), class: "btn btn-primary" %>
 
 
             </div>

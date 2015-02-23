@@ -2,7 +2,7 @@ class Taxpayer < ActiveRecord::Base
   attachment :profile_image
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
-
+ enum gender: [:male, :female]
   include PgSearch
  multisearchable :against => [:last_name, :first_name]
 
@@ -11,6 +11,7 @@ class Taxpayer < ActiveRecord::Base
 
   has_many :businesses
   has_one :police_clearance
+  has_one :cedula
   has_many :payments, :through => :businesses
   after_validation :titleize_full_name
   before_save :set_id
