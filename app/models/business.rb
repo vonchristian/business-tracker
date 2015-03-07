@@ -29,7 +29,7 @@ class Business < ActiveRecord::Base
                                       :other_businesses]
 
 
-  scope :latest, -> {where("created_at >=?", Time.zone.now.beginning_of_year + 20.days)}
+  scope :new_businesses, -> {where("created_at >=?", Time.zone.now.beginning_of_year + 20.days)}
 
   before_create :set_status_to_payment_pending
   after_create :set_type_of_business_to_new_business
@@ -67,6 +67,9 @@ class Business < ActiveRecord::Base
   false
  end
 end
+def address
+ "#{try(:address_sitio)}, #{try(:address_barangay)}, #{try(:address_municipality)}, #{try(:address_province)}"
+  end
  def update_payment_status
     self.update_attributes(status: :registered)
   end

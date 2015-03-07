@@ -5,6 +5,7 @@ before_filter :current_business, only: [:new, :create]
   end
 
   def new
+    @business= current_business
     @line_of_business = current_business.line_of_businesses.build
   end
 

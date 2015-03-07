@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
 
     root 'businesses#index'
+     get 'dashboard' => 'pages#dashboard', as: 'dashboard'
     devise_for :users, :controllers => { :registrations => "users" }
 
     resources :users

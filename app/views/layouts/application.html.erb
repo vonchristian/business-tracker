@@ -14,22 +14,26 @@
 
   <%= csrf_meta_tags %>
 </head>
-<body>
-<div class="container">
+<body class="skin-blue">
+<div class="wrapper">
+<% if user_signed_in? %>
   <%=render 'layouts/header' %>
-    <%=render 'layouts/flash' %>
+  <% end %>
 
-    <div class="row">
-    <% if user_signed_in? %>
-    <div class="col-md-2">
+    <%if user_signed_in? %>
+
     <%=render 'layouts/nav_aside' %>
-    </div>
+
     <% end %>
-    <div class="col-md-10">
+    <div class="content-wrapper">
+    <section class="content">
+    <%=render 'layouts/flash' %>
         <%= yield %>
-        </div>
+        </section>
         </div>
 
+
+</div>
 </body>
 
 </html>

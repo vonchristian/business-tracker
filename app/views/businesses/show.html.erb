@@ -17,24 +17,24 @@
         <div class="col-sm-10">
           <div class="panel">
             <h1 id="profile_name"><%=@business.business_name.upcase %></h1>
-            <hr />
             <div class="well well-sm">
             <% if @business.registered? && current_user.system_administrator? && @business.line_of_businesses.present?%>
-            <%=link_to ' Print Mayors Permit', business_path(@business, format: "pdf"), class: " btn btn-info fa fa-print" %>
+            <%=link_to ' Print Mayors Permit', business_path(@business, format: "pdf"), class: " btn btn-info fa fa-print btn-sm" %>
             <% end %>
             <% if @business.line_of_businesses.blank?%>
-            <%=link_to 'Add Line of Business', new_business_line_of_business_path(@business), class: "btn btn-default" %>
+            <%=link_to ' Add Line of Business', new_business_line_of_business_path(@business), class: "btn btn-default" %>
             <% else %>
-              <%=link_to 'Edit Line of Business', edit_line_of_business_path(@business, @line_of_business), class: "btn btn-default" %>
+              <%=link_to 'Edit Line of Business', edit_line_of_business_path(@business, @line_of_business), class: "btn btn-default btn-sm" %>
               <% end %>
             <% if @business.payment_pending? || @business.delinquent?%>
             <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-default" %>
             <% end %>
-              <%=link_to 'Edit Business', edit_business_path(@business), class: "btn btn-default" %>
+              <%=link_to 'Edit Business', edit_business_path(@business), class: "btn btn-warning btn-sm" %>
               <% if @business.expired? %>
                        <%=link_to 'Renew', renew_business_path(@business), method: :get, class: 'btn btn-default'%>
                        <% end %>
             </div>
+            <hr>
           </div>
         </div>
         <div class="col-xs-4">

@@ -1,6 +1,12 @@
- <div class="col-md-12">
+ <div class="col-md-6 col-md-offset-2">
+ <div class="panel panel-primary">
+ <div class="panel-heading">Line Of Business Details </div>
    <div class="panel-body">
-   <h3>Add Line of Business</h3>
+   <h4><%=@business.business_name %> </h4>
+   <span class="help-block">Owner: <%=@business.taxpayer_name %></span>
+    <span class="help-block">Address: <%=@business.address %></span>
+
+
    <hr>
   <%= simple_form_for [@business, @line_of_business], html: { class: 'form-horizontal' },
 wrapper: :horizontal_form,
@@ -11,15 +17,18 @@ file: :horizontal_file_input,
 boolean: :horizontal_boolean
 } do |f| %>
 <%=f.error_notification %>
-          <div class="row">
-            <div class="col-md-6">
+
               <%=f.input :description %>
               <%=f.input :psic_code  %>
-              </div>
-              </div>
-        <div class="modal-footer">
-         <%=f.submit %>
 
+        <div class="modal-footer">
+        <% if @line_of_business.new_record? %>
+        <%=f.button :submit, 'Add Line Of Business', class: 'btn btn-primary' %>
+        <% else %>
+         <%=f.button :submit, 'Update Line of Business', class: 'btn btn-primary' %>
+        <% end %>
+       <%= link_to 'or Cancel', :back, class: 'btn btn-link' %>
+    </div>
 
         <% end %>
   </div>

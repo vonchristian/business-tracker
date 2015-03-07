@@ -16,7 +16,7 @@ def create
   if @payment.save
     @payment.business.update_payment_status
 
-    redirect_to businesses_path, notice: 'Payment successfully registered.'
+    redirect_to business_path(id: @payment.business_id), notice: 'Payment successfully made.'
   else
     render :new
   end

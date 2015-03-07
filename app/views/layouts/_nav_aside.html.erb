@@ -1,10 +1,110 @@
+<aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <%#= image_tag attachment_url(current_user, :profile_image, :fill, 40, 40), class: 'img-circle' %>
+            </div>
+            <div class="pull-left info">
+              <p><%=current_user.first_name %></p>
 
-<a href="#" class="list-group-item danger">
-     Statistics
-    </a>
-    <ul class="list-group">
-      <li class="list-group-item"><%=link_to 'Businesses', businesses_path %> <span class="badge pull-right"> <%=Business.count %></span></li>
-      <li class="list-group-item"><%=link_to 'Taxpayers', taxpayers_path %> <span class="badge pull-right"> <%=Taxpayer.count %></span></li>
+              <a href="#"><%=current_user.role.humanize %></a>
+            </div>
+          </div>
+          <!-- search form -->
+<%=form_tag taxpayers_path, class: 'sidebar-form', method: :get do %>
+<div class="input-group">
+  <%=text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search...' %>
+   <span class="input-group-btn">
+               <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
+ <i class="fa fa-search"></i>
+<% end %>
+              </span>
+</div>
 
-    </ul>
+<% end %>
 
+          <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+
+             <li class="<%='active' if current_page?(dashboard_path) %>">
+          <%=link_to "   Dashboard", dashboard_path, :class=>"fa fa-home"%>
+        </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-user"></i>
+                <span>Members</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
+                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+              </ul>
+            </li>
+             <li class="treeview">
+              <a href="#">
+                <i class="fa fa-user"></i>
+                <span>Savings Accounts</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
+                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+              </ul>
+            </li>
+             <li class="treeview">
+              <a href="#">
+                <i class="fa fa-list"></i>
+                <span>Reports</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
+                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-list"></i>
+                <span>Share Capitals</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Regular</a></li>
+                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Irregular</a></li>
+
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-list"></i>
+                <span>Loans</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
+                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-list"></i>
+                <span>Reports</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
+                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>

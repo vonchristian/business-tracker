@@ -1,4 +1,5 @@
 class BusinessesController < ApplicationController
+  before_filter :set_business, only: [:edit, :show, :update]
   def delinquents_poblacion
     @businesses = Business.delinquent.where(address_barangay: 'Poblacion')
      respond_to do |format|
@@ -198,7 +199,6 @@ class BusinessesController < ApplicationController
     end
   end
   def show
-    @business = Business.find(params[:id])
     authorize @business
 
     respond_to do |format|
@@ -210,13 +210,11 @@ class BusinessesController < ApplicationController
     end
   end
   def edit
-      @business = Business.find(params[:id])
       authorize @business
   end
 
 
   def update
-    @business = Business.find(params[:id])
     authorize @business
     if @business.update_attributes(business_params)
       @business.set_gross_sales_taxes if @business.gross_sales.present?
@@ -250,4 +248,11 @@ class BusinessesController < ApplicationController
   def current_taxpayer
     @taxpayer = Taxpayer.find_by_id(params[:taxpayer_id])
   end
+
+  def set_business
+    @business = Business.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+  flash[:alert] = "The business you were looking for could not be found."
+  redirect_to businesses_path
+end
 end

@@ -2,25 +2,23 @@ source 'https://rubygems.org'
     ruby '2.2.0'
     gem 'rails', '4.2.0'
 
+  gem 'prawn'
+  gem 'pg_search'
+  gem 'public_activity'
   gem "paperclip"
-  gem 'will_paginate'
-  gem 'turbolinks'
   gem 'mini_magick'
   gem "refile", require: ["refile/rails", "refile/image_processing"]
-  gem 'mechanize'
-  gem 'bootstrap-datepicker-rails'
-  gem 'prawn'
-  gem 'prawn-table'
-  gem 'public_activity'
-  gem 'jquery-turbolinks'
   gem 'devise'
+  gem 'will_paginate'
   gem 'pundit'
   gem 'font-awesome-rails'
+  gem 'ionicons-rails'
   gem 'simple_form'
   gem 'jquery-ui-rails'
   gem 'whenever', require: false
   gem 'sass-rails'
   gem 'bootstrap-sass'
+  gem 'bootstrap-datepicker-rails'
   gem 'autoprefixer-rails'
   gem 'uglifier'
   gem 'coffee-rails'
@@ -31,8 +29,11 @@ source 'https://rubygems.org'
 group :development do
   gem 'spring'
   gem 'binding_of_caller'
+  gem 'better_errors'
   gem 'quiet_assets'
   gem 'rails_layout'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv', require: false
 end
 
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -43,22 +44,21 @@ end
 group :production do
   gem 'pg',  group: :development
   gem 'rails_12factor'
-  gem "unicorn-rails"
+  gem 'unicorn', group: :development
+  gem 'newrelic_rpm'
 end
 group :test do
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'rake'
-  gem 'capybara'
-  gem 'database_cleaner'
 end
 
 group :test, :development do
   gem 'web-console'
-
+  gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
-
+  gem 'capybara'
   gem 'spring-commands-rspec'
   gem 'guard'
   gem 'guard-rspec'
@@ -77,4 +77,4 @@ end
   gem "rails_best_practices", group: :development
 
 ############################################
-gem 'pg_search'
+
