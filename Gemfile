@@ -12,7 +12,6 @@ source 'https://rubygems.org'
   gem 'will_paginate'
   gem 'pundit'
   gem 'font-awesome-rails'
-  gem 'ionicons-rails'
   gem 'simple_form'
   gem 'jquery-ui-rails'
   gem 'whenever', require: false
@@ -27,7 +26,6 @@ source 'https://rubygems.org'
   gem 'responders'
 
 group :development do
-  gem 'spring'
   gem 'binding_of_caller'
   gem 'better_errors'
   gem 'quiet_assets'
@@ -44,7 +42,7 @@ end
 group :production do
   gem 'pg',  group: :development
   gem 'rails_12factor'
-  gem 'unicorn', group: :development
+  gem 'unicorn-rails', group: :development
   gem 'newrelic_rpm'
 end
 group :test do

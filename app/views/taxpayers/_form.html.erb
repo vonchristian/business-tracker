@@ -1,8 +1,12 @@
 <div class="row">
   <div class='col-md-6 col-md-offset-2'>
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h3>Taxpayer Details </h3>
+    <div class="box box-success">
+      <div class="box-header with-border">
+      <%if @taxpayer.new_record? %>
+        <h3 class="text-center">Register A Taxpayer </h3>
+      <% else %>
+        <h3 class="text-center">Update Taxpayer </h3>
+      <% end %>
         <hr>
         <%= simple_form_for @taxpayer,  html: { class: 'form-horizontal', multipart: true },
           wrapper: :horizontal_form,
@@ -13,8 +17,12 @@
           boolean: :horizontal_boolean
           } do |f| %>
             <div class="centered">
-              <%=image_tag("avatar.gif", :class=>"img-polaroid center-block") %>
-              <%= f.file_field :profile_image, :class=> "center-block" %>
+            <%if @taxpayer.profile_image.blank? %>
+              <%=image_tag("missing.png", :class=>"img-polaroid center-block ") %>
+              <% else %>
+              <%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%>
+              <% end %>
+              <%= f.file_field :profile_image, class: 'center-block'%>
             </div>
             <hr>
             <%=f.input :first_name, autofocus: true %>
@@ -26,7 +34,7 @@
         <%=f.input :tin_number, label: 'TIN Number' %>
 
 
-        <h3>Cedula Details</h3>
+        <h3 class="text-success">Cedula Details</h3>
         <hr>
 
           <%=f.input  :cedula_number %>
@@ -36,7 +44,7 @@
           <%=f.input :cedula_place_issued, label: 'Place Issued' %>
 
 
-        <h3>Address Details</h3>
+        <h3 class="text-success">Address Details</h3>
         <hr >
 
         <%=f.input :address_street, label: 'Sitio' %>
@@ -47,9 +55,9 @@
 
         <div class="modal-footer">
         <% if @taxpayer.new_record? %>
-        <%=f.button :submit, 'Register Taxpayer', class: 'btn btn-primary' %>
+        <%=f.submit 'Register Taxpayer', class: 'btn btn-primary btn-flat' %>
         <% else %>
-         <%=f.button :submit, 'Update Taxpayer', class: 'btn btn-primary' %>
+         <%=f.submit 'Update Taxpayer', class: 'btn btn-primary' %>
         <% end %>
       <% end %>
        <%= link_to 'or Cancel', root_path, class: 'btn btn-link' %>
@@ -58,18 +66,4 @@
   </div>
   </div>
 
-<div class="col-md-4">
-<div class="panel panel-info">
-<div class="panel-heading">Fill up the following Details</div>
-<div class="panel-body">
-
-<ul >
-  <li>Taxpayer Details</li>
-  <li>Cedula Details</li>
-  <li>Address Details</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
 </div>

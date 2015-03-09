@@ -1,8 +1,7 @@
 
-<div class='col-md-12'>
-  <div class="panel panel-default">
-    <div class="well">
-
+<div class='col-md-6 col-md-offset-2'>
+    <div class="box box-success">
+      <div class="box-header with-border">
       <%= simple_form_for [@taxpayer, @business], html: { class: 'form-horizontal' },
         wrapper: :horizontal_form,
         wrapper_mappings: {
@@ -23,8 +22,7 @@
           <% end %>
           <h3>Business Details </h3>
           <hr>
-               <div class="row">
-              <div class="col-md-6">
+
                 <%=f.input :business_name, autofocus: true  %>
                  <%=f.input :type_of_organization, collection: Business.type_of_organizations.keys.to_a.map{ |a| [a.titleize, a] }  %>
                 <%=f.input :asset_size, as: :string%>
@@ -34,8 +32,7 @@
                 <% end %>
 
                 <%=f.input :no_of_employees, label: 'Number of Employees', as: :string %>
-              </div>
-              <div class="col-md-6">
+
                <%=f.input :industry_type, collection: Business.industry_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Industry' %>
 
                <%=f.input :business_type, collection: Business.business_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Type of Business' %>
@@ -48,28 +45,20 @@
               <% end %>
               <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" },  placeholder: 'dd/mm/yyyy'  %>
 
-            </div>
-          </div>
+
  <h3>Address Details</h3>
 <hr>
-        <div class="row">
-        <div class="col-md-6">
+
         <%=f.input :address_sitio, label: 'Sitio' %>
         <%=f.input :address_barangay, label: "Barangay "%>
-        </div>
-         <div class="col-md-6">
 
         <%=f.input :address_municipality, label: 'Municipality' %>
         <%=f.input :address_province, label: 'Province'  %>
-        </div>
-        </div>
+
  <h3>Documents Submitted</h3>
 <hr>
-        <div class="row">
-        <div class="col-md-6">
+
         <%=f.input :bir_registered, as: :boolean, label: 'BIR Registration'%>
-        </div>
-        </div>
 
         <div class="modal-footer">
         <% if @business.new_record? %>
@@ -78,9 +67,9 @@
          <%=f.button :submit, 'Update Business', class: 'btn btn-warning' %>
         <% end %>
         <%= link_to 'or Cancel', :back, class: 'btn btn-link' %>
-
     </div>
   </div>
+</div>
 </div>
 
         <% end %>

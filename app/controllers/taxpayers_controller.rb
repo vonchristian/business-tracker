@@ -3,7 +3,9 @@ class TaxpayersController < ApplicationController
   def index
     load_taxpayers
   end
-
+  def delinquent
+    load_delinquent_taxpayers
+  end
 
   def show
     load_taxpayer
@@ -37,9 +39,16 @@ end
     redirect_to taxpayers_path
     end
 private
-    def load_taxpayers
-      @taxpayers ||= taxpayer_scope.to_a
+    def load_delinquent_taxpayers
+      @taxpayers =Taxpayer.delinquent.page(params[:page]).per_page(30)
     end
+    def load_taxpayers
+      if params[:query].present?
+    @taxpayers =Taxpayer.text_search(params[:query]).page(params[:page]).per_page(30)
+  else
+      @taxpayers ||= Taxpayer.all.page(params[:page]).per_page(30)
+    end
+  end
 
     def load_taxpayer
       @taxpayer ||= taxpayer_scope.find(params[:id])

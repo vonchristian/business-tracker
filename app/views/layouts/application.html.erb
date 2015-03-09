@@ -1,39 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="<%= meta_description %>">
-  <meta name="author" content="<%= meta_author %>">
-  <meta name="Keywords" content="<%= meta_keywords %>">
-  <title><%= full_title(yield(:title)) %></title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
-
-  <%= csrf_meta_tags %>
-</head>
-<body class="skin-blue">
-<div class="wrapper">
-<% if user_signed_in? %>
-  <%=render 'layouts/header' %>
-  <% end %>
-
-    <%if user_signed_in? %>
-
-    <%=render 'layouts/nav_aside' %>
-
-    <% end %>
-    <div class="content-wrapper">
-    <section class="content">
-    <%=render 'layouts/flash' %>
-        <%= yield %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<%= meta_description %>">
+    <meta name="author" content="<%= meta_author %>">
+    <meta name="Keywords" content="<%= meta_keywords %>">
+    <title><%= full_title(yield(:title)) %></title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      <% if user_signed_in? %>
+        <%=render 'layouts/header' %>
+        <%=render 'layouts/nav_aside' %>
+      <% end %>
+      <div class="content-wrapper">
+        <section class="content">
+          <%=render 'layouts/flash' %>
+          <%= yield %>
         </section>
-        </div>
-
-
-</div>
-</body>
-
+      </div>
+    </div>
+  </body>
 </html>

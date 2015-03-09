@@ -1,0 +1,68 @@
+
+<% if Taxpayer.count.zero? %>
+  <p class="alert alert-info">
+     No taxpayers are registered yet.
+    <strong><%=link_to "Register New Taxpayer", new_taxpayer_path %></strong></p>
+
+
+<% else %>
+<% if current_user.system_administrator? || current_user.application_officer? %>
+<div class="well well-sm">
+<%=link_to 'New Taxpayer', new_taxpayer_path, class: 'btn btn-success btn-sm' %>
+<div class="btn-group">
+
+
+ <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+     <i class="fa fa-cog">  </i> <span class="caret"> </span>
+  </button>
+                  <ul class="dropdown-menu pull-right" role="menu">
+                    <li><%= link_to ' New Savings Account'%></li>
+                  </ul>
+</div>
+<div class="btn-group">
+
+
+ <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    More <span class="caret"></span>
+  </button>
+                  <ul class="dropdown-menu pull-right" role="menu">
+                    <li><%= link_to 'Savings'%></li>
+                    <li><%= link_to 'Loans'%></li>
+                    <li><%= link_to 'Share Capital'%></li>
+                  </ul>
+</div>
+</div>
+<% end %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @taxpayers.delinquent.each do |taxpayer| %>
+            <tr>
+            <td><%= attachment_image_tag(taxpayer, :profile_image, :fill, 50, 50, fallback: "default.png") %></td>
+              <td><%=link_to taxpayer.full_name, taxpayer, class: 'btn btn-link'%></td>
+
+              <td><%=taxpayer.address%></td>
+              <td>
+              <% if current_user.system_administrator? %>
+                       <%=link_to ' Edit', edit_taxpayer_path(taxpayer)%>
+                       <% end %>
+            </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+   </div>
+</div>
+<% end %>
+

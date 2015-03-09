@@ -174,7 +174,6 @@ GEM
     hitimes (1.2.2)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
-    ionicons-rails (2.0.0)
     jbuilder (2.2.8)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -393,6 +392,9 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    unicorn-rails (2.2.0)
+      rack
+      unicorn
     uniform_notifier (1.7.0)
     warden (1.2.3)
       rack (>= 1.0)
@@ -432,7 +434,6 @@ DEPENDENCIES
   guard
   guard-livereload
   guard-rspec
-  ionicons-rails
   jbuilder
   jquery-rails
   jquery-ui-rails
@@ -461,11 +462,10 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   simple_form
-  spring
   spring-commands-rspec
   traceroute
   uglifier
-  unicorn
+  unicorn-rails
   web-console
   whenever
   will_paginate

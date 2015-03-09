@@ -1,11 +1,13 @@
 class Taxpayer < ActiveRecord::Base
+scope :delinquent, -> { joins(:businesses).where(status: :delinquent)}
   attachment :profile_image
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
  enum gender: [:male, :female]
-  include PgSearch
- multisearchable :against => [:last_name, :first_name]
-
+ include PgSearch
+  pg_search_scope :text_search, against: [:last_name, :first_name],
+    using: {tsearch: {dictionary: "english", prefix: true}},
+     associated_against: {businesses: :business_name}
   validates  :first_name, :middle_name, :last_name, :mobile_number,
                   :cedula_number, :cedula_date_issued, :cedula_place_issued, presence: true
 
@@ -32,6 +34,7 @@ class Taxpayer < ActiveRecord::Base
      "#{try(:address_street)}, #{try(:address_barangay)}, #{try(:address_municipality)}, #{try(:address_province)}"
   end
 
+
   private
       def titleize_full_name
         self.first_name=first_name.try(:titleize)
@@ -40,7 +43,7 @@ class Taxpayer < ActiveRecord::Base
       end
       def set_id
         if self.id.blank?
-        self.id = Taxpayer.last.id.succ
+        self.id = Taxpayer.last.id.succ if Taxpayer.any?
       end
       end
 end

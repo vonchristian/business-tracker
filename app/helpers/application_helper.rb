@@ -10,7 +10,7 @@ end
 
 
 def site_name
-    "BPLS"
+    "BPLS | TINOC"
   end
 
   def site_url
