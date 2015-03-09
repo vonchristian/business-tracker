@@ -3,6 +3,7 @@ source 'https://rubygems.org'
     gem 'rails', '4.2.0'
 
   gem 'prawn'
+  gem 'lol_dba'
   gem 'prawn-table'
   gem 'pg_search'
   gem 'public_activity'
