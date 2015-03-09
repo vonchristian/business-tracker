@@ -32,7 +32,6 @@ class Business < ActiveRecord::Base
   scope :new_businesses, -> {where("created_at >=?", Time.zone.now.beginning_of_year + 20.days)}
 
   before_create :set_status_to_payment_pending
-  after_create :set_type_of_business_to_new_business
   before_save :set_capital_tax
   before_save :set_enterprise_scale
   before_save :set_permit_number, :capitalize_barangay
@@ -169,9 +168,6 @@ end
 
   def set_status_to_payment_pending
     self.status=:payment_pending
-  end
- def set_type_of_business_to_new_business
-    self.type_of_business=:new_business
   end
 
 private

@@ -3,7 +3,7 @@
       <div class="col-md-10 col-md-offset-1">
          <div class="box box-success">
                 <div class="box-header with-border">
-                <h3 class="box-title">All Businesses</h3>
+                <h3 class="box-title">Registered Businesses</h3>
                   <div class="box-tools pull-right">
 
                     <%=form_tag businesses_path, class: 'sidebar-form', method: :get do %>
@@ -29,7 +29,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% @businesses.each do |business| %>
+                  <% @businesses.registered.each do |business| %>
                     <tr>
                       <td><%=link_to truncate(business.business_name.upcase, length: 40), business%></td>
                       <td><%= link_to business.taxpayer_name, taxpayer_path(id: business.taxpayer.id) %></td>

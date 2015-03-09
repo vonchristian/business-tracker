@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
-    ruby '2.2.0'
+    ruby '2.2.1'
     gem 'rails', '4.2.0'
 
   gem 'prawn'
+  gem 'prawn-table'
   gem 'pg_search'
   gem 'public_activity'
   gem "paperclip"

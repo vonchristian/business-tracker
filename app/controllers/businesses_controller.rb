@@ -1,5 +1,14 @@
 class BusinessesController < ApplicationController
   before_filter :set_business, only: [:edit, :show, :update]
+
+  def registered
+    if params[:query].present?
+      @businesses = Business.text_search(params[:query]).page(params[:page]).per_page(50)
+    else
+      @businesses = Business.page(params[:page]).per_page(50)
+    end
+  end
+
   def delinquents_poblacion
     @businesses = Business.delinquent.where(address_barangay: 'Poblacion')
      respond_to do |format|
@@ -238,7 +247,7 @@ class BusinessesController < ApplicationController
 
   private
   def business_params
-    params.require(:business).permit(:sanitary_inspection_cleared, :police_clearance_cleared, :health_certificate_cleared, :bir_registered, :application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
+    params.require(:business).permit(:type_of_business, :sanitary_inspection_cleared, :police_clearance_cleared, :health_certificate_cleared, :bir_registered, :application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
   end
 
   def set_current_taxpayer

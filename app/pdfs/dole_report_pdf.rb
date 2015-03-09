@@ -1,4 +1,5 @@
 class DoleReportPdf < Prawn::Document
+  require "prawn/table"
   TABLE_WIDTHS = [180, 100, 150, 100 ]
   def initialize(businesses=[])
     super(page_size: 'A4', margin: 30)

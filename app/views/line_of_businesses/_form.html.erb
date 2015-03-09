@@ -1,8 +1,7 @@
  <div class="col-md-6 col-md-offset-2">
- <div class="panel panel-primary">
- <div class="panel-heading">Line Of Business Details </div>
-   <div class="panel-body">
-   <h4><%=@business.business_name %> </h4>
+ <div class="box box-success">
+  <div class="box-header with-border">
+   <h3 class="text-success"><%=@business.business_name.capitalize %> </h3>
    <span class="help-block">Owner: <%=@business.taxpayer_name %></span>
     <span class="help-block">Address: <%=@business.address %></span>
 
@@ -23,9 +22,9 @@ boolean: :horizontal_boolean
 
         <div class="modal-footer">
         <% if @line_of_business.new_record? %>
-        <%=f.button :submit, 'Add Line Of Business', class: 'btn btn-primary' %>
+        <%=f.submit 'Add Line Of Business', class: 'btn btn-primary btn-flat' %>
         <% else %>
-         <%=f.button :submit, 'Update Line of Business', class: 'btn btn-primary' %>
+         <%=f.submit 'Update Line of Business', class: 'btn btn-success btn-flat' %>
         <% end %>
        <%= link_to 'or Cancel', :back, class: 'btn btn-link' %>
     </div>

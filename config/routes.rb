@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     end
     resources :businesses do
       match :renew, via: [:get], on: :member
+       match :registered, via: [:get], on: :collection
       match :expire, via: [:get, :post], on: :member
        match :retire, via: [:get, :post], on: :member
       resources :payments

@@ -24,6 +24,7 @@
           <hr>
 
                 <%=f.input :business_name, autofocus: true  %>
+                 <%=f.input :type_of_business, collection: Business.type_of_businesses.keys.to_a.map{ |a| [a.titleize, a] }  %>
                  <%=f.input :type_of_organization, collection: Business.type_of_organizations.keys.to_a.map{ |a| [a.titleize, a] }  %>
                 <%=f.input :asset_size, as: :string%>
 
@@ -62,9 +63,9 @@
 
         <div class="modal-footer">
         <% if @business.new_record? %>
-        <%=f.button :submit, 'Register Business', class: 'btn btn-primary' %>
+        <%=f.submit 'Register Business', class: 'btn btn-primary btn-flat' %>
         <% else %>
-         <%=f.button :submit, 'Update Business', class: 'btn btn-warning' %>
+         <%=f.submit 'Update Business', class: 'btn btn-success btn-flat' %>
         <% end %>
         <%= link_to 'or Cancel', :back, class: 'btn btn-link' %>
     </div>

@@ -1,4 +1,5 @@
 class DelinquencyReportPdf < Prawn::Document
+  require "prawn/table"
   TABLE_WIDTHS = [180, 150, 200]
   TABLE_HEADERS = ["Business Name", "Owner", "Status"]
 

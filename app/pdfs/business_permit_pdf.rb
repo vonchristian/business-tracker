@@ -1,4 +1,5 @@
 class BusinessPermitPdf < Prawn::Document
+  require "prawn/table"
   def initialize(business)
    super(margin: 30, page_size: 'A4')
    @business = business
