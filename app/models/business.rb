@@ -1,10 +1,9 @@
 class Business < ActiveRecord::Base
 
   include PgSearch
-  pg_search_scope :text_search, against: [:business_name],
+  pg_search_scope :text_search, against: [:business_name, :permit_number],
     using: {tsearch: {dictionary: "english", prefix: true}},
     associated_against: {taxpayer: [:last_name, :first_name]}
-    # ignoring: :accents
 
   include PublicActivity::Common
   enum type_of_organization: [:sole_proprietorship, :corporation, :partnership, :association, :cooperative]
