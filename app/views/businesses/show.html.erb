@@ -20,9 +20,9 @@
             <%=link_to ' Print Mayors Permit', business_path(@business, format: "pdf"), class: " btn btn-info fa fa-print btn-sm" %>
             <% end %>
             <% if @business.line_of_businesses.blank?%>
-            <%=link_to ' Add Line of Business', new_business_line_of_business_path(@business), class: "btn btn-default" %>
+            <%=link_to ' Add Line of Business', new_line_of_business_path(@business), class: "btn btn-default" %>
             <% else %>
-              <%=link_to 'Edit Line of Business', edit_line_of_business_path(@business, @line_of_business), class: "btn btn-default btn-sm" %>
+              <%=link_to 'Edit Line of Business', edit_line_of_business_path(id: @business.line_of_businesses.last.id), class: "btn btn-default btn-sm" %>
               <% end %>
             <% if @business.payment_pending? || @business.delinquent?%>
             <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-default" %>

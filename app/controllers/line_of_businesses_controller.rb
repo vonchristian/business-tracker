@@ -20,12 +20,13 @@ before_filter :current_business, only: [:new, :create]
 
   def edit
     @line_of_business = LineOfBusiness.find(params[:id])
+    @business = @line_of_business.business
   end
 
   def update
     @line_of_business = LineOfBusiness.find(params[:id])
     if @line_of_business.update(line_of_business_params)
-      redirect_to business_path
+      redirect_to business_path(id: @line_of_business.business), notice: "#{@line_of_business.business.business_name} Line of Business updated successfully."
 
     else
       render :edit
@@ -34,10 +35,11 @@ before_filter :current_business, only: [:new, :create]
 
   private
       def line_of_business_params
-        params.require(:line_of_business).permit( :description, :psic_code, :tax_ids =>[] )
+        params.require(:line_of_business).permit( :description, :psic_code)
       end
 
       def current_business
         @business = Business.find(params[:business_id])
       end
+
 end
