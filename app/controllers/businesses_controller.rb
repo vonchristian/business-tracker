@@ -246,9 +246,9 @@ class BusinessesController < ApplicationController
 
  def revoked
     if params[:query].present?
-      @businesses = Business.text_search(params[:query]).page(params[:page]).per_page(50)
+      @businesses = Business.revoked.text_search(params[:query]).page(params[:page]).per_page(50)
     else
-      @businesses = Business.page(params[:page]).per_page(50)
+      @businesses = Business.revoked.page(params[:page]).per_page(50)
     end
   end
 

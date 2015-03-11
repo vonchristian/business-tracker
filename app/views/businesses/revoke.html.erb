@@ -14,6 +14,7 @@
           <%=f.error_notification %><%=f.input :reason_of_revocation, label: "State The Reason of Revocation"%>
 <div class="modal-footer">
 <%=f.submit 'Revoke', class: 'btn btn-danger' %>
+  <%= link_to 'or Cancel', :back, class: 'btn btn-link' %>
 </div>
 <% end %>
 </div>

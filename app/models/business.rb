@@ -74,7 +74,9 @@ def address
     50
   end
 
-
+def payments_total
+  self.payments.sum(:amount)
+end
 
   def taxpayer_name
     self.taxpayer.try(:first_and_last_name)
