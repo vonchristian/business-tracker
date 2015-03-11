@@ -15,7 +15,7 @@
     <!-- search form -->
     <%=form_tag taxpayers_path, class: 'sidebar-form', method: :get do %>
       <div class="input-group">
-        <%=text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search  for Taxpayer' %>
+        <%=text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search...' %>
         <span class="input-group-btn">
           <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
             <i class="fa fa-search"></i>
@@ -51,6 +51,8 @@
           <li><a href="/businesses/registered"><i class="fa fa-check"></i> Registered</a></li>
           <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Delinquent</a></li>
           <li><a href="pages/charts/inline.html"><i class="fa fa-try"></i> Not Registered</a></li>
+          <li><a href="/businesses/revoked"><i class="fa fa-try"></i> Revoked</a></li>
+
         </ul>
       </li>
 

@@ -1,5 +1,4 @@
 class Business < ActiveRecord::Base
-
   include PgSearch
   pg_search_scope :text_search, against: [:business_name, :permit_number],
     using: {tsearch: {dictionary: "english", prefix: true}},
@@ -59,11 +58,7 @@ class Business < ActiveRecord::Base
   #validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
 
  def revoke
-  if self.payments.empty?
-   self.update_attributes(status: :revoked)
- else
-  false
- end
+   self.update_attributes(status: :revoked, revoked_at: Time.zone.now)
 end
 def address
  "#{try(:address_sitio)}, #{try(:address_barangay)}, #{try(:address_municipality)}, #{try(:address_province)}"
@@ -126,13 +121,13 @@ def address
   end
 
   def set_gross_sales_taxes
-    self.gross_sales_taxes.create
+    self.gross_sales_taxes.create if self.gross_sales.present?
   end
 
   def renew
     self.set_mayors_permit_fee
-    self.set_gross_sales_taxes if self.gross_sales.present?
-    self.update_attributes(status: 'payment_pending')
+    self.set_gross_sales_taxes
+    self.update_attributes(status: :payment_pending, renewed_at: Time.zone.now)
   end
 
   def end_of_year

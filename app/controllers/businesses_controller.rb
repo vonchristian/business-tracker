@@ -226,8 +226,8 @@ class BusinessesController < ApplicationController
   def update
     authorize @business
     if @business.update_attributes(business_params)
-      @business.set_gross_sales_taxes if @business.gross_sales.present?
-      @business.set_mayors_permit_fee
+      @business.set_gross_sales_taxes if !@business.revoked?
+      @business.set_mayors_permit_fee if @business.mayors_permit_fees.empty?
       @business.renew if @business.expired?
       redirect_to @business, notice: 'updated successfully'
     else
@@ -244,11 +244,20 @@ class BusinessesController < ApplicationController
     @business.revoke
   end
 
+ def revoked
+    if params[:query].present?
+      @businesses = Business.text_search(params[:query]).page(params[:page]).per_page(50)
+    else
+      @businesses = Business.page(params[:page]).per_page(50)
+    end
+  end
 
   private
   def business_params
-    params.require(:business).permit(:type_of_business, :sanitary_inspection_cleared, :police_clearance_cleared, :health_certificate_cleared, :bir_registered, :application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
+    params.require(:business).permit(:reason_of_revocation, :type_of_business, :sanitary_inspection_cleared, :police_clearance_cleared, :health_certificate_cleared, :bir_registered, :application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
   end
+
+
 
   def set_current_taxpayer
     @taxpayer = Taxpayer.find_by_id(params[:taxpayer_id])

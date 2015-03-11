@@ -1,0 +1,67 @@
+
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+         <div class="box box-success">
+                <div class="box-header with-border">
+                <h3 class="box-title">All Businesses</h3>
+                  <div class="box-tools pull-right">
+
+                    <%=form_tag businesses_path, method: :get do %>
+      <div class="input-group">
+        <%=text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search...' %>
+        <span class="input-group-btn">
+          <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
+            <i class="fa fa-search"></i>
+            <% end %>
+               </span>
+      </div>
+      <% end %>
+      </div>
+
+                  </div>
+                   <div class="box-body no-padding">
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed">
+                <thead>
+                  <tr>
+                    <th> Business Name</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @businesses.each do |business| %>
+                    <tr>
+                      <td><%=link_to truncate(business.business_name.upcase, length: 40), business%></td>
+                      <td><%= link_to business.taxpayer_name, taxpayer_path(id: business.taxpayer.id) %></td>
+                      <td><%=business.status%></td>
+                      <td>
+                      <% if business.payment_pending?  %>
+                       <%=link_to 'Pay', new_business_payment_path(business)%>
+                       <% end %>
+                         <% if business.expired? %>
+                       <%=link_to 'Renew', renew_business_path(business), method: :get%>
+                       <% end %>
+
+                        <% if business.delinquent? %>
+                       <%=link_to 'Pay Dues', renew_business_path(business), method: :get %>
+                       <% end %>
+                       <% if business.registered? && current_user.system_administrator? && business.line_of_businesses.present?%>
+                       <%=link_to ' Print Mayors Permit', business_path(business, format: "pdf"), class: " btn  fa fa-print" %>
+                       <% end %>
+
+
+                      </td>
+                    </tr>
+                  <%end%>
+                </tbody>
+              </table>
+              <div class="pagination">
+            <%= will_paginate @businesses %>
+              </div>
+            </div>
+           </div>
+        </div>
+      </div>
+    </div>
+

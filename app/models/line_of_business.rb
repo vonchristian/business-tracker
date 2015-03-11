@@ -10,4 +10,7 @@ class LineOfBusiness < ActiveRecord::Base
   def to_label
     "#{description}"
   end
+  def business_name
+    business.business_name
+  end
 end

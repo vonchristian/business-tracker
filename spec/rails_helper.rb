@@ -9,7 +9,8 @@ require 'database_cleaner'
 require 'capybara/rails'
 require 'shoulda/matchers'
 # ActiveRecord::Migration.maintain_test_schema!
-
+include Warden::Test::Helpers
+Warden.test_mode!
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
    config.include Rails.application.routes.url_helpers

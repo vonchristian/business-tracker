@@ -1,0 +1,20 @@
+<div class="col-md-8 col-md-offset-2">
+<div class="box box-danger">
+<h4><%=@business.business_name %></h4>
+<h5><%=@business.taxpayer_name %></h5>
+ <%= simple_form_for @business, html: { class: 'form-horizontal' },
+        wrapper: :horizontal_form,
+        wrapper_mappings: {
+        check_boxes: :horizontal_radio_and_checkboxes,
+        radio_buttons: :horizontal_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+        } do |f| %>
+
+          <%=f.error_notification %><%=f.input :reason_of_revocation, label: "State The Reason of Revocation"%>
+<div class="modal-footer">
+<%=f.submit 'Revoke', class: 'btn btn-danger' %>
+</div>
+<% end %>
+</div>
+</div>

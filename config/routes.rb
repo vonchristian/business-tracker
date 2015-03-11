@@ -20,10 +20,12 @@ Rails.application.routes.draw do
        match :registered, via: [:get], on: :collection
       match :expire, via: [:get, :post], on: :member
        match :retire, via: [:get, :post], on: :member
-      resources :payments
+       match :revoke, via: [:get, :post], on: :member
+       match :revoked, via: :get, on: :collection
+      resources :payments, only: [:new, :create]
       resource :mayors_permit_fees
       resource :required_documents
-      resources :line_of_businesses
+      resources :line_of_businesses, only: [:new, :create]
     end
           resources :requirements
 
@@ -31,7 +33,7 @@ Rails.application.routes.draw do
           resources :documents
           resources :line_of_businesses
           resources :fees
-          resources :payments
+          resources :payments, only: [:index]
           resources :activities
     get 'reports' => 'reports#index', as: 'reports'
     get 'delinquents_ahin' => 'businesses#delinquents_ahin'
