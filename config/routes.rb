@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :users
     resources :taxpayers do
       match :delinquent, via: [:get], on: :collection
+       match :with_pending_payments, via: [:get], on: :collection
       resources :businesses
        resources :police_clearances
       resources :payments

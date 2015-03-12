@@ -7,6 +7,10 @@ class TaxpayersController < ApplicationController
     load_delinquent_taxpayers
   end
 
+  def with_pending_payments
+    load_taxpayers_with_pending_payments
+  end
+
   def show
     load_taxpayer
     new_business
@@ -40,8 +44,13 @@ end
     end
 private
     def load_delinquent_taxpayers
-      @taxpayers =Taxpayer.delinquent.page(params[:page]).per_page(30)
+      @taxpayers =Taxpayer.with_delinquent_business.page(params[:page]).per_page(30)
     end
+
+     def load_taxpayers_with_pending_payments
+      @taxpayers =Taxpayer.with_pending_payments.page(params[:page]).per_page(30)
+    end
+
     def load_taxpayers
       if params[:query].present?
     @taxpayers =Taxpayer.text_search(params[:query]).page(params[:page]).per_page(30)

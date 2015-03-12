@@ -1,5 +1,5 @@
 class Taxpayer < ActiveRecord::Base
-scope :with_delinquent_business, -> {where('business_status ?' , :delinquent)}
+# scope :with_delinquent_business, joins(:businesses).merge(Business.delinquent)
   attachment :profile_image
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
@@ -15,6 +15,10 @@ scope :with_delinquent_business, -> {where('business_status ?' , :delinquent)}
   has_one :police_clearance
   has_one :cedula
   has_many :payments, :through => :businesses
+
+  scope :with_delinquent_business, ->{Taxpayer.joins(:businesses).merge(Business.delinquent)}
+    scope :with_pending_payments, ->{Taxpayer.joins(:businesses).merge(Business.payment_pending)}
+
   after_validation :titleize_full_name
   before_save :set_id
   def self.update_cedula_status
