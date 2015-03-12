@@ -1,76 +1,75 @@
-
-<div class='col-md-6 col-md-offset-2'>
+<div class="row">
+  <div class='col-md-6 col-md-offset-2'>
     <div class="box box-success">
       <div class="box-header with-border">
-      <%= simple_form_for [@taxpayer, @business], html: { class: 'form-horizontal' },
-        wrapper: :horizontal_form,
-        wrapper_mappings: {
-        check_boxes: :vertical_radio_and_checkboxes,
-        radio_buttons: :vertical_radio_and_checkboxes,
-        file: :horizontal_file_input,
-        boolean: :horizontal_boolean
-        } do |f| %>
-          <%=f.error_notification %>
-          <% if @business.expired? || @business.payment_pending? || @business.delinquent?%>
-            <h3>Gross Sales Details</h3>
+        <%= simple_form_for [@taxpayer, @business], html: { class: 'form-horizontal' },
+          wrapper: :horizontal_form,
+          wrapper_mappings: {
+          check_boxes: :vertical_radio_and_checkboxes,
+          radio_buttons: :vertical_radio_and_checkboxes,
+          file: :horizontal_file_input,
+          boolean: :horizontal_boolean
+          } do |f| %>
+            <%=f.error_notification %>
+             <div class="centered">
+            <%if @business.logo.blank? %>
+              <%=image_tag("missing.png", :class=>"img-polaroid center-block ") %>
+              <% else %>
+              <%= image_tag attachment_url(@business, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%>
+              <% end %>
+              <%= f.file_field :logo, class: 'center-block'%>
+            </div>
             <hr>
-            <div class="row">
-              <div class="col-md-6">
-                <%=f.input :gross_sales, as: :string%>
-              </div>
+            <% if @business.expired? || @business.payment_pending? || @business.delinquent?%>
+              <h3>Gross Sales Details</h3>
+              <hr>
+                <div class="col-md-6">
+                  <%=f.input :gross_sales, as: :string%>
+                </div>
+            <% end %>
+            <h3>Business Details </h3>
+            <hr>
+            <%=f.input :business_name, autofocus: true  %>
+            <%=f.input :type_of_business, collection: Business.type_of_businesses.keys.to_a.map{ |a| [a.titleize, a] }  %>
+            <%=f.input :type_of_organization, collection: Business.type_of_organizations.keys.to_a.map{ |a| [a.titleize, a] }  %>
+            <%=f.input :asset_size, as: :string%>
+            <% if @business.new_record? %>
+              <%=f.input :capital, as: :string %>
+            <% end %>
+            <%=f.input :no_of_employees, label: 'Number of Employees', as: :string %>
+            <%=f.input :industry_type, collection: Business.industry_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Industry' %>
+            <%=f.input :business_type, collection: Business.business_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Type of Business' %>
+            <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'dd/mm/yyyy' %>
+            <%=f.input :dti_sec_reg_no, label: 'DTI/SEC Registration Number', as: :string %>
+            <%# if @business.persisted? %>
+              <%#=f.input :permit_number %>
+            <%# end %>
+            <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" },  placeholder: 'dd/mm/yyyy'  %>
+            <h3>Address Details</h3>
+            <hr>
+            <%=f.input :address_sitio, label: 'Sitio' %>
+            <%=f.input :address_barangay, label: "Barangay "%>
+            <%=f.input :address_municipality, label: 'Municipality' %>
+            <%=f.input :address_province, label: 'Province'  %>
+            <h3>Documents Submitted</h3>
+            <hr>
+            <%=f.input :bir_registered, as: :boolean, label: 'BIR Registration'%>
+             <%=f.input :police_clearance_cleared, as: :boolean, label: 'Police Clearance'%>
+              <%=f.input :sanitary_inspection_cleared, as: :boolean, label: 'Sanitary Permit Fee'%>
+               <%=f.input :health_certificate_cleared, as: :boolean, label: 'Health Certificate'%>
+                <%=f.input :barangay_clearance, as: :boolean, label: 'Barangay Clearance'%>
+            <div class="modal-footer">
+              <% if @business.new_record? %>
+                <%=f.submit 'Register Business', class: 'btn btn-primary btn-flat' %>
+              <% else %>
+                <%=f.submit 'Update Business', class: 'btn btn-success btn-flat' %>
+              <% end %>
+              <%= link_to 'or Cancel', :back, class: 'btn btn-link' %>
             </div>
           <% end %>
-          <h3>Business Details </h3>
-          <hr>
-
-                <%=f.input :business_name, autofocus: true  %>
-                 <%=f.input :type_of_business, collection: Business.type_of_businesses.keys.to_a.map{ |a| [a.titleize, a] }  %>
-                 <%=f.input :type_of_organization, collection: Business.type_of_organizations.keys.to_a.map{ |a| [a.titleize, a] }  %>
-                <%=f.input :asset_size, as: :string%>
-
-                <% if @business.new_record? %>
-                   <%=f.input :capital, as: :string %>
-                <% end %>
-
-                <%=f.input :no_of_employees, label: 'Number of Employees', as: :string %>
-
-               <%=f.input :industry_type, collection: Business.industry_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Industry' %>
-
-               <%=f.input :business_type, collection: Business.business_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Type of Business' %>
-
-              <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'dd/mm/yyyy' %>
-
-              <%=f.input :dti_sec_reg_no, label: 'DTI/SEC Registration Number', as: :string %>
-              <% if @business.persisted? %>
-              <%=f.input :permit_number %>
-              <% end %>
-              <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" },  placeholder: 'dd/mm/yyyy'  %>
-
-
- <h3>Address Details</h3>
-<hr>
-
-        <%=f.input :address_sitio, label: 'Sitio' %>
-        <%=f.input :address_barangay, label: "Barangay "%>
-
-        <%=f.input :address_municipality, label: 'Municipality' %>
-        <%=f.input :address_province, label: 'Province'  %>
-
- <h3>Documents Submitted</h3>
-<hr>
-
-        <%=f.input :bir_registered, as: :boolean, label: 'BIR Registration'%>
-
-        <div class="modal-footer">
-        <% if @business.new_record? %>
-        <%=f.submit 'Register Business', class: 'btn btn-primary btn-flat' %>
-        <% else %>
-         <%=f.submit 'Update Business', class: 'btn btn-success btn-flat' %>
-        <% end %>
-        <%= link_to 'or Cancel', :back, class: 'btn btn-link' %>
+       </div>
     </div>
   </div>
 </div>
-</div>
 
-        <% end %>
+

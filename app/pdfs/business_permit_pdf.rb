@@ -66,9 +66,9 @@ class BusinessPermitPdf < Prawn::Document
   end
 
   def image_taxpayer
-    if @business.taxpayer.photo.present?
+    if @business.taxpayer.profile_image.present?
 
-    image "#{@business.taxpayer.photo.path(:thumb)}", :at => [40, 170]
+    image "#{@business.taxpayer.profile_image}", :at => [40, 150]
   end
 end
 

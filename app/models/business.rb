@@ -1,10 +1,12 @@
 class Business < ActiveRecord::Base
+  attachment :logo
   include PgSearch
   pg_search_scope :text_search, against: [:business_name, :permit_number],
     using: {tsearch: {dictionary: "english", prefix: true}},
     associated_against: {taxpayer: [:last_name, :first_name]}
 
   include PublicActivity::Common
+
   enum type_of_organization: [:sole_proprietorship, :corporation, :partnership, :association, :cooperative]
   enum status: [:payment_pending, :registered, :expired, :renewed, :delinquent, :revoked]
   enum type_of_business: [:new_business, :old]
@@ -27,14 +29,11 @@ class Business < ActiveRecord::Base
                                       :other_businesses]
 
 
-  scope :new_businesses, -> {where("created_at >=?", Time.zone.now.beginning_of_year + 20.days)}
 
   before_create :set_status_to_payment_pending
   before_save :set_capital_tax
   before_save :set_enterprise_scale
   before_save :set_permit_number, :capitalize_barangay
-
-
 
   belongs_to  :taxpayer
   has_many :police_clearance_fees
@@ -46,16 +45,11 @@ class Business < ActiveRecord::Base
   has_many :required_documents
   has_many :documents, through: :required_documents
 
-  #validates :status, inclusion: {in: Business.statuses.keys}
   validates :business_name, :industry_type, :business_type,
                 :address_barangay, :address_sitio, :address_municipality, :address_province,
                 :asset_size, :no_of_employees, :type_of_organization, presence: true
   validates :asset_size,  numericality:{ message: 'Invalid Amount'}
   validates :capital, numericality: { message: 'Invalid Amount'}, on: :create
-  # validates :business_name, uniqueness: {scope: :address_barangay}
- # validates :gross_sales, numericality: { message: 'Invalid Amount or less than the required amount', :greater_than =>30000}, on: :update
- # validates :gross_sales, numericality: { message: 'Invalid Asset Size' }
-  #validates :oath_of_undertaking, acceptance: { message: 'You must accept the terms.' }
 
  def revoke
    self.update_attributes(status: :revoked, revoked_at: Time.zone.now)
@@ -63,6 +57,7 @@ end
 def address
  "#{try(:address_sitio)}, #{try(:address_barangay)}, #{try(:address_municipality)}, #{try(:address_province)}"
   end
+
  def update_payment_status
     self.update_attributes(status: :registered)
   end
@@ -182,6 +177,9 @@ end
 
 def capitalize_barangay
   self.address_barangay=self.address_barangay.capitalize
+end
+def self.update_status
+
 end
 
 
