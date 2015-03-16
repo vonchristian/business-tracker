@@ -8,6 +8,14 @@ class BusinessesController < ApplicationController
       @businesses = Business.page(params[:page]).per_page(50)
     end
   end
+  def delinquent
+    if params[:query].present?
+      @businesses = Business.delinquent.text_search(params[:query]).page(params[:page]).per_page(50)
+    else
+      @businesses = Business.delinquent.page(params[:page]).per_page(50)
+    end
+  end
+
 
   def delinquents_poblacion
     @businesses = Business.delinquent.where(address_barangay: 'Poblacion')

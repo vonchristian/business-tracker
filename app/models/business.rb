@@ -36,14 +36,10 @@ class Business < ActiveRecord::Base
   before_save :set_permit_number, :capitalize_barangay
 
   belongs_to  :taxpayer
-  has_many :police_clearance_fees
   has_many :mayors_permit_fees
   has_many :gross_sales_taxes
   has_many :line_of_businesses
-  has_many :taxes
   has_many :payments
-  has_many :required_documents
-  has_many :documents, through: :required_documents
 
   validates :business_name, :industry_type, :business_type,
                 :address_barangay, :address_sitio, :address_municipality, :address_province,

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :businesses do
       match :renew, via: [:get], on: :member
        match :registered, via: [:get], on: :collection
+       match :delinquent, via: [:get], on: :collection
       match :expire, via: [:get, :post], on: :member
        match :retire, via: [:get, :post], on: :member
        match :revoke, via: [:get, :post], on: :member
