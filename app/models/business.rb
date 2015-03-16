@@ -174,9 +174,10 @@ end
 def capitalize_barangay
   self.address_barangay=self.address_barangay.capitalize
 end
-def self.update_status
-
+def self.update_status_of_police_clearance
+  self.registered.update_all(police_clearance_cleared: false)
 end
+
 
 
 

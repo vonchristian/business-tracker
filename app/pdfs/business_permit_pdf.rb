@@ -7,7 +7,6 @@ class BusinessPermitPdf < Prawn::Document
    business_name
    permit_number
    taxpayer
-   image_taxpayer
    type_of_organization
    address
    line_of_business
@@ -65,12 +64,12 @@ class BusinessPermitPdf < Prawn::Document
     text "Taxpayer/Proprietor/Manager/President", align: :center
   end
 
-  def image_taxpayer
-    if @business.taxpayer.profile_image.present?
+#   def image_taxpayer
+#     if @business.taxpayer.profile_image.present?
 
-    image "#{@business.taxpayer.profile_image}", :at => [40, 150]
-  end
-end
+#     image "#{@business.taxpayer.profile_image}", :at => [40, 150]
+#   end
+# end
 
   def type_of_organization
     move_down 10

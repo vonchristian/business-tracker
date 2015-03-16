@@ -235,9 +235,9 @@ class BusinessesController < ApplicationController
     authorize @business
     if @business.update_attributes(business_params)
       @business.set_gross_sales_taxes if !@business.revoked?
-      @business.set_mayors_permit_fee
+      @business.set_mayors_permit_fee if !@business.revoked?
       @business.renew if @business.expired?
-      redirect_to @business, notice: 'updated successfully'
+      redirect_to @business, notice: "#{@business.business_name} updated successfully."
     else
       render :edit
     end
