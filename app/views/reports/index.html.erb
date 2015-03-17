@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-md-4">
-    <a href="#" class="list-group-item active">
-      Unrenewed Businesses Per Barangay
-    </a>
+    <div class="panel panel-danger">
+      <div class="panel-heading">Unrenewed Businesses Per Barangay</div>
+
     <ul class="list-group">
       <li class="list-group-item"><%=link_to 'Poblacion', delinquents_poblacion_path(format: :pdf), class: 'text-danger' %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Poblacion').count %></span></li>
 
@@ -29,15 +29,17 @@
        <li class="list-group-item"><%=link_to 'Eheb', delinquents_eheb_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Eheb').count %></span></li>
     </ul>
   </div>
+  </div>
   <div class="col-md-4">
     <a href="#" class="list-group-item active">
       Reports
     </a>
     <ul class="list-group">
       <li class="list-group-item">  <%=link_to 'DOLE Report', dole_report_path(format: :pdf) %></li>
+       <li class="list-group-item">  <%=link_to 'SSS Report', sss_report_path(format: :pdf) %></li>
       <li class="list-group-item">  <%=link_to 'BIR Report',bir_report_path(format: :pdf) %></li>
-        <li class="list-group-item">  <%=link_to 'Registered Report', registered_businesses_report_path(format: :pdf) %></li>
-         <li class="list-group-item">  <%=link_to 'Unrenewed Report', unrenewed_businesses_report_path(format: :pdf) %></li>
+        <li class="list-group-item">  <%=link_to 'Registered  Businesses Report', registered_businesses_report_path(format: :pdf) %></li>
+         <li class="list-group-item">  <%=link_to 'Unrenewed  Businesses Report', unrenewed_businesses_report_path(format: :pdf) %></li>
     </ul>
   </div>
 </div>

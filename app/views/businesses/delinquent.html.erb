@@ -32,7 +32,7 @@
                 <tbody>
                   <% @businesses.each do |business| %>
                     <tr>
-                      <td><%=link_to truncate(business.business_name.upcase, length: 40), business%></td>
+                      <td><%=link_to truncate(business.business_name.upcase, length: 40), business, class: 'text-danger'%></td>
                       <td><%= link_to business.taxpayer_name, taxpayer_path(id: business.taxpayer.id) %></td>
                       <td><%=business.status%></td>
                       <td>

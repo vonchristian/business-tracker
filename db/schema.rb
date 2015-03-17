@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312005213) do
+ActiveRecord::Schema.define(version: 20150317023020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,15 +69,16 @@ ActiveRecord::Schema.define(version: 20150312005213) do
     t.boolean  "sanitary_inspection_cleared"
     t.boolean  "health_certificate_cleared"
     t.string   "logo_id"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
     t.boolean  "renting"
     t.integer  "type_of_business"
-    t.boolean  "revoked",                     default: false, null: false
+    t.boolean  "revoked",                                    default: false, null: false
     t.datetime "revoked_at"
     t.text     "reason_of_revocation"
     t.datetime "renewed_at"
     t.boolean  "barangay_clearance"
+    t.boolean  "certificate_of_sss_coverage_and_compliance"
   end
 
   create_table "cedulas", force: :cascade do |t|

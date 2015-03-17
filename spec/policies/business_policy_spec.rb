@@ -2,9 +2,7 @@ require 'rails_helper'
 
 describe BusinessPolicy do
   subject { BusinessPolicy.new(user, business) }
-
   let(:business) { FactoryGirl.create(:business) }
-
   context "for an application officer" do
     let(:user) { FactoryGirl.create(:user, role: 'application_officer') }
 

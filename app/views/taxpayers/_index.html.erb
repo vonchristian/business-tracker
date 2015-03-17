@@ -37,6 +37,9 @@
   <div class="panel-body">
     <div class="table-responsive">
       <table class="table table-hover table-condensed">
+                  <ul class="pagination pagination-sm no-margin pull-right">
+                   <%=will_paginate @taxpayers %>
+                  </ul>
         <thead>
           <tr>
             <th></th>

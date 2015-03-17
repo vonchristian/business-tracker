@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
 
 
-    root 'businesses#index'
+    root 'pages#dashboard'
      get 'dashboard' => 'pages#dashboard', as: 'dashboard'
     devise_for :users, :controllers => { :registrations => "users" }
 
@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       match :renew, via: [:get], on: :member
        match :registered, via: [:get], on: :collection
        match :delinquent, via: [:get], on: :collection
+       match :new_business, via: [:get], on: :collection
+        match :owned_by_women, via: [:get], on: :collection
       match :expire, via: [:get, :post], on: :member
        match :retire, via: [:get, :post], on: :member
        match :revoke, via: [:get, :post], on: :member
@@ -51,6 +53,7 @@ Rails.application.routes.draw do
     get 'delinquents_tulludan' => 'businesses#delinquents_tulludan'
     get 'delinquents_wangwang' => 'businesses#delinquents_wangwang'
      get 'dole_report' => 'businesses#dole_report'
+      get 'sss_report' => 'businesses#sss_report'
       get 'registered_businesses_report' => 'businesses#registered_businesses_report'
       get 'unrenewed_businesses_report' => 'businesses#unrenewed_businesses_report'
       get 'bir_report' => 'businesses#bir_report'

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Business registrations' do
+describe 'Business registrations', :type => :feature do
 
   before (:each) do
     user = FactoryGirl.create(:user)

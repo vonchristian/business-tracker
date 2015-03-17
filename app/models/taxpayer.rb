@@ -3,7 +3,7 @@ class Taxpayer < ActiveRecord::Base
   attachment :profile_image
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
- enum gender: [:male, :female]
+
  include PgSearch
   pg_search_scope :text_search, against: [:last_name, :first_name],
     using: {tsearch: {dictionary: "english", prefix: true}},
@@ -15,7 +15,7 @@ class Taxpayer < ActiveRecord::Base
   has_one :police_clearance
   has_one :cedula
   has_many :payments, :through => :businesses
-
+  scope :female, ->{Taxpayer.where(gender: 'Female')}
   scope :with_delinquent_business, ->{Taxpayer.joins(:businesses).merge(Business.delinquent)}
     scope :with_pending_payments, ->{Taxpayer.joins(:businesses).merge(Business.payment_pending)}
 
@@ -42,6 +42,9 @@ class Taxpayer < ActiveRecord::Base
   private
       def titleize_full_name
         self.first_name=first_name.try(:titleize)
+        self.middle_name = middle_name.try(:titleize)
+        self.last_name = last_name.try(:titleize)
+        self.gender    = gender.try(:titleize)
       end
       def set_status
       end
@@ -49,5 +52,9 @@ class Taxpayer < ActiveRecord::Base
         if self.id.blank?
         self.id = Taxpayer.last.id.succ if Taxpayer.any?
       end
+      end
+
+      def self.expire_all_cedula
+        Taxpayer.update_all(cedula_number: nil, cedula_place_issued: nil, cedula_date_issued: nil)
       end
 end

@@ -1,4 +1,5 @@
-<%if Payment.count.zero? %>
+<%provide(:title, "Payments") %>
+<%if @payments.count.zero? %>
 <p>No Payments have been registered yet.</p>
 <% else %>
     <div class="row">

@@ -18,7 +18,7 @@
           } do |f| %>
             <div class="centered">
             <%if @taxpayer.profile_image.blank? %>
-              <%=image_tag("missing.png", :class=>"img-polaroid center-block ") %>
+              <%=image_tag("missing.png", :class=>"img-circle center-block ") %>
               <% else %>
               <%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%>
               <% end %>
@@ -32,6 +32,9 @@
         <%=f.input :email %>
         <%=f.input :mobile_number %>
         <%=f.input :tin_number, label: 'TIN Number' %>
+        <%=f.input :gender%>
+
+
 
 
         <h3 class="text-success">Cedula Details</h3>

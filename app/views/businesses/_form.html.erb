@@ -13,7 +13,7 @@
             <%=f.error_notification %>
              <div class="centered">
             <%if @business.logo.blank? %>
-              <%=image_tag("missing.png", :class=>"img-polaroid center-block ") %>
+              <%=image_tag("missing_business_logo.jpg", :class=>"img-polaroid center-block ") %>
               <% else %>
               <%= image_tag attachment_url(@business, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%>
               <% end %>
@@ -27,6 +27,7 @@
                   <%=f.input :gross_sales, as: :string%>
                 </div>
             <% end %>
+            <br>
             <h3>Business Details </h3>
             <hr>
             <%=f.input :business_name, autofocus: true  %>
@@ -58,6 +59,7 @@
               <%=f.input :sanitary_inspection_cleared, as: :boolean, label: 'Sanitary Permit Fee'%>
                <%=f.input :health_certificate_cleared, as: :boolean, label: 'Health Certificate'%>
                 <%=f.input :barangay_clearance, as: :boolean, label: 'Barangay Clearance'%>
+                <%=f.input :certificate_of_sss_coverage_and_compliance, as: :boolean, label: 'SSS Certificate'  %>
             <div class="modal-footer">
               <% if @business.new_record? %>
                 <%=f.submit 'Register Business', class: 'btn btn-primary btn-flat' %>

@@ -28,12 +28,13 @@ class Business < ActiveRecord::Base
                                       :transloading_operations,
                                       :other_businesses]
 
-
+  scope :owned_by_women, ->{Business.joins(:taxpayer).merge(Taxpayer.female)}
 
   before_create :set_status_to_payment_pending
   before_save :set_capital_tax
   before_save :set_enterprise_scale
   before_save :set_permit_number, :capitalize_barangay
+  after_commit :set_application_date
 
   belongs_to  :taxpayer
   has_many :mayors_permit_fees
@@ -71,6 +72,13 @@ end
 
   def taxpayer_name
     self.taxpayer.try(:first_and_last_name)
+  end
+  def taxpayer_contact_details
+    self.taxpayer.try(:mobile_number) || self.taxpayer.try(:email)
+  end
+
+  def date_of_application
+    self.created_at.strftime('%B %d, %Y')
   end
 
    def taxpayer_mobile_number
@@ -157,6 +165,10 @@ end
     self.status=:payment_pending
   end
 
+  def self.percentage_of_business_owned_by_women
+    ((self.owned_by_women.count.to_f / self.count.to_f) * 100).ceil
+  end
+
 private
     def set_enterprise_scale
       return self.enterprise_scale=:micro if self.micro_industry?
@@ -178,8 +190,14 @@ def self.update_status_of_police_clearance
   self.registered.update_all(police_clearance_cleared: false)
 end
 
+def self.update_status_of_new_businesses
+  self.new_business.update_all(type_of_business: :old)
+end
 
-
-
+def set_application_date
+  if self.application_date.nil?
+    self.application_date=self.created_at
+  end
+end
 
 end

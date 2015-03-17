@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :taxpayer do
 
-first_name "Von"
-middle_name "P."
-last_name "Halip"
+first_name "Juan "
+middle_name "De La"
+last_name "Cruz"
 suffix "Jr"
 email "vc.halip@gmail.com"
 mobile_number "09274172312"

@@ -3,7 +3,7 @@ class BusinessesController < ApplicationController
 
   def registered
     if params[:query].present?
-      @businesses = Business.text_search(params[:query]).page(params[:page]).per_page(50)
+      @businesses = Business.include[:taxpayer, :line_of_businesses].text_search(params[:query]).page(params[:page]).per_page(50)
     else
       @businesses = Business.page(params[:page]).per_page(50)
     end
@@ -142,15 +142,7 @@ class BusinessesController < ApplicationController
     if params[:query].present?
     @businesses = Business.text_search(params[:query]).page(params[:page]).per_page(30)
   else
-    @businesses = Business.page(params[:page]).per_page(30)
-    @taxpayers = Taxpayer.all
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = PermitReportPdf.new(@businesses)
-        send_data pdf.render, filename: "permit.pdf", type: 'application/pdf', disposition: "inline"
-      end
-    end
+    @businesses = Business.order('created_at asc').page(params[:page]).per_page(30)
     end
   end
   def dole_report
@@ -161,6 +153,17 @@ class BusinessesController < ApplicationController
       format.pdf do
         pdf = DoleReportPdf.new(@businesses)
         send_data pdf.render, filename: "dole_report.pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+  def sss_report
+    @businesses = Business.registered.order('created_at asc')
+    @taxpayers = Taxpayer.all
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = SssReportPdf.new(@businesses)
+        send_data pdf.render, filename: "sss_report.pdf", type: 'application/pdf', disposition: "inline"
       end
     end
   end
@@ -260,9 +263,25 @@ class BusinessesController < ApplicationController
     end
   end
 
+  def new_business
+    if params[:query].present?
+      @businesses = Business.new_business.text_search(params[:query]).page(params[:page]).per_page(50)
+    else
+      @businesses = Business.new_business.page(params[:page]).per_page(50)
+    end
+  end
+
+  def owned_by_women
+    if params[:query].present?
+      @businesses = Business.owned_by_women.text_search(params[:query]).page(params[:page]).per_page(50)
+    else
+      @businesses = Business.owned_by_women.page(params[:page]).per_page(50)
+    end
+  end
+
   private
   def business_params
-    params.require(:business).permit(:barangay_clearance, :reason_of_revocation, :type_of_business, :sanitary_inspection_cleared, :police_clearance_cleared, :health_certificate_cleared, :bir_registered, :application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
+    params.require(:business).permit(:sss_certificate_of_coverage_and_compliance, :barangay_clearance, :reason_of_revocation, :type_of_business, :sanitary_inspection_cleared, :police_clearance_cleared, :health_certificate_cleared, :bir_registered, :application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
   end
 
 

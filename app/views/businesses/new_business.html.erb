@@ -1,11 +1,11 @@
-<%provide(:title, "Revoked Business Permits") %>
+<%provide(:title, "New Businesses") %>
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-         <div class="box box-danger">
+         <div class="box box-info">
                 <div class="box-header with-border">
-                <h3 class="box-title">Revoked Businesses</h3>
+                <h3 class="box-title">New Businesses</h3>
                   <div class="box-tools pull-right">
-                    <span class="label label-danger"><%=@businesses.revoked.count %></span>
+                    <span class="label label-ino"><%=@businesses.new_business.count %></span>
                   </div>
 
 
@@ -19,18 +19,14 @@
                     <th> Business Name</th>
                     <th>Owner</th>
                     <th>Status</th>
-                    <th>Date Revoked</th>
-                    <th>Reason of Revocation</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <% @businesses.each do |business| %>
+                  <% @businesses.new_business.each do |business| %>
                     <tr>
-                      <td><%=link_to truncate(business.business_name.upcase, length: 40), business, class: 'text-danger'%></td>
-                      <td><%= link_to business.taxpayer_name, taxpayer_path(id: business.taxpayer.id), class: 'text-danger' %></td>
+                      <td><%=link_to truncate(business.business_name.upcase, length: 40), business %></td>
+                      <td><%= link_to business.taxpayer_name, taxpayer_path(id: business.taxpayer.id) %></td>
                       <td><%=business.status%></td>
-                      <td><%=business.revoked_at %></td>
-                      <td><%=business.reason_of_revocation %></td>
                     </tr>
                   <%end%>
                 </tbody>
