@@ -3,6 +3,9 @@ source 'https://rubygems.org'
     gem 'rails', '4.2.0'
 
   gem 'prawn'
+  gem 'delayed_job_active_record'
+
+  gem 'daemons'
   gem 'lol_dba'
   gem 'prawn-table'
   gem 'pg_search'
