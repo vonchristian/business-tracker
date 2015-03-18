@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       match :renew, via: [:get], on: :member
        match :registered, via: [:get], on: :collection
        match :delinquent, via: [:get], on: :collection
+        match :payment_pending, via: [:get], on: :collection
+
        match :new_business, via: [:get], on: :collection
         match :owned_by_women, via: [:get], on: :collection
       match :expire, via: [:get, :post], on: :member

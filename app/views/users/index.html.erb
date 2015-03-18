@@ -1,8 +1,9 @@
 <div class="row">
-<div class="row col-md-12">
-  <h2>List of Employees</h2>
-<hr>
-  <div class="panel panel-default">
+<div class="col-md-8">
+  <div class="box box-success">
+  <div class="box-header with-border">
+    <h3 class="box-title">All Employees</h3>
+    </div>
     <div class="panel-body">
       <table class="table table-hover">
         <thead>
@@ -17,7 +18,7 @@
              <tr>
                <td><%=user.full_name %></td>
                <td><%=user.email %></td>
-               <td><%=user.try(:role).humanize %></td>
+               <td><%=user.try(:role).titleize %></td>
                 <% if current_user.system_administrator? %>
                <td><%=link_to 'Edit', edit_user_path(user)%></td>
                <% end %>

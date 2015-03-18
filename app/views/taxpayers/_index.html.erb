@@ -52,7 +52,7 @@
           <% @taxpayers.each do |taxpayer| %>
             <tr>
             <td><%= attachment_image_tag(taxpayer, :profile_image, :fill, 50, 50, fallback: "default.png") %></td>
-              <td><%=link_to taxpayer.full_name, taxpayer, class: 'btn btn-link'%></td>
+              <td><%=link_to taxpayer.full_name, taxpayer%></td>
 
               <td><%=taxpayer.address%></td>
               <td>

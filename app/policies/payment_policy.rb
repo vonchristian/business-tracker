@@ -10,10 +10,6 @@ class PaymentPolicy < ApplicationPolicy
     true
   end
 
-  def show?
-    scope.where(:id => business.id).exists?
-  end
-
   def create?
   user.system_administrator? || user.payment_officer?
   end
@@ -22,17 +18,6 @@ class PaymentPolicy < ApplicationPolicy
     user.system_administrator? || user.payment_officer?
   end
 
-  def update?
-    user.system_administrator?
-  end
-
-  def edit?
-    update?
-  end
-
-  def destroy?
-    user.system_administrator?
-  end
 
   def scope
     Pundit.policy_scope!(user, payment.class)

@@ -1,11 +1,11 @@
 require 'rails_helper'
-
+include Warden::Test::Helpers
+Warden.test_mode!
 describe 'Business registrations', :type => :feature do
-
-  before (:each) do
-    user = FactoryGirl.create(:user)
-    login_as(user, :scope => :user)
-  end
+   before (:each) do
+     user = FactoryGirl.create(:user)
+     login_as(user, :scope => :user)
+   end
 
     it "allows registration of business" do
       taxpayer = create(:taxpayer)
@@ -27,6 +27,7 @@ describe 'Business registrations', :type => :feature do
       click_button "Register Business"
       expect(page).to have_text "registered successfully"
     end
+
 end
 
 

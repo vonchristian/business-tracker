@@ -219,7 +219,6 @@ class BusinessesController < ApplicationController
     end
   end
   def show
-    authorize @business
    @taxpayer=@business.taxpayer
     respond_to do |format|
       format.html
@@ -251,6 +250,7 @@ class BusinessesController < ApplicationController
   end
 
    def revoke
+    authorize @business
     @business = Business.find(params[:id])
     @business.revoke
   end
@@ -279,6 +279,14 @@ class BusinessesController < ApplicationController
     end
   end
 
+   def payment_pending
+    if params[:query].present?
+      @businesses = Business.payment_pending.text_search(params[:query]).page(params[:page]).per_page(50)
+    else
+      @businesses = Business.payment_pending.page(params[:page]).per_page(50)
+    end
+  end
+
   private
   def business_params
     params.require(:business).permit(:sss_certificate_of_coverage_and_compliance, :barangay_clearance, :reason_of_revocation, :type_of_business, :sanitary_inspection_cleared, :police_clearance_cleared, :health_certificate_cleared, :bir_registered, :application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
@@ -300,4 +308,9 @@ class BusinessesController < ApplicationController
   flash[:alert] = "The business you were looking for could not be found."
   redirect_to businesses_path
 end
+
+def load_delinquent_businesses
+  @businesses = Business.delinquent
+end
+
 end

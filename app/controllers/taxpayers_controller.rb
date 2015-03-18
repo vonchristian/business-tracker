@@ -73,7 +73,7 @@ private
 
     def save_taxpayer
       if @taxpayer.save
-        redirect_to @taxpayer
+        redirect_to @taxpayer, notice: " #{@taxpayer.first_name} was registered successfully"
       end
     end
     def new_business

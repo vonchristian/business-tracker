@@ -65,6 +65,10 @@ end
   def self.collection_amount
     Payment.sum(:amount)
   end
+
+  def self.archive_all_payments
+    self.update_all(archived: true)
+  end
   def registration_date_lapsed?
     self.business.updated_at > Time.now.beginning_of_year + 20.days
   end

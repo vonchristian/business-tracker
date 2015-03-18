@@ -2,7 +2,7 @@
  set :output, "#{path}/log/cron.log"
 
 every :reboot do
-  command "bin/rails server -e production -b 192.168.1.100 -p 4000"
+  command "foreman start"
 end
 
 every 1.month, :at => "start of the month at 10am" do

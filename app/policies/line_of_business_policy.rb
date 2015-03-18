@@ -1,7 +1,7 @@
-class BusinessPolicy < ApplicationPolicy
-  attr_reader :user, :business
+class LineOfBusinessPolicy < ApplicationPolicy
+  attr_reader :user, :line_of_business
 
-  def initialize(user, business)
+  def initialize(user, line_of_business)
     @user = user
     @business = business
   end
@@ -34,13 +34,8 @@ class BusinessPolicy < ApplicationPolicy
     user.system_administrator?
   end
 
-  def revoke?
-    user.system_administrator?
-  end
-
-
   def scope
-    Pundit.policy_scope!(user, business.class)
+    Pundit.policy_scope!(user, line_of_business.class)
   end
 
   class Scope
@@ -54,10 +49,6 @@ class BusinessPolicy < ApplicationPolicy
     def resolve
       if user.system_administrator?
         scope.all
-      elsif user.payment_officer?
-        scope.where(status: 'payment_pending')
-    elsif user.application_officer?
-      scope.all
     end
   end
   end

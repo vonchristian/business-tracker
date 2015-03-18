@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   private
         def permission_denied
-          redirect_to root_path, alert: 'Unauthorized Access!'
+          redirect_to root_path, alert: 'You are not allowed to access this page.'
         end
 
 end

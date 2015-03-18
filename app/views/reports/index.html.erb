@@ -4,29 +4,29 @@
       <div class="panel-heading">Unrenewed Businesses Per Barangay</div>
 
     <ul class="list-group">
-      <li class="list-group-item"><%=link_to 'Poblacion', delinquents_poblacion_path(format: :pdf), class: 'text-danger' %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Poblacion').count %></span></li>
+      <li class="list-group-item"><%=link_to 'Poblacion', delinquents_poblacion_path(format: :pdf), class: 'text-danger' %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Poblacion').count %></span></li>
 
 
-       <li class="list-group-item"><%=link_to 'Impugong', delinquents_impugong_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Impugong').count %></span></p></li>
+       <li class="list-group-item"><%=link_to 'Impugong', delinquents_impugong_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Impugong').count %></span></p></li>
 
-       <li class="list-group-item"><%=link_to 'Ahin', delinquents_ahin_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Ahin').count %></span></li>
+       <li class="list-group-item"><%=link_to 'Ahin', delinquents_ahin_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Ahin').count %></span></li>
 
-      <li class="list-group-item"><%=link_to 'Ap-apid', delinquents_apapid_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Ap-apid').count %></span></li>
+      <li class="list-group-item"><%=link_to 'Ap-apid', delinquents_apapid_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Ap-apid').count %></span></li>
 
-       <li class="list-group-item"><%=link_to 'Binablayan', delinquents_binablayan_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Binablayan').count %></span></li>
+       <li class="list-group-item"><%=link_to 'Binablayan', delinquents_binablayan_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Binablayan').count %></span></li>
 
-       <li class="list-group-item"><%=link_to 'Wangwang', delinquents_wangwang_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Wangwang').count %></span></li>
+       <li class="list-group-item"><%=link_to 'Wangwang', delinquents_wangwang_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Wangwang').count %></span></li>
 
-       <li class="list-group-item"><%=link_to 'Gumhang', delinquents_gumhang_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Gumhang').count %></span></li>
+       <li class="list-group-item"><%=link_to 'Gumhang', delinquents_gumhang_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Gumhang').count %></span></li>
 
-       <li class="list-group-item"><%=link_to 'Danggo', delinquents_danggo_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Danggo').count %></span></li>
+       <li class="list-group-item"><%=link_to 'Danggo', delinquents_danggo_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Danggo').count %></span></li>
 
-       <li class="list-group-item"><%=link_to 'Luhong', delinquents_luhong_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Luhong').count %></span></li>
+       <li class="list-group-item"><%=link_to 'Luhong', delinquents_luhong_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Luhong').count %></span></li>
 
-       <li class="list-group-item"><%=link_to 'Tukucan', delinquents_tukucan_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Tukucan').count %></span></li>
+       <li class="list-group-item"><%=link_to 'Tukucan', delinquents_tukucan_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Tukucan').count %></span></li>
 
-      <li class="list-group-item"><%=link_to 'Tulludan', delinquents_tulludan_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Tulludan').count %></span></li>
-       <li class="list-group-item"><%=link_to 'Eheb', delinquents_eheb_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right"> <%=Business.delinquent.where(address_barangay: 'Eheb').count %></span></li>
+      <li class="list-group-item"><%=link_to 'Tulludan', delinquents_tulludan_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Tulludan').count %></span></li>
+       <li class="list-group-item"><%=link_to 'Eheb', delinquents_eheb_path(format: :pdf), class: 'text-danger'  %> <span class="badge pull-right bg-red"> <%=Business.delinquent.where(address_barangay: 'Eheb').count %></span></li>
     </ul>
   </div>
   </div>

@@ -1,0 +1,42 @@
+<%provide(:title, "Businesses With Pending Payments") %>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+         <div class="box box-warning">
+                <div class="box-header with-border">
+                <h3 class="box-title">Businesses With Pending Payments</h3>
+                  <div class="box-tools pull-right">
+                    <span class="label label-warning"><%=@businesses.payment_pending.count %></span>
+                  </div>
+
+
+
+
+                   <div class="box-body no-padding">
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed">
+                <thead>
+                  <tr>
+                    <th> Business Name</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @businesses.each do |business| %>
+                    <tr>
+                      <td><%=link_to truncate(business.business_name.upcase, length: 40), business %></td>
+                      <td><%= link_to business.taxpayer_name, taxpayer_path(id: business.taxpayer.id) %></td>
+                      <td><%=business.status%></td>
+                    </tr>
+                  <%end%>
+                </tbody>
+              </table>
+              <div class="pagination">
+            <%= will_paginate @businesses %>
+              </div>
+            </div>
+           </div>
+        </div>
+      </div>
+    </div>
+

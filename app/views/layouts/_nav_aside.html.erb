@@ -35,10 +35,9 @@
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/taxpayers"><i class="fa fa-user"></i> All</a></li>
-          <li><a href="/taxpayers/delinquent"><i class="fa fa-times"></i> Delinquent</a></li>
-          <li><a href="/taxpayers/with_pending_payments"><i class="fa fa-circle-o"></i> Payments Pending</a></li>
-          <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+          <li><a href="/taxpayers"><i class="fa fa-user"></i> All Taxpayers <small class="label pull-right bg-green"><%=Taxpayer.count %></small></a></li>
+          <li><a href="/taxpayers/delinquent"><i class="fa fa-times"></i> Delinquent  Business <small class="label pull-right bg-red"><%=Taxpayer.with_delinquent_business.count %></small></a></li>
+          <li><a href="/taxpayers/with_pending_payments"><i class="fa fa-circle-o"></i> Payments Pending <small class="label pull-right bg-yellow"><%=Taxpayer.with_pending_payments.count %></small></a></li>
         </ul>
       </li>
 
@@ -49,11 +48,23 @@
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/businesses/registered"><i class="fa fa-check"></i> Registered</a></li>
-          <li><a href="/businesses/delinquent"><i class="fa fa-times"></i> Delinquent</a></li>
-          <li><a href="pages/charts/inline.html"><i class="fa fa-try"></i> Not Registered</a></li>
-          <li><a href="/businesses/revoked"><i class="fa fa-try"></i> Revoked</a></li>
-           <li><a href="/businesses/owned_by_women"><i class="fa fa-female"></i> Owned By Women</a></li>
+          <li><a href="/businesses/registered"><i class="fa fa-check"></i> Registered <small class="label pull-right bg-green"><%=Business.registered.count %></small></a></li>
+          <li><a href="/businesses/delinquent"><i class="fa fa-times"></i> Delinquent <small class="label pull-right bg-red"><%=Business.delinquent.count %></small></a></li>
+          <li><a href="pages/charts/inline.html"><i class="fa fa-try"></i> Not Registered </a></li>
+          <li><a href="/businesses/revoked"><i class="fa fa-try"></i> Revoked <small class="label pull-right bg-red"><%=Business.revoked.count %></small></a></li>
+           <li><a href="/businesses/owned_by_women"><i class="fa fa-female"></i> Owned By Women <small class="label pull-right bg-purple"><%=Business.owned_by_women.count %></small></a></li>
+            <li><a href="/businesses/payment_pending"><i class="fa fa-female"></i> Pending Payments <small class="label pull-right bg-purple"><%=Business.payment_pending.count %></small></a></li>
+        </ul>
+      </li>
+
+          <li class="treeview">
+        <a href="#">
+          <i class="fa fa-cog"></i>
+          <span>Settings</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="/users"><i class="fa fa-user"></i> Employees </a></li>
 
         </ul>
       </li>

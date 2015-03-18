@@ -11,16 +11,24 @@ class Taxpayer < ActiveRecord::Base
   validates  :first_name, :middle_name, :last_name, :mobile_number,
                   :cedula_number, :cedula_date_issued, :cedula_place_issued, presence: true
 
+###########ASSOCIATIONS######################
   has_many :businesses
   has_one :police_clearance
   has_one :cedula
   has_many :payments, :through => :businesses
+##########################################
+
+#################SCOPES####################
   scope :female, ->{Taxpayer.where(gender: 'Female')}
   scope :with_delinquent_business, ->{Taxpayer.joins(:businesses).merge(Business.delinquent)}
-    scope :with_pending_payments, ->{Taxpayer.joins(:businesses).merge(Business.payment_pending)}
+  scope :with_pending_payments, ->{Taxpayer.joins(:businesses).merge(Business.payment_pending)}
+##########################################
 
+###############CALLBACKS####################
   after_validation :titleize_full_name
   before_save :set_id
+##########################################
+
   def self.update_cedula_status
     if Time.now.end_of_year
       update_attributes(status: :cedula_expired)
