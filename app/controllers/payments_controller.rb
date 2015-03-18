@@ -1,6 +1,10 @@
 class PaymentsController < ApplicationController
 def index
-  @payments = Payment.all
+   if params[:query].present?
+      @payments = Payment.text_search(params[:query]).page(params[:page]).per_page(30)
+    else
+  @payments = Payment.order('created_at DESC').page(params[:page]).per_page(30)
+end
 end
 def new
   unless current_business.registered?

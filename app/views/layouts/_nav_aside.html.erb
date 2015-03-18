@@ -49,11 +49,11 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="/businesses/registered"><i class="fa fa-check"></i> Registered <small class="label pull-right bg-green"><%=Business.registered.count %></small></a></li>
-          <li><a href="/businesses/delinquent"><i class="fa fa-times"></i> Delinquent <small class="label pull-right bg-red"><%=Business.delinquent.count %></small></a></li>
+          <li><a href="/businesses/delinquent"><i class="fa fa-times"></i> Delinquent <small class="label pull-right bg-red"><%=Business.delinquent.count %>0000</small></a></li>
           <li><a href="pages/charts/inline.html"><i class="fa fa-try"></i> Not Registered </a></li>
-          <li><a href="/businesses/revoked"><i class="fa fa-try"></i> Revoked <small class="label pull-right bg-red"><%=Business.revoked.count %></small></a></li>
+          <li><a href="/businesses/revoked"><i class="fa fa-times"></i> Revoked <small class="label pull-right bg-red"><%=Business.revoked.count %></small></a></li>
            <li><a href="/businesses/owned_by_women"><i class="fa fa-female"></i> Owned By Women <small class="label pull-right bg-purple"><%=Business.owned_by_women.count %></small></a></li>
-            <li><a href="/businesses/payment_pending"><i class="fa fa-female"></i> Pending Payments <small class="label pull-right bg-purple"><%=Business.payment_pending.count %></small></a></li>
+            <li><a href="/businesses/payment_pending"><i class="fa fa-money"></i> Pending Payments <small class="label pull-right bg-purple"><%=Business.payment_pending.count %></small></a></li>
         </ul>
       </li>
 
@@ -71,6 +71,9 @@
 
       <li class="<%='active' if current_page?(reports_path) %>">
         <%=link_to "   Reports", reports_path, :class=>"fa fa-list"%>
+      </li>
+      <li class="<%='active' if current_page?(payments_path) %>">
+        <%=link_to "   Payments", payments_path, :class=>"fa fa-money"%>
       </li>
     </ul>
   </section>

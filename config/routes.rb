@@ -33,13 +33,8 @@ Rails.application.routes.draw do
       resource :required_documents
       resources :line_of_businesses
     end
-          resources :requirements
-
-          resources :taxes
-          resources :documents
           resources :line_of_businesses
-          resources :fees
-          resources :payments
+          resources :payments,  only: [:index]
           resources :activities
     get 'reports' => 'reports#index', as: 'reports'
     get 'delinquents_ahin' => 'businesses#delinquents_ahin'

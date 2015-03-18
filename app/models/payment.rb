@@ -1,23 +1,27 @@
 class Payment < ActiveRecord::Base
+   include PgSearch
+    pg_search_scope :text_search, against: [:official_receipt_number],
+    using: {tsearch: {dictionary: "english", prefix: true}}
 
-  attr_accessor :current_user
-  enum status: [:paid, :unpaid]
-  belongs_to :taxpayer
-  belongs_to :business
-  has_many :taxes, through: :business
-  validates :official_receipt_number, presence: true, uniqueness: true
-  before_save :set_status_to_paid
-  before_save :set_amount_paid
+    enum status: [:paid, :unpaid]
+    belongs_to :taxpayer
+    belongs_to :business
+
+    validates :official_receipt_number, presence: true, uniqueness: true
+
+    before_save :set_status_to_paid
+    before_save :set_amount_paid
 
   def total
     subtotal - exemption + surcharge
   end
+
   def subtotal
    fees + taxes
   end
 
 def fees
- mayors_permit_fee
+ mayors_permit_fee + police_clearance_fee + sanitary_inspection_fee + health_clearance_fee
 end
 
 def taxes
@@ -25,12 +29,13 @@ def taxes
   return tax_on_gross_sales if self.business.gross_sales.present?
   return tax_on_cooperatives if self.business.cooperative?
 end
+
   def exemption
     if self.business.cooperative?
       self.tax_on_gross_sales
     else
-   0
- end
+     0
+    end
   end
 
   def surcharge
@@ -48,11 +53,25 @@ end
   def tax_on_capital
     self.business.capital_tax
   end
+
   def tax_on_gross_sales
     self.business.gross_sales_taxes_amount
   end
 
   private
+      def police_clearance_fee
+        50
+      end
+
+      def sanitary_inspection_fee
+        100
+      end
+
+      def health_clearance_fee
+        100
+      end
+
+
   def tax_on_cooperatives
     0
   end
