@@ -25,7 +25,7 @@ class Taxpayer < ActiveRecord::Base
 ##########################################
 
 ###############CALLBACKS####################
-  after_validation :titleize_full_name
+  after_validation :titleize_attributes
   before_save :set_id
 ##########################################
 
@@ -48,7 +48,7 @@ class Taxpayer < ActiveRecord::Base
 
 
   private
-      def titleize_full_name
+      def titleize_attributes
         self.first_name=first_name.try(:titleize)
         self.middle_name = middle_name.try(:titleize)
         self.last_name = last_name.try(:titleize)

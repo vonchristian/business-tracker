@@ -20,14 +20,16 @@
               <%= f.file_field :logo, class: 'center-block'%>
             </div>
             <hr>
+                            <div class="col-md-12">
             <% if @business.expired? || @business.payment_pending? || @business.delinquent?%>
               <h3>Gross Sales Details</h3>
               <hr>
-                <div class="col-md-6">
-                  <%=f.input :gross_sales, as: :string%>
-                </div>
+
+                  <%=f.input :gross_sales, as: :string, placeholder: 'Must be greater than 30,000'%>
+
             <% end %>
-            <br>
+            <hr>
+            </div>
             <h3>Business Details </h3>
             <hr>
             <%=f.input :business_name, autofocus: true  %>
@@ -55,6 +57,7 @@
             <h3>Documents Submitted</h3>
             <hr>
             <%=f.input :bir_registered, as: :boolean, label: 'BIR Registration'%>
+            <%=f.input :dti_registration, as: :boolean, label: 'DTI Registration'  %>
              <%=f.input :police_clearance_cleared, as: :boolean, label: 'Police Clearance'%>
               <%=f.input :sanitary_inspection_cleared, as: :boolean, label: 'Sanitary Permit Fee'%>
                <%=f.input :health_certificate_cleared, as: :boolean, label: 'Health Certificate'%>

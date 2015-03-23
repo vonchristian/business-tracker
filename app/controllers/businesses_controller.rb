@@ -100,7 +100,6 @@ class BusinessesController < ApplicationController
   def delinquents_luhong
     @businesses = Business.delinquent.where(address_barangay: 'Luhong')
      respond_to do |format|
-     format.html
       format.pdf do
         pdf = DelinquencyReportPdf.new(@businesses)
         send_data pdf.render, filename: "delinquent(Luhong).pdf", type: 'application/pdf', disposition: "inline"
@@ -110,7 +109,6 @@ class BusinessesController < ApplicationController
   def delinquents_gumhang
     @businesses = Business.delinquent.where(address_barangay: 'Gumhang')
      respond_to do |format|
-     format.html
       format.pdf do
         pdf = DelinquencyReportPdf.new(@businesses)
         send_data pdf.render, filename: "delinquent(Gumhang).pdf", type: 'application/pdf', disposition: "inline"
@@ -289,13 +287,13 @@ class BusinessesController < ApplicationController
 
   private
   def business_params
-    params.require(:business).permit(:sss_certificate_of_coverage_and_compliance, :barangay_clearance, :reason_of_revocation, :type_of_business, :sanitary_inspection_cleared, :police_clearance_cleared, :health_certificate_cleared, :bir_registered, :application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
+    params.require(:business).permit(:dti_registration, :sss_certificate_of_coverage_and_compliance, :barangay_clearance, :reason_of_revocation, :type_of_business, :sanitary_inspection_cleared, :police_clearance_cleared, :health_certificate_cleared, :bir_registered, :application_date, :status, :no_of_employees, :gross_sales, :capital, :business_type, :type_of_organization, :permit_number, :industry_type, :asset_size, :business_name,   :address_sitio, :address_barangay, :address_municipality, :address_province)
   end
 
 
 
   def set_current_taxpayer
-    @taxpayer = Taxpayer.find_by_id(params[:taxpayer_id])
+    current_taxpayer
   end
 
   def current_taxpayer
@@ -312,5 +310,6 @@ end
 def load_delinquent_businesses
   @businesses = Business.delinquent
 end
+
 
 end

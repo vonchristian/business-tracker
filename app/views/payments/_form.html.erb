@@ -34,6 +34,9 @@
       <hr>
       <p class="label-info-tax">Regulatory Fees and Charges</p>
             <p>Mayors Permit Fee: <span class="pull-right"><%=number_to_currency(@business.mayors_permit_fee_amount, unit: ' P ') %></span></p>
+            <p>Police Clearance Fee: <span class="pull-right"><%=number_to_currency(@payment.police_clearance_fee, unit: ' P ') %></span></p>
+            <p>Sanitary Inspection Fee: <span class="pull-right"><%=number_to_currency(@payment.sanitary_inspection_fee, unit: ' P ') %></span></p>
+            <p>Health Certificate Fee: <span class="pull-right"><%=number_to_currency(@payment.health_clearance_fee, unit: ' P ') %></span></p>
       <hr>
       <p>Subtotal: <span class="pull-right"><%=number_to_currency(@payment.subtotal, unit: ' P ') %></span></p>
       <p>Exemptions: <span class="pull-right text-success"> - <%=@payment.exemption %></span></p>

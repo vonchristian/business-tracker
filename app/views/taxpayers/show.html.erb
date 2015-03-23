@@ -1,49 +1,45 @@
 <%provide(:title, "#{@taxpayer.first_and_last_name} | Taxpayers") %>
-<ul class="nav nav-tabs" role="tablist">
 
-  <li class="active"><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
-  <li><a href="#settings" role="tab" data-toggle="tab"><span class="fa fa-cog"></span> Settings</a></li>
-  <li><a href="#timeline" role="tab" data-toggle="tab"><span class="fa fa-time"></span> Timeline</a></li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-<br>
-  <div class="tab-pane active" id="profile">
-    <div class="container">
       <div class="row">
         <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-body">
-   <%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%><h1 class="text-center"><%=@taxpayer.first_and_last_name %></h1>
+            <%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%><h1 class="text-center"><%=@taxpayer.first_and_last_name %></h1>
             <span class="text-center help-block"><%=@taxpayer.address %></span>
             <hr />
-
-
             <% if policy(@business).new? %>
               <%=link_to 'New Business', new_taxpayer_business_path(@taxpayer), class: "btn btn-default" %>
-              <% end %>
-
-              <% if policy(@taxpayer).edit? %>
+            <% end %>
+            <% if policy(@taxpayer).edit? %>
               <%=link_to 'Edit Profile', edit_taxpayer_path(@taxpayer), class: "btn btn-warning" %>
-              <% end %>
-               <%=link_to 'Cedula', new_taxpayer_cedula_path(@taxpayer), class: "btn btn-primary" %>
-  <%=link_to 'Police Clearance', new_taxpayer_police_clearance_path(@taxpayer), class: "btn btn-primary" %>
-
-
-            </div>
+            <% end %>
           </div>
         </div>
-       </div>
-    </div>
-  </div>
+      </div>
+      <div class="col-md-6">
+        <div class="box box-success">
+         <div class="box-header with-border">
+           <h3 class="box-title">Businesses</h3>
+           <div class="box-tools pull-right">
+             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+           </div>
+         </div><!-- /.box-header -->
+         <div class="box-body">
+           <table class="table table-hovered">
+             <thead>
+               <th>Business Name</th>
+               <th>Status</th>
+             </thead>
+             <tbody>
+               <%@businesses.each do |business| %>
+                 <tr>
+                   <td><%=link_to business.business_name, business_path(id: business.id) %></td>
+                   <td><%=business.status %></td>
+                 </tr>
+               <% end %>
+             </tbody>
+           </table>
+          </div>
+      </div>
 
-
-
-  <div class="tab-pane" id="settings">.s..</div>
-
-
-  <div class="tab-pane" id="timeline">.ts..</div>
-</div>
-<div class="col-sm-1">
-</div>

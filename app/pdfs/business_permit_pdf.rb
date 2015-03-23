@@ -42,7 +42,7 @@ class BusinessPermitPdf < Prawn::Document
     y_position =cursor
     image "#{Rails.root}/app/assets/images/permit_background.png", width: 488, height: 670, :at => [10, y_position]
     move_down 10
-   text "MAYOR'S PERMIT",  align: :center, size: 25, style: :bold
+   text "TEMPORARY MAYOR'S PERMIT",  align: :center, size: 25, style: :bold
    stroke do
     horizontal_line 50, 500 ,at: 638
   end

@@ -49,7 +49,7 @@ class Business < ActiveRecord::Base
   validates :capital, numericality: { message: 'Invalid Amount'}, on: :create
 
  def revoke
-   self.update_attributes(status: :revoked, revoked_at: Time.zone.now)
+   self.update_attributes(status: :revoked, revoked_at: Time.zone.now) if self.registered?
 end
 def address
  "#{try(:address_sitio)}, #{try(:address_barangay)}, #{try(:address_municipality)}, #{try(:address_province)}"
@@ -57,13 +57,6 @@ def address
 
  def update_payment_status
     self.update_attributes(status: :registered)
-  end
-  def line_of_business
-    self.line_of_businesses.pluck(:description).join ' , '
-  end
-
-  def police_clearance_fee
-    50
   end
 
 def payments_total
@@ -131,11 +124,7 @@ end
     self.update_attributes(status: :payment_pending, renewed_at: Time.zone.now)
   end
 
-  def end_of_year
-   if  Time.now.end_of_year?
-    self.update_attributes(status: :expired)
-  end
-end
+
 def micro_industry?
   self.asset_size<=150_000
 end

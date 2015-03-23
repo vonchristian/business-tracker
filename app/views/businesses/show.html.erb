@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-md-3">
     <div class="panel panel-default">
-      <div class="panel-heading"> Owner Details </div>
+      <div class="panel-heading"><strong class="fa fa-user"> Owner Details </strong></div>
       <div class="panel-body profile">
         <div class="profile-image">
           <%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%>
@@ -50,20 +50,20 @@
               <%=link_to ' Print Mayors Permit', business_path(@business, format: "pdf"), class: " btn btn-info btn-flat glyphicon glyphicon-print" %>
             <% end %>
             <% if @business.line_of_businesses.blank?%>
-              <%=link_to ' Add Line of Business', new_business_line_of_business_path(@business), class: "btn btn-default" %>
+              <%=link_to ' Add Line of Business', new_business_line_of_business_path(@business), class: "btn btn-info btn-flat" %>
             <% else %>
                 <% if policy(@business).edit? %>
-              <%=link_to 'Edit Line of Business', edit_line_of_business_path(id: @business.line_of_businesses.last.id), class: "btn btn-default" %>
+              <%=link_to 'Edit Line of Business', edit_line_of_business_path(id: @business.line_of_businesses.last.id), class: "btn btn-warning btn-flat" %>
               <% end %>
             <% end %>
             <% if @business.payment_pending? || @business.delinquent?%>
-              <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-default" %>
+              <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-info btn-flat" %>
             <% end %>
             <% if policy(@business).edit? %>
-            <%=link_to 'Edit Business', edit_business_path(@business), class: "btn btn-default" %>
+            <%=link_to 'Edit Business', edit_business_path(@business), class: "btn btn-warning btn-flat" %>
             <% end %>
             <% if @business.expired? %>
-              <%=link_to 'Renew', renew_business_path(@business), method: :get, class: 'btn btn-default'%>
+              <%=link_to 'Renew', renew_business_path(@business), method: :get, class: 'btn btn-info btn-flat'%>
             <% end %>
           </div>
           <% else %>
@@ -85,8 +85,8 @@
     <div class="box-body">
       <% @business.payments.each do |payment| %>
         <p>
-          <%= payment.created_at.strftime('%B %d %Y %H:%M ') %>
-          <span class="pull-right label label-success"><%= number_to_currency(payment.amount, {:unit =>'PHP '}) %></span>
+          <%= payment.created_at.strftime('%B %d, %Y %H:%M %p') %>
+          <span class="pull-right"><%= number_to_currency(payment.amount, {:unit =>'P '}) %></span>
         </p>
       <% end %>
     </div>

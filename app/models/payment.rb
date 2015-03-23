@@ -1,9 +1,10 @@
 class Payment < ActiveRecord::Base
+
    include PgSearch
     pg_search_scope :text_search, against: [:official_receipt_number],
     using: {tsearch: {dictionary: "english", prefix: true}}
 
-    enum status: [:paid, :unpaid]
+    enum status: [:paid, :unpaid, :has_remaining_balance, :archived]
     belongs_to :taxpayer
     belongs_to :business
 
@@ -40,7 +41,7 @@ end
 
   def surcharge
     if registration_date_lapsed? && self.business.delinquent?
-      fees * 0.25
+      mayors_permit_fee * 0.25
    else
       0
     end
@@ -57,9 +58,7 @@ end
   def tax_on_gross_sales
     self.business.gross_sales_taxes_amount
   end
-
-  private
-      def police_clearance_fee
+   def police_clearance_fee
         50
       end
 
@@ -71,6 +70,10 @@ end
         100
       end
 
+  private
+      def self.uncollected_amount
+        Business.delinquent.count * 1000
+      end
 
   def tax_on_cooperatives
     0
@@ -86,9 +89,9 @@ end
   end
 
   def self.archive_all_payments
-    self.update_all(archived: true)
+    self.paid.update_all(status: :archived)
   end
   def registration_date_lapsed?
-    self.business.updated_at > Time.now.beginning_of_year + 20.days
+    self.business.updated_at > Time.zone.now.beginning_of_year + 20.days
   end
 end

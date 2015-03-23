@@ -20,6 +20,27 @@
                 </a>
               </div>
             </div><!-- ./col -->
+
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>
+                    <%=@businesses.payment_pending.count %>
+                  </h3>
+                  <p>
+                    Businesses with Pending Payments
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-exclamation"></i>
+                </div>
+                <a href="/businesses/payment_pending" class="small-box-footer">
+                  More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-red">
@@ -41,7 +62,26 @@
             </div><!-- ./col -->
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
-              <div class="small-box bg-yellow">
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>
+                   <%=@businesses.revoked.count %>
+                  </h3>
+                  <p>
+                    Revoked Businesses
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-ban"></i>
+                </div>
+                <a href="/businesses/revoked" class="small-box-footer">
+                  More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-olive">
                 <div class="inner">
                   <h3>
                     <%=number_to_currency(@payments.collection_amount, unit: ' P ') %>
@@ -58,6 +98,27 @@
                 </a>
               </div>
             </div><!-- ./col -->
+
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-gray">
+                <div class="inner">
+                  <h3>
+                    <%=number_to_currency(@payments.uncollected_amount, unit: ' P ') %>
+                  </h3>
+                  <p>
+                    Amount Not Collected
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-exclamation"></i>
+                </div>
+                <a href="/payments" class="small-box-footer">
+                  More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-aqua">

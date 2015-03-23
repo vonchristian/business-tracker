@@ -13,6 +13,7 @@ class TaxpayersController < ApplicationController
 
   def show
     load_taxpayer
+    load_taxpayer_businesses
     new_business
   end
 
@@ -64,6 +65,10 @@ private
       rescue ActiveRecord::RecordNotFound
   flash[:alert] = "The taxpayer you were looking for could not be found."
   redirect_to taxpayers_path
+    end
+
+    def load_taxpayer_businesses
+      @businesses = @taxpayer.businesses
     end
 
     def build_taxpayer
