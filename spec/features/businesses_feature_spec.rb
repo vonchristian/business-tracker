@@ -1,4 +1,4 @@
-require 'rails_helper'
+  require 'rails_helper'
 include Warden::Test::Helpers
 Warden.test_mode!
 describe 'Business registrations', :type => :feature do

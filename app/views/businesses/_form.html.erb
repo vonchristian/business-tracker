@@ -44,9 +44,9 @@
             <%=f.input :business_type, collection: Business.business_types.keys.to_a.map{ |a| [a.titleize, a]}, label: 'Type of Business' %>
             <%=f.input :application_date, as: :string, input_html: { class: "datepicker" }, default: Date.current, placeholder: 'dd/mm/yyyy' %>
             <%=f.input :dti_sec_reg_no, label: 'DTI/SEC Registration Number', as: :string %>
-            <%# if @business.persisted? %>
-              <%#=f.input :permit_number %>
-            <%# end %>
+            <% if @business.persisted? %>
+              <%=f.input :permit_number %>
+            <% end %>
             <%=f.input :dti_sec_reg_date, as: :string, input_html: { class: "datepicker" },  placeholder: 'dd/mm/yyyy'  %>
             <h3>Address Details</h3>
             <hr>

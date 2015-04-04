@@ -1,4 +1,4 @@
-class UnrenewedBusinessesReportPdf < Prawn::Document
+class NewBusinessesReportPdf < Prawn::Document
   TABLE_WIDTHS = [50, 150, 100, 200 ]
   def initialize(businesses=[])
     super(page_size: 'A4', margin: 30)
@@ -17,9 +17,9 @@ class UnrenewedBusinessesReportPdf < Prawn::Document
     move_down 5
     text "BUSINESS PERMIT LICENSING OFFICE", align: :center
     move_down 10
-    text "LIST OF UNRENEWED BUSINESSES", align: :center, style: :bold
+    text "LIST OF NEW BUSINESSES", align: :center, style: :bold
     move_down 5
-    text " Number of Unrenewed Business: #{@businesses.count}"
+    text " Number of Registered Business: #{@businesses.count}"
   end
 
   def display_businesses_table
@@ -36,7 +36,7 @@ class UnrenewedBusinessesReportPdf < Prawn::Document
   end
   def table_data
     move_down 5
-     [["Permit Number","Business Name", "Taxpayer", "Address"]] +
+     [["Permit Number", "Business Name", "Taxpayer", "Address"]] +
     @table_data ||= @businesses.map { |e| [e.permit_number, e.business_name, e.taxpayer_name, e.full_address] }
   end
 

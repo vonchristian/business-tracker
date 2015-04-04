@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150317023020) do
+ActiveRecord::Schema.define(version: 20150330002500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 20150317023020) do
     t.text     "parameters"
     t.integer  "recipient_id"
     t.string   "recipient_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150317023020) do
     t.string   "middle_name_lessor"
     t.string   "last_name_lessor"
     t.integer  "monthly_rental"
-    t.string   "permit_number"
+    t.integer  "permit_number"
     t.decimal  "gross_sales"
     t.integer  "industry_type"
     t.integer  "business_type"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20150317023020) do
     t.datetime "renewed_at"
     t.boolean  "barangay_clearance"
     t.boolean  "certificate_of_sss_coverage_and_compliance"
+    t.boolean  "dti_registration"
   end
 
   create_table "cedulas", force: :cascade do |t|
@@ -106,6 +107,22 @@ ActiveRecord::Schema.define(version: 20150317023020) do
   end
 
   add_index "cedulas", ["taxpayer_id"], name: "index_cedulas_on_taxpayer_id", using: :btree
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "gross_sales_taxes", force: :cascade do |t|
     t.decimal  "amount"
@@ -137,6 +154,7 @@ ActiveRecord::Schema.define(version: 20150317023020) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "collecting_officer"
+    t.boolean  "archived",                null: false
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -183,13 +201,24 @@ ActiveRecord::Schema.define(version: 20150317023020) do
     t.string   "cedula_place_issued"
     t.date     "cedula_date_issued"
     t.integer  "status"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
   end
+
+  add_index "taxpayers", ["reset_password_token"], name: "index_taxpayers_on_reset_password_token", unique: true, using: :btree
 
   create_table "type_of_organizations", force: :cascade do |t|
     t.integer  "business_id"
@@ -220,8 +249,8 @@ ActiveRecord::Schema.define(version: 20150317023020) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

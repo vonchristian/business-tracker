@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
    enum role: [:system_administrator, :application_officer, :payment_officer, :bir_officer]
 
-  after_initialize :set_default_role, :if => :new_record? && User.count==1
+  after_initialize :set_default_role, :if => :new_record?
   before_validation :remove_non_digits_from_phone_numbers
 
   def set_default_role

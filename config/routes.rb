@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     root 'pages#dashboard'
     get 'dashboard' => 'pages#dashboard'
     devise_for :users, :controllers => { :registrations => "users" }
+    devise_for :taxpayers, :controllers => { :registrations => "taxpayers"}
 
     resources :users, except: [:destroy]
 
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
       get 'dole_report' => 'businesses#dole_report'
       get 'sss_report' => 'businesses#sss_report'
       get 'registered_businesses_report' => 'businesses#registered_businesses_report'
+      get 'new_businesses_report' => 'businesses#new_businesses_report'
       get 'unrenewed_businesses_report' => 'businesses#unrenewed_businesses_report'
       get 'bir_report' => 'businesses#bir_report'
   end

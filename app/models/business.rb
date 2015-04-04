@@ -51,12 +51,20 @@ class Business < ActiveRecord::Base
  def revoke
    self.update_attributes(status: :revoked, revoked_at: Time.zone.now) if self.registered?
 end
+
+def business_permit_number
+  self.permit_number.to_i
+end
 def address
  "#{try(:address_sitio)}, #{try(:address_barangay)}, #{try(:address_municipality)}, #{try(:address_province)}"
   end
 
  def update_payment_status
     self.update_attributes(status: :registered)
+  end
+
+  def line_of_business
+    self.line_of_businesses.last.description
   end
 
 def payments_total

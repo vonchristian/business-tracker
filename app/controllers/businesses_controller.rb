@@ -166,8 +166,7 @@ class BusinessesController < ApplicationController
     end
   end
    def registered_businesses_report
-    @businesses = Business.registered
-    @taxpayers = Taxpayer.all
+    @businesses = Business.registered.order(:permit_number)
     respond_to do |format|
       format.html
       format.pdf do
@@ -176,6 +175,19 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
+   def new_businesses_report
+    @businesses = Business.new_business.order(:permit_number)
+    @taxpayers = Taxpayer.all
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = NewBusinessesReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered_businesses_report.pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
   def unrenewed_businesses_report
     @businesses = Business.delinquent
     @taxpayers = Taxpayer.all

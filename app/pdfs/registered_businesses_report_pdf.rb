@@ -1,5 +1,5 @@
 class RegisteredBusinessesReportPdf < Prawn::Document
-  TABLE_WIDTHS = [200, 100, 200 ]
+  TABLE_WIDTHS = [50, 150, 100, 200 ]
   def initialize(businesses=[])
     super(page_size: 'A4', margin: 30)
     @businesses = businesses
@@ -36,8 +36,8 @@ class RegisteredBusinessesReportPdf < Prawn::Document
   end
   def table_data
     move_down 5
-     [["Business Name", "Taxpayer", "Address"]] +
-    @table_data ||= @businesses.map { |e| [e.business_name, e.taxpayer_name, e.full_address] }
+     [["Permit Number", "Business Name", "Taxpayer", "Address"]] +
+    @table_data ||= @businesses.map { |e| [e.permit_number.to_s.rjust(4, "0"), e.business_name, e.taxpayer_name, e.full_address] }
   end
 
 end
