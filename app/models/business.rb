@@ -132,6 +132,9 @@ end
     self.update_attributes(status: :payment_pending, renewed_at: Time.zone.now)
   end
 
+  def calculate_taxes_for_current_year
+  end
+
 
 def micro_industry?
   self.asset_size<=150_000
