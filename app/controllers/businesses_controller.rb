@@ -27,16 +27,38 @@ class BusinessesController < ApplicationController
       end
     end
   end
+    def registered_poblacion
+    @businesses = Business.registered.where(address_barangay: 'Poblacion').order(:permit_number)
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Poblacion).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
   def delinquents_impugong
     @businesses = Business.delinquent.where(address_barangay: 'Impugong')
      respond_to do |format|
      format.html
       format.pdf do
-        pdf = DelinquencyReportPdf.new(@businesses)
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
         send_data pdf.render, filename: "delinquent(Impugong).pdf", type: 'application/pdf', disposition: "inline"
       end
     end
   end
+
+  def registered_impugong
+    @businesses = Business.registered.where(address_barangay: 'Impugong').order(:permit_number)
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Impugong).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
   def delinquents_ahin
     @businesses = Business.delinquent.where(address_barangay: 'Ahin')
      respond_to do |format|
@@ -47,6 +69,18 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
+  def registered_ahin
+    @businesses = Business.registered.where(address_barangay: 'Ahin').order(:permit_number)
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Ahin).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
   def delinquents_apapid
     @businesses = Business.delinquent.where(address_barangay: 'Ap-apid')
      respond_to do |format|
@@ -57,6 +91,18 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
+   def registered_apapid
+    @businesses = Business.registered.where(address_barangay: 'Ap-apid').order(:permit_number)
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Ap-apid).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
   def delinquents_binablayan
     @businesses = Business.delinquent.where(address_barangay: 'Binablayan')
      respond_to do |format|
@@ -67,6 +113,18 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
+   def registered_binablayan
+    @businesses = Business.registered.where(address_barangay: 'Binablayan').order(:permit_number)
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Binablayan).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
   def delinquents_wangwang
     @businesses = Business.delinquent.where(address_barangay: 'Wangwang')
      respond_to do |format|
@@ -77,6 +135,18 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
+  def registered_wangwang
+    @businesses = Business.registered.where(address_barangay: 'Wangwang').order(:permit_number)
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Wangwang).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
   def delinquents_eheb
     @businesses = Business.delinquent.where(address_barangay: 'Eheb')
      respond_to do |format|
@@ -87,6 +157,18 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
+  def registered_eheb
+    @businesses = Business.registered.where(address_barangay: 'Eheb').order(:permit_number)
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Eheb).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
   def delinquents_danggo
     @businesses = Business.delinquent.where(address_barangay: 'Danggo')
      respond_to do |format|
@@ -97,6 +179,18 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
+  def registered_danggo
+    @businesses = Business.registered.where(address_barangay: 'Danggo').order(:permit_number)
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Danggo).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
   def delinquents_luhong
     @businesses = Business.delinquent.where(address_barangay: 'Luhong')
      respond_to do |format|
@@ -106,6 +200,17 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
+   def registered_luhong
+    @businesses = Business.registered.where(address_barangay: 'Luhong').order(:permit_number)
+     respond_to do |format|
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Luhong).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
   def delinquents_gumhang
     @businesses = Business.delinquent.where(address_barangay: 'Gumhang')
      respond_to do |format|
@@ -115,6 +220,18 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
+  def registered_gumhang
+    @businesses = Business.registered.where(address_barangay: 'Gumhang').order(:permit_number)
+     respond_to do |format|
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Gumhang).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
+
   def delinquents_tulludan
     @businesses = Business.delinquent.where(address_barangay: 'Tulludan')
      respond_to do |format|
@@ -125,6 +242,19 @@ class BusinessesController < ApplicationController
       end
     end
   end
+
+  def registered_tulludan
+    @businesses = Business.registered.where(address_barangay: 'Tulludan').order(:permit_number)
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Tulludan).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
+
   def delinquents_tukucan
     @businesses = Business.delinquent.where(address_barangay: 'Tukucan')
      respond_to do |format|
@@ -132,6 +262,17 @@ class BusinessesController < ApplicationController
       format.pdf do
         pdf = DelinquencyReportPdf.new(@businesses)
         send_data pdf.render, filename: "delinquent(Tukucan).pdf", type: 'application/pdf', disposition: "inline"
+      end
+    end
+  end
+
+   def registered_tukucan
+    @businesses = Business.registered.where(address_barangay: 'Tukucan').order(:permit_number)
+     respond_to do |format|
+     format.html
+      format.pdf do
+        pdf = RegisteredBusinessesPerBarangayReportPdf.new(@businesses)
+        send_data pdf.render, filename: "registered(Tukucan).pdf", type: 'application/pdf', disposition: "inline"
       end
     end
   end
@@ -189,7 +330,7 @@ class BusinessesController < ApplicationController
   end
 
   def unrenewed_businesses_report
-    @businesses = Business.delinquent
+    @businesses = Business.delinquent.order(:business_name)
     @taxpayers = Taxpayer.all
     respond_to do |format|
       format.html

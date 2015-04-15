@@ -30,6 +30,40 @@
     </ul>
   </div>
   </div>
+
+  <div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-success">
+      <div class="panel-heading">Registered Businesses Per Barangay</div>
+
+    <ul class="list-group">
+      <li class="list-group-item"><%=link_to 'Poblacion', registered_poblacion_path(format: :pdf), class: 'text-success' %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Poblacion').count %></span></li>
+
+
+       <li class="list-group-item"><%=link_to 'Impugong', registered_impugong_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Impugong').count %></span></p></li>
+
+       <li class="list-group-item"><%=link_to 'Ahin', registered_ahin_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Ahin').count %></span></li>
+
+      <li class="list-group-item"><%=link_to 'Ap-apid', registered_apapid_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Ap-apid').count %></span></li>
+
+       <li class="list-group-item"><%=link_to 'Binablayan', registered_binablayan_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Binablayan').count %></span></li>
+
+       <li class="list-group-item"><%=link_to 'Wangwang', registered_wangwang_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Wangwang').count %></span></li>
+
+       <li class="list-group-item"><%=link_to 'Gumhang', registered_gumhang_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Gumhang').count %></span></li>
+
+       <li class="list-group-item"><%=link_to 'Danggo', registered_danggo_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Danggo').count %></span></li>
+
+       <li class="list-group-item"><%=link_to 'Luhong', registered_luhong_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Luhong').count %></span></li>
+
+       <li class="list-group-item"><%=link_to 'Tukucan', registered_tukucan_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Tukucan').count %></span></li>
+
+      <li class="list-group-item"><%=link_to 'Tulludan', registered_tulludan_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Tulludan').count %></span></li>
+       <li class="list-group-item"><%=link_to 'Eheb', registered_eheb_path(format: :pdf), class: 'text-success'  %> <span class="badge pull-right bg-green"> <%=Business.registered.where(address_barangay: 'Eheb').count %></span></li>
+    </ul>
+  </div>
+  </div>
+
   <div class="col-md-4">
     <a href="#" class="list-group-item active">
       Reports

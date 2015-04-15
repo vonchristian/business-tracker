@@ -29,6 +29,7 @@ class Business < ActiveRecord::Base
                                       :other_businesses]
 
   scope :owned_by_women, ->{Business.joins(:taxpayer).merge(Taxpayer.female)}
+  scope :address_poblacion,  ->{Business.where(address_barangay: 'Poblacion')}
 
   before_create :set_status_to_payment_pending
   before_save :set_capital_tax

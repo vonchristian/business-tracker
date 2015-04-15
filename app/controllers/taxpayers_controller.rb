@@ -3,6 +3,7 @@ class TaxpayersController < ApplicationController
   def index
     load_taxpayers
   end
+
   def delinquent
     load_delinquent_taxpayers
   end
