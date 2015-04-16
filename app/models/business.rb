@@ -29,7 +29,6 @@ class Business < ActiveRecord::Base
                                       :other_businesses]
 
   scope :owned_by_women, ->{Business.joins(:taxpayer).merge(Taxpayer.female)}
-  scope :address_poblacion,  ->{Business.where(address_barangay: 'Poblacion')}
 
   before_create :set_status_to_payment_pending
   before_save :set_capital_tax
@@ -53,9 +52,7 @@ class Business < ActiveRecord::Base
    self.update_attributes(status: :revoked, revoked_at: Time.zone.now) if self.registered?
 end
 
-def business_permit_number
-  self.permit_number.to_i
-end
+
 def address
  "#{try(:address_sitio)}, #{try(:address_barangay)}, #{try(:address_municipality)}, #{try(:address_province)}"
   end

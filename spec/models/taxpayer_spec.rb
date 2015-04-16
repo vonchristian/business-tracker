@@ -25,7 +25,7 @@ RSpec.describe Taxpayer, :type => :model do
     it { should have_many :payments }
   end
   it "returns a taxpayer's full name as a string" do
-    taxpayer = create(:taxpayer)
+    taxpayer = create(:taxpayer, first_name: 'Von', middle_name: 'Pinosan', last_name: 'Halip')
     expect(taxpayer.full_name).to eql("Halip, Von P.")
   end
 
