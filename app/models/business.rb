@@ -48,6 +48,12 @@ class Business < ActiveRecord::Base
   validates :asset_size,  numericality:{ message: 'Invalid Amount'}
   validates :capital, numericality: { message: 'Invalid Amount'}, on: :create
 
+
+
+    def self.on_first_quarter
+    where("created_at >= ? AND created_at < ?", DateTime.current.beginning_of_year, DateTime.current.beginning_of_year.end_of_quarter)
+  end
+
  def revoke
    self.update_attributes(status: :revoked, revoked_at: Time.zone.now) if self.registered?
 end
@@ -167,6 +173,9 @@ end
     ((self.owned_by_women.count.to_f / self.count.to_f) * 100).ceil
   end
 
+  def self.percentage_of_single_proprietorship_new_business_owned_by_women
+    ((self.new_business.owned_by_women.count.to_f / self.new_business.count.to_f) * 100).ceil
+  end
 private
     def set_enterprise_scale
       return self.enterprise_scale=:micro if self.micro_industry?

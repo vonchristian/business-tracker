@@ -30,6 +30,7 @@ Rails.application.routes.draw do
           resources :line_of_businesses
 
       get 'reports' => 'reports#index', as: 'reports'
+      get 'quarterly_reports' => 'reports#quarterly', as: 'quarterly_reports'
       get 'delinquents_ahin' => 'businesses#delinquents_ahin'
       get 'delinquents_apapid' => 'businesses#delinquents_apapid'
       get 'delinquents_binablayan' => 'businesses#delinquents_binablayan'

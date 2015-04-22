@@ -1,0 +1,26 @@
+<h1>Owned By Women</h1>
+<div class="col-sm-2">
+<div class="panel panel-default">
+<h1 class="centered"><%=Business.new_business.on_first_quarter.count %></h1>
+<h3>New Businesses</h3>
+</div>
+</div>
+<div class="col-sm-2">
+<div class="panel panel-default">
+<h3><%=Business.registered.on_first_quarter.count %></h3>
+<h3>Renewed Businesses</h3>
+</div>
+</div>
+<div class="col-sm-2">
+<div class="panel">
+<h3><%=Business.revoked.on_first_quarter.count %></h3>
+<h3>Closed Businesses</h3>
+</div>
+</div>
+
+<div class="col-sm-2">
+<div class="panel">
+<h3><%=Business.new_business.owned_by_women.count %></h3>
+<h3>New Business Owned By Women</h3>
+</div>
+</div>
