@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 
   gem 'prawn'
   gem 'delayed_job_active_record'
-
+  gem 'crono'
   gem 'daemons'
   gem 'lol_dba'
   gem 'prawn-table'
