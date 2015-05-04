@@ -154,7 +154,7 @@ def medium_industry?
   self.asset_size<=60_000_000
 end
 def large_industry?
-  self.asset_size>60_000_000
+  self.asset_size>60_000_001
 end
 
   def set_capital_tax
@@ -176,6 +176,7 @@ end
   def self.percentage_of_single_proprietorship_new_business_owned_by_women
     ((self.new_business.owned_by_women.count.to_f / self.new_business.count.to_f) * 100).ceil
   end
+
 private
     def set_enterprise_scale
       return self.enterprise_scale=:micro if self.micro_industry?
