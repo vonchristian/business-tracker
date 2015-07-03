@@ -19,7 +19,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def new?
-    current_user.system_administrator?
+    current_user.admin?
   end
 
   def update?

@@ -1,23 +1,27 @@
 <%provide(:title, "#{@taxpayer.first_and_last_name} | Taxpayers") %>
 
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
+        <div class="panel-heading">
+         <%= attachment_image_tag(@taxpayer, :profile_image, :fill, 150, 150, fallback: "missing.png", class: 'center-block img-responsive img-circle')%><h1 class="text-center"><%=@taxpayer.first_and_last_name %></h1>
+
+         </div>
           <div class="panel-body">
-            <%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%><h1 class="text-center"><%=@taxpayer.first_and_last_name %></h1>
-            <span class="text-center help-block"><%=@taxpayer.address %></span>
-            <hr />
+
+<div class="modal-footer">
             <% if policy(@business).new? %>
               <%=link_to 'New Business', new_taxpayer_business_path(@taxpayer), class: "btn btn-default" %>
             <% end %>
             <% if policy(@taxpayer).edit? %>
               <%=link_to 'Edit Profile', edit_taxpayer_path(@taxpayer), class: "btn btn-warning" %>
             <% end %>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="box box-success">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="box box-solid">
          <div class="box-header with-border">
            <h3 class="box-title">Businesses</h3>
            <div class="box-tools pull-right">

@@ -6,6 +6,7 @@ RSpec.describe Taxpayer, :type => :model do
     it { should validate_presence_of :first_name }
     it { should validate_presence_of :middle_name }
     it { should validate_presence_of :last_name }
+    it { should validate_presence_of :gender }
     it { should validate_presence_of :cedula_number }
     it { should validate_presence_of :mobile_number }
     it { should validate_presence_of :cedula_date_issued }

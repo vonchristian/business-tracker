@@ -13,7 +13,7 @@ class Taxpayer < ActiveRecord::Base
     using: {tsearch: {dictionary: "english", prefix: true}},
      associated_against: {businesses: :business_name}
   validates  :first_name, :middle_name, :last_name, :mobile_number,
-                  :cedula_number, :cedula_date_issued, :cedula_place_issued, presence: true
+                  :cedula_number, :cedula_date_issued, :cedula_place_issued, :gender, presence: true
 
 ###########ASSOCIATIONS######################
   has_many :businesses

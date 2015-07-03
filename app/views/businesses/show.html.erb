@@ -1,59 +1,36 @@
 <%provide(:title, "#{@business.business_name}") %>
 
 <div class="row">
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading"><strong class="fa fa-user"> Owner Details </strong></div>
-      <div class="panel-body profile">
-        <div class="profile-image">
-          <%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%>
-        </div>
-        <div class="profile-data">
-          <h1 class="text-center"><%=@taxpayer.full_name%></h1>
-          <span class="help-block text-center"><%=@business.address %></span>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-6">
-          <% if policy(@taxpayer).edit? %>
-            <%=link_to 'Update Info', edit_taxpayer_path(@taxpayer), class: 'btn btn-info btn-flat btn-block'%>
-            <% end %>
-          </div>
-        </div>
-     </div>
-     <div class="panel-body list-group border-bottom">
-       <div  class="list-group-item"><%=link_to ' Settings', edit_business_path, class: 'fa fa-cog' %></div>
-       <div  class="list-group-item"><%=link_to ' Settings', edit_business_path, class: 'fa fa-cog' %></div>
-     </div>
-  </div>
-</div>
-<div class="col-md-6 col-md-offset-1">
-  <div class="box box-success">
-    <div class="panel-body profile">
-      <div class="profile-image">
-        <%= image_tag attachment_url(@business, :logo, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%>
-      </div>
-      <div class="profile-data">
+
+<div class="col-md-8 col-md-offset-2">
+  <div class="panel panel-default panel-with-shadow">
+  <div class="panel-heading">
+<%= attachment_image_tag(@business, :logo, :fill, 150, 150, fallback: "missing.png", class: 'center-block img-responsive img-circle')%>
+
+
         <h1 class="text-center"><%=@business.business_name %></h1>
+  </div>
+
+
+
         <h3 class="help-block text-center">Permit Number: <%=@business.permit_number %></h3>
         <p class="text-center"><%=@business.taxpayer_name %></p>
-      </div>
-    </div>
-    <div class="panel-body">
-      <hr>
 
-        <%unless @business.revoked?%>
-          <div class="col-md-12">
+ <%unless @business.revoked?%>
+          <div class="modal-footer">
 
             <% if @business.registered? && current_user.system_administrator? && @business.line_of_businesses.present?%>
+            <div class="col-xs-12 col-md-2">
               <%=link_to ' Print Mayors Permit', business_path(@business, format: "pdf"), class: " btn btn-info btn-flat glyphicon glyphicon-print" %>
+              </div>
             <% end %>
             <% if @business.line_of_businesses.blank?%>
               <%=link_to ' Add Line of Business', new_business_line_of_business_path(@business), class: "btn btn-info btn-flat" %>
             <% else %>
                 <% if policy(@business).edit? %>
+                <div class="col-xs-12 col-md-2 col-md-offset-1">
               <%=link_to 'Edit Line of Business', edit_line_of_business_path(id: @business.line_of_businesses.last.id), class: "btn btn-warning btn-flat" %>
+              </div>
               <% end %>
             <% end %>
             <% if @business.payment_pending? || @business.delinquent?%>
@@ -69,6 +46,84 @@
           <% else %>
             <div class="alert alert-danger"> Business is revoked.</div>
             <% end %>
+    <div class="panel-body">
+
+                  <div class="box-group" id="accordion">
+                    <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                    <div class="panel box box-solid">
+                      <div class="box-header with-border">
+                        <h4 class="box-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#payments">
+                            <i class="fa fa-plus-circle"></i> Payments
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="payments" class="panel-collapse collapse">
+                        <div class="box-body">
+
+                        <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                               <% @business.payments.each do |payment| %>
+        <tr>
+          <td><%= payment.created_at.strftime('%B %d, %Y at %H:%M %p') %></td>
+          <td><span class="pull-right"><%= number_to_currency(payment.amount) %></span></td>
+        </tr>
+      <% end %>
+                          </tbody>
+                          </table>
+                          </div>
+                          </div>
+
+                        <div class="modal-footer">
+                        <%#=link_to 'New Payment', new_agricultural_loan_loan_payment_path(@agricultural_loan), class: "btn btn-flat btn-success"%>
+
+                        </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel box box-solid">
+                      <div class="box-header with-border">
+                        <h4 class="box-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#charges">
+                            <i class="fa fa-plus-circle"></i> Charges
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="charges" class="panel-collapse collapse">
+                        <div class="box-body">
+                        <%#=render "charges" %>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel box box-solid">
+                      <div class="box-header with-border">
+                        <h4 class="box-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#AgriculturalLoan">
+                            <i class="fa fa-plus-circle"></i> Amortization
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="AgriculturalLoan" class="panel-collapse collapse">
+                        <div class="box-body">
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+      <hr>
+
+
       </div>
     </div>
 </div>
@@ -113,3 +168,6 @@
 <% end %>
 <% end %>
 
+<div class="row">
+
+            </div><!-- /.col -->
