@@ -50,18 +50,18 @@ class BusinessPermitPdf < Prawn::Document
           of the Municipality of Tinoc, PERMIT is hereby granted to:", align: :center, size: 10
    move_down 8
    text "#{@business.business_name.upcase}", size: 16, style: :bold, align: :center
-   text "Business Trade Name", align: :center
+   text "Business Trade Name", align: :center, size: 11
   end
 
   def permit_number
     move_down 10
-    text "<u>PERMIT NUMBER: #{Time.current.year}  -  #{@business.permit_number}</u>", size: 12, align: :center, style: :bold, inline_format: true
+    text "<u>PERMIT NUMBER: #{Time.current.year}  -  #{@business.permit_number.to_s.rjust(4, "0")}</u>", size: 12, align: :center, style: :bold, inline_format: true
   end
 
   def taxpayer
     move_down 10
     text  "#{@business.taxpayer_name.upcase}", align: :center, style: :bold
-    text "Taxpayer/Proprietor/Manager/President", align: :center
+    text "Taxpayer/Proprietor/Manager/President", align: :center,  size: 11
   end
 
 #   def image_taxpayer
@@ -74,13 +74,13 @@ class BusinessPermitPdf < Prawn::Document
   def type_of_organization
     move_down 10
     text "#{@business.type_of_organization.titleize}", align: :center, style: :bold
-    text "Nature of Organization", align: :center
+    text "Nature of Organization", align: :center,  size: 11
   end
 
   def address
     move_down 10
     text "#{@business.full_address}", align: :center, style: :bold
-    text "Location of Business", align: :center
+    text "Location of Business", align: :center,  size: 11
   end
 
   def line_of_business
