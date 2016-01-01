@@ -28,6 +28,11 @@
       <li class="<%='active' if current_page?(dashboard_path) %>">
         <%=link_to "   Dashboard", dashboard_path, :class=>"fa fa-home"%>
       </li>
+      <li>
+        <a href="/taxpayers">
+          <i class="fa fa-th"></i> <span>Taxpayers</span>
+        </a>
+      </li>
       <li class="treeview">
         <a href="#">
           <i class="fa fa-user"></i>
@@ -57,23 +62,9 @@
         </ul>
       </li>
 
-          <li class="treeview">
-        <a href="#">
-          <i class="fa fa-cog"></i>
-          <span>Settings</span>
-          <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="/users"><i class="fa fa-user"></i> Employees </a></li>
+
 
         </ul>
-      </li>
-
-      <li class="<%='active' if current_page?(reports_path) %>">
-        <%=link_to "   Reports", reports_path, :class=>"fa fa-list"%>
-      </li>
-      <li class="<%='active' if current_page?(payments_path) %>">
-        <%=link_to "   Payments", payments_path, :class=>"fa fa-money"%>
       </li>
     </ul>
   </section>

@@ -1,9 +1,6 @@
 source 'https://rubygems.org'
-    ruby '2.2.2'
-
-    gem 'rails', '4.2.1'
-
-
+  ruby '2.3.0'
+  gem 'rails'
   gem 'prawn'
   gem 'delayed_job_active_record'
   gem 'daemons'
@@ -13,7 +10,8 @@ source 'https://rubygems.org'
   gem 'public_activity'
   gem "paperclip"
   gem 'mini_magick'
-  gem "refile", require: ["refile/rails", "refile/image_processing"]
+  gem "refile", require: "refile/rails"
+  gem "refile-mini_magick"
   gem 'devise'
   gem 'will_paginate'
   gem 'pundit'
@@ -81,4 +79,3 @@ end
   gem "rails_best_practices", group: :development
 
 ############################################
-
