@@ -1,71 +1,45 @@
-
-<% if Taxpayer.count.zero? %>
-  <p class="alert alert-info">
-     No taxpayers are registered yet.
-    <strong><%=link_to "Register New Taxpayer", new_taxpayer_path %></strong></p>
-
-
-<% else %>
-<% if current_user.system_administrator? || current_user.application_officer? %>
-<div class="well well-sm">
-<%=link_to 'New Taxpayer', new_taxpayer_path, class: 'btn btn-success btn-sm' %>
-<div class="btn-group">
-
-
- <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-     <i class="fa fa-cog">  </i> <span class="caret"> </span>
-  </button>
-                  <ul class="dropdown-menu pull-right" role="menu">
-                    <li><%= link_to ' New Savings Account'%></li>
-                  </ul>
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+  <% if Taxpayer.count.zero? %>
+    <p class="alert alert-info">
+      No taxpayers are registered yet.
+      <strong><%=link_to "Register a New Taxpayer", new_taxpayer_path %></strong>
+    </p>
+    <% else %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h4>List of Taxpayers <%=link_to 'New Taxpayer', new_taxpayer_path, class: 'btn btn-primary pull-right' %></h4>
+          <hr />
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th>NAME</th>
+                  <th>ADDRESS</th>
+                  <th>MOBILE NUMBER</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @taxpayers.each do |taxpayer| %>
+                  <tr>
+                    <td>
+                      <%= attachment_image_tag(taxpayer, :profile_image, :fill, 45, 45, fallback: "default.png", class: "img-circle") %>
+                      <strong> &nbsp; &nbsp; <%= link_to taxpayer.full_name.upcase, taxpayer %></strong>
+                    </td>
+                    <td><%= taxpayer.address %></td>
+                    <td><%= taxpayer.mobile_number %></td>
+                    <td>
+                      <% if current_user.system_administrator? || current_user.application_officer? %>
+                        <%= link_to ' Edit', edit_taxpayer_path(taxpayer) %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
-<div class="btn-group">
-
-
- <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    More <span class="caret"></span>
-  </button>
-                  <ul class="dropdown-menu pull-right" role="menu">
-                    <li><%= link_to 'Savings'%></li>
-                    <li><%= link_to 'Loans'%></li>
-                    <li><%= link_to 'Share Capital'%></li>
-                  </ul>
-</div>
-</div>
-<% end %>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div class="table-responsive">
-      <table class="table table-hover table-condensed">
-                  <ul class="pagination pagination-sm no-margin pull-right">
-                   <%=will_paginate @taxpayers %>
-                  </ul>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Name</th>
-
-            <th>Address</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @taxpayers.each do |taxpayer| %>
-            <tr>
-            <td><%= attachment_image_tag(taxpayer, :profile_image, :fill, 50, 50, fallback: "default.png") %></td>
-              <td><%=link_to taxpayer.full_name, taxpayer%></td>
-
-              <td><%=taxpayer.address%></td>
-              <td>
-              <% if current_user.system_administrator? %>
-                       <%=link_to ' Edit', edit_taxpayer_path(taxpayer)%>
-                       <% end %>
-            </td>
-            </tr>
-          <%end%>
-        </tbody>
-      </table>
-    </div>
-   </div>
-</div>
-<% end %>
-
