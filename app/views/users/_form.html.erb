@@ -1,7 +1,8 @@
-<div class='col-md-4'>
+<div class='col-md-5 col-md-offset-3'>
   <div class="panel panel-default">
-  <div class="panel-heading">Employee Details</div>
     <div class="panel-body">
+      <h4>Employee Details </h4>
+      <hr />
       <%=simple_form_for @user, html: { class: 'form-horizontal' },
           wrapper: :horizontal_form,
           wrapper_mappings: {
@@ -11,14 +12,22 @@
           boolean: :horizontal_boolean
            } do |f| %>
       <%=f.error_notification %>
+      <%if @user.profile_image.blank? %>
+        <%=image_tag("missing.png", :class=>"img-circle center-block ") %>
+        <% else %>
+        <%= image_tag attachment_url(@taxpayer, :profile_image, :fill, 150, 150), class: 'center-block img-responsive img-rounded'%>
+        <% end %>
+        <%= f.file_field :profile_image, class: 'center-block'%>
+
+      <hr>
         <%=f.input :first_name, autofocus: true  %>
         <%=f.input :last_name %>
         <%=f.input :email %>
-         <%= f.input :role, collection: User.roles.keys.to_a.map{|role| [role.titleize, role]} %>
+         <%= f.input :role, collection: User.roles.keys.to_a.map{|role| [role.titleize.upcase, role]}, as: :radio_buttons %>
         <%=f.input :password %>
         <%=f.input :password_confirmation %>
         <div class="modal-footer">
-          <%=f.submit 'Save Employee', class: 'btn btn-prinary btn-flat' %>
+          <%=f.submit 'Save Employee', class: 'btn btn-primary' %>
         </div>
       <% end %>
     </div>

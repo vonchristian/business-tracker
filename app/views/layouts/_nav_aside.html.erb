@@ -3,13 +3,13 @@
   <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        # <%# if current_user.profile_image.blank? %>
-        #   <%#= image_tag attachment_url(current_user, :profile_image, :fill, 40, 40), class: 'img-circle' %>
-        # <%# end %>
+         <% if current_user.profile_image %>
+           <%=link_to (image_tag attachment_url(current_user, :profile_image, :fill, 40, 40), class: 'img-circle'), user_path(current_user) %>
+         <% end %>
       </div>
       <div class="pull-left info">
-        <p><%=current_user.first_name %></p>
-        <a href="#"><%=current_user.role.humanize %></a>
+        <p><%= link_to current_user.first_name, user_path(current_user) %></p>
+        <a href="#"><%=current_user.role.to_s.titleize %></a>
       </div>
     </div>
     <!-- search form -->
@@ -25,44 +25,29 @@
     <% end %>
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
-      <li class="<%='active' if current_page?(dashboard_path) %>">
-        <%=link_to "   Dashboard", dashboard_path, :class=>"fa fa-home"%>
+      <li>
+        <a href="/dashboard">
+          <i class="fa fa-home"></i> <span>Dashboard</span>
+        </a>
       </li>
       <li>
         <a href="/taxpayers">
-          <i class="fa fa-th"></i> <span>Taxpayers</span>
+          <i class="fa fa-users"></i> <span>Taxpayers</span>
         </a>
       </li>
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-user"></i>
-          <span>Taxpayers</span>
-          <i class="fa fa-angle-left pull-right"></i>
+
+      <li>
+        <a href="/businesses">
+          <i class="fa fa-th"></i> <span>Businesses</span>
         </a>
-        <ul class="treeview-menu">
-          <li><a href="/taxpayers"><i class="fa fa-user"></i> All Taxpayers <small class="label pull-right bg-green"><%=Taxpayer.count %></small></a></li>
-          <li><a href="/taxpayers/delinquent"><i class="fa fa-times"></i> Delinquent  Business <small class="label pull-right bg-red"><%=Taxpayer.with_delinquent_business.count %></small></a></li>
-          <li><a href="/taxpayers/with_pending_payments"><i class="fa fa-circle-o"></i> Payments Pending <small class="label pull-right bg-yellow"><%=Taxpayer.with_pending_payments.count %></small></a></li>
-        </ul>
       </li>
 
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-compass"></i>
-          <span>Businesses</span>
-          <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="/businesses/registered"><i class="fa fa-check"></i> Registered <small class="label pull-right bg-green"><%=Business.registered.count %></small></a></li>
-          <li><a href="/businesses/delinquent"><i class="fa fa-times"></i> Delinquent <small class="label pull-right bg-red"><%=Business.delinquent.count %></small></a></li>
-          <li><a href="/businesses/not_registered"><i class="fa fa-try"></i> Not Registered </a></li>
-          <li><a href="/businesses/revoked"><i class="fa fa-times"></i> Revoked <small class="label pull-right bg-red"><%=Business.revoked.count %></small></a></li>
-           <li><a href="/businesses/owned_by_women"><i class="fa fa-female"></i> Owned By Women <small class="label pull-right bg-purple"><%=Business.owned_by_women.count %></small></a></li>
-            <li><a href="/businesses/payment_pending"><i class="fa fa-money"></i> Pending Payments <small class="label pull-right bg-purple"><%=Business.payment_pending.count %></small></a></li>
-        </ul>
-      </li>
-
-
+<li class="header">SETTINGS</li>
+<li>
+  <a href="/users">
+    <i class="fa fa-user"></i> <span>Employee Access</span>
+  </a>
+</li>
 
         </ul>
       </li>

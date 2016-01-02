@@ -1,37 +1,33 @@
-<div class="row">
-<div class="col-md-8">
-  <div class="box box-success">
-  <div class="box-header with-border">
-    <h3 class="box-title">All Employees</h3>
-    </div>
-    <div class="panel-body">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-             <th>Name</th>
-             <th>Email</th>
-             <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-           <% @users.each do |user| %>
-             <tr>
-               <td><%=user.full_name %></td>
-               <td><%=user.email %></td>
-               <td><%=user.try(:role).titleize %></td>
-                <% if current_user.system_administrator? %>
-               <td><%=link_to 'Edit', edit_user_path(user)%></td>
-               <% end %>
-             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+
     <% if current_user.system_administrator? %>
 <div class="well well-sm">
   <%=link_to 'New Employee', new_user_path, class: 'btn btn-success' %>
   </div>
   <% end %>
-  </div>
-</div>
+
+<div class="col-md-6">
+  <!-- USERS LIST -->
+  <div class="box box-danger">
+    <div class="box-header with-border">
+      <h3 class="box-title">Employees and Access Rights</h3>
+
+    </div><!-- /.box-header -->
+
+    <div class="box-body no-padding">
+      <ul class="users-list clearfix">
+          <% @users.each do |user| %>
+        <li>
+
+          <%=link_to attachment_image_tag(user, :profile_image, :fill, 128, 128, fallback: "missing.png"), user %>
+          <br />
+          <br />
+          <a class="users-list-name" href="#"><%= user.full_name %></a>
+          <span class="users-list-date"><%= user.role.to_s.titleize %></span>
+        </li>
+          <% end %>
+        <li>
+      </ul><!-- /.users-list -->
+    </div><!-- /.box-body -->
+  </div><!--/.box -->
+</div><!-- /.col -->
+</div><!-- /.row -->

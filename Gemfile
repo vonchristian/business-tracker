@@ -31,6 +31,7 @@ source 'https://rubygems.org'
 
 group :development do
   gem 'binding_of_caller'
+  gem 'web-console'
   gem 'better_errors'
   gem 'quiet_assets'
   gem 'rails_layout'
@@ -56,7 +57,6 @@ group :test do
 end
 
 group :test, :development do
-  gem 'web-console'
   gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
