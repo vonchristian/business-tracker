@@ -9,6 +9,7 @@ require 'capybara/rspec'
 require 'database_cleaner'
 require 'capybara/rails'
 require 'shoulda/matchers'
+require "pundit/rspec"
 # ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
@@ -28,4 +29,3 @@ RSpec.configure do |config|
      DatabaseCleaner.clean
    end
 end
-

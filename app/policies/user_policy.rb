@@ -27,7 +27,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-current_user.system_administrator?
+    update?
   end
 
   def destroy?
@@ -35,7 +35,7 @@ current_user.system_administrator?
   end
 
   def scope
-    Pundit.policy_scope!(user, taxpayer.class)
+    Pundit.policy_scope!(user, user.class)
   end
 
   class Scope

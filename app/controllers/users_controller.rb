@@ -2,11 +2,14 @@ class UsersController < ApplicationController
 before_action :authenticate_user!
 
   def index
+    authorize @users
     load_users
+    authorize @users
   end
 
   def show
     load_user
+    authorize @user
   end
 
   def new
@@ -16,6 +19,7 @@ before_action :authenticate_user!
 
   def edit
      load_user
+     authorize @user
      build_user
   end
   def create
@@ -25,8 +29,16 @@ before_action :authenticate_user!
 
   def update
     load_user
+    authorize @user
     build_user
     save_user or render 'edit'
+  end
+
+  def destroy
+    load_user
+    authorize @user
+    @user.destroy
+    redirect_to users_path, notice: "Employee access deactivated successfully."
   end
 
 end

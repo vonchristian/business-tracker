@@ -50,20 +50,19 @@ class Business < ActiveRecord::Base
 
 
 
-    def self.on_first_quarter
+  def self.on_first_quarter
     where("created_at >= ? AND created_at < ?", DateTime.current.beginning_of_year, DateTime.current.beginning_of_year.end_of_quarter)
   end
 
- def revoke
-   self.update_attributes(status: :revoked, revoked_at: Time.zone.now) if self.registered?
-end
-
-
-def address
- "#{try(:address_sitio)}, #{try(:address_barangay)}, #{try(:address_municipality)}, #{try(:address_province)}"
+  def revoke
+    self.update_attributes(status: :revoked, revoked_at: Time.zone.now) if self.registered?
   end
 
- def update_payment_status
+  def address
+    "#{try(:address_sitio)}, #{try(:address_barangay)}, #{try(:address_municipality)}, #{try(:address_province)}"
+  end
+
+  def update_payment_status
     self.update_attributes(status: :registered)
   end
 
@@ -71,13 +70,14 @@ def address
     self.line_of_businesses.last.description
   end
 
-def payments_total
-  self.payments.sum(:amount)
-end
+  def payments_total
+    self.payments.sum(:amount)
+  end
 
   def taxpayer_name
     self.taxpayer.try(:first_and_last_name)
   end
+
   def taxpayer_contact_details
     self.taxpayer.try(:mobile_number) || self.taxpayer.try(:email)
   end
@@ -86,7 +86,7 @@ end
     self.created_at.strftime('%B %d, %Y')
   end
 
-   def taxpayer_mobile_number
+  def taxpayer_mobile_number
     self.taxpayer.try(:mobile_number)
   end
 
@@ -119,7 +119,7 @@ end
   end
 
   def mayors_permit_fee_amount
-      self.mayors_permit_fees.last.amount
+    self.mayors_permit_fees.last.amount
   end
 
   def gross_sales_taxes_amount
@@ -131,31 +131,35 @@ end
   end
 
   def renew
-    self.set_mayors_permit_fee
-    self.set_gross_sales_taxes
-    self.update_attributes(status: :payment_pending, renewed_at: Time.zone.now)
+    set_mayors_permit_fee
+    set_gross_sales_taxes
+    update_attributes(status: :payment_pending, renewed_at: Time.zone.now)
   end
 
   def calculate_taxes_for_current_year
+
   end
 
 
-def micro_industry?
-  self.asset_size<=150_000
-end
-def cottage_industry?
-  self.asset_size<=1_500_000
-end
+  def micro_industry?
+    self.asset_size<=150_000
+  end
 
-def small_scale_industry?
-  self.asset_size<=15_000_000
-end
-def medium_industry?
-  self.asset_size<=60_000_000
-end
-def large_industry?
-  self.asset_size>60_000_001
-end
+  def cottage_industry?
+    self.asset_size<=1_500_000
+  end
+
+  def small_scale_industry?
+    self.asset_size<=15_000_000
+  end
+
+  def medium_industry?
+    self.asset_size<=60_000_000
+  end
+
+  def large_industry?
+    self.asset_size>60_000_001
+  end
 
   def set_capital_tax
      self.capital_tax=capital_tax_rate
@@ -185,27 +189,28 @@ private
       return self.enterprise_scale=:medium if self.medium_industry?
       return self.enterprise_scale=:large if self.large_industry?
     end
-def set_permit_number
-  if permit_number.blank?
-   self.permit_number=self.id
- end
-end
+    def set_permit_number
+      if permit_number.blank?
+       self.permit_number=self.id
+     end
+    end
 
-def capitalize_barangay
-  self.address_barangay=self.address_barangay.capitalize
-end
-def self.update_status_of_police_clearance
-  self.registered.update_all(police_clearance_cleared: false)
-end
+    def capitalize_barangay
+      self.address_barangay=self.address_barangay.capitalize
+    end
 
-def self.update_status_of_new_businesses
-  self.new_business.update_all(type_of_business: :old)
-end
+    def self.update_status_of_police_clearance
+      self.registered.update_all(police_clearance_cleared: false)
+    end
 
-def set_application_date
-  if self.application_date.nil?
-    self.application_date=self.created_at
-  end
-end
+    def self.update_status_of_new_businesses
+      self.new_business.update_all(type_of_business: :old)
+    end
+
+    def set_application_date
+      if self.application_date.nil?
+        self.application_date=self.created_at
+      end
+    end
 
 end
