@@ -2,6 +2,7 @@ class Business < ActiveRecord::Base
   attachment :logo
   include PgSearch
   include EnterpriseScaleSetter
+  include Date::QuarterRanges
 
   pg_search_scope :text_search, against: [:business_name, :permit_number],
     using: {tsearch: {dictionary: "english", prefix: true}},
@@ -54,6 +55,9 @@ class Business < ActiveRecord::Base
 
   def self.first_quarter
     where("created_at >= ? AND created_at < ?", DateTime.current.beginning_of_year, DateTime.current.beginning_of_year.end_of_quarter)
+  end
+
+  def self.group_by(date)
   end
 
   def revoke
@@ -164,7 +168,7 @@ class Business < ActiveRecord::Base
   end
 
 private
-  
+
     def set_permit_number
       if permit_number.blank?
        self.permit_number=self.id
