@@ -426,7 +426,7 @@ GEM
     websocket (1.2.2)
     whenever (0.9.4)
       chronic (>= 0.6.3)
-    will_paginate (3.0.7)
+    will_paginate (3.1.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
