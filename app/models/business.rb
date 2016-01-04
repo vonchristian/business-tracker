@@ -1,6 +1,8 @@
 class Business < ActiveRecord::Base
   attachment :logo
   include PgSearch
+  include EnterpriseScaleSetter
+
   pg_search_scope :text_search, against: [:business_name, :permit_number],
     using: {tsearch: {dictionary: "english", prefix: true}},
     associated_against: {taxpayer: [:last_name, :first_name]}
@@ -12,21 +14,21 @@ class Business < ActiveRecord::Base
   enum type_of_business: [:new_business, :old]
   enum enterprise_scale: [:micro,:cottage, :small_scale, :medium, :large]
   enum business_type: [:manufacturers_electric_power_producers_assemblers_repackers_processors,
-                                       :wholesalers_dealers_distributors,
-                                       :exporters_producers_millers_manufacturers_of_essential_commodities,
-                                       :wholesalers__dealers_distributors_of_essential_commodities,
-                                       :retailers_of_essential_commodities,
-                                       :retailers,
-                                       :contractors,
-                                       :banks_and_other_financial_institutions,
-                                       :sales_of_services]
-  enum industry_type: [:manufacturers_importers_producers,
-                                      :banks,
-                                      :other_financial_institutions,
-                                      :contractors_service_establishments,
-                                      :wholesalers_retailers_dealers_distributors,
-                                      :transloading_operations,
-                                      :other_businesses]
+                       :wholesalers_dealers_distributors,
+                       :exporters_producers_millers_manufacturers_of_essential_commodities,
+                       :wholesalers__dealers_distributors_of_essential_commodities,
+                       :retailers_of_essential_commodities,
+                       :retailers,
+                       :contractors,
+                       :banks_and_other_financial_institutions,
+                       :sales_of_services]
+  enum industry_type: [ :manufacturers_importers_producers,
+                        :banks,
+                        :other_financial_institutions,
+                        :contractors_service_establishments,
+                        :wholesalers_retailers_dealers_distributors,
+                        :transloading_operations,
+                        :other_businesses]
 
   scope :owned_by_women, ->{Business.joins(:taxpayer).merge(Taxpayer.female)}
 
@@ -36,7 +38,7 @@ class Business < ActiveRecord::Base
   before_save :set_permit_number, :capitalize_barangay
   after_commit :set_application_date
 
-  belongs_to  :taxpayer
+  belongs_to :taxpayer
   has_many :mayors_permit_fees
   has_many :gross_sales_taxes
   has_many :line_of_businesses
@@ -50,7 +52,7 @@ class Business < ActiveRecord::Base
 
 
 
-  def self.on_first_quarter
+  def self.first_quarter
     where("created_at >= ? AND created_at < ?", DateTime.current.beginning_of_year, DateTime.current.beginning_of_year.end_of_quarter)
   end
 
@@ -141,26 +143,6 @@ class Business < ActiveRecord::Base
   end
 
 
-  def micro_industry?
-    self.asset_size<=150_000
-  end
-
-  def cottage_industry?
-    self.asset_size<=1_500_000
-  end
-
-  def small_scale_industry?
-    self.asset_size<=15_000_000
-  end
-
-  def medium_industry?
-    self.asset_size<=60_000_000
-  end
-
-  def large_industry?
-    self.asset_size>60_000_001
-  end
-
   def set_capital_tax
      self.capital_tax=capital_tax_rate
   end
@@ -182,13 +164,7 @@ class Business < ActiveRecord::Base
   end
 
 private
-    def set_enterprise_scale
-      return self.enterprise_scale=:micro if self.micro_industry?
-      return self.enterprise_scale=:cottage if self.cottage_industry?
-      return self.enterprise_scale=:small_scale if self.small_scale_industry?
-      return self.enterprise_scale=:medium if self.medium_industry?
-      return self.enterprise_scale=:large if self.large_industry?
-    end
+  
     def set_permit_number
       if permit_number.blank?
        self.permit_number=self.id
