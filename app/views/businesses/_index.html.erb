@@ -1,40 +1,42 @@
 
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-         <div class="box box-success">
-                <div class="box-header with-border">
-                <h3 class="box-title">All Businesses</h3>
-                  <div class="box-tools pull-right">
+         <div class="panel panel-default">
+                <div class="panel-body">
+                <h4>List of Businesses
+                  <div class="pull-right">
 
                     <%=form_tag businesses_path, method: :get do %>
       <div class="input-group">
         <%=text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search...' %>
         <span class="input-group-btn">
-          <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
+          <%= button_tag(type: 'submit', class: "btn btn-default btn-flat") do %>
             <i class="fa fa-search"></i>
             <% end %>
                </span>
       </div>
       <% end %>
       </div>
+    </h4>
+    <hr />
 
-                  </div>
-                   <div class="box-body no-padding">
+
+
             <div class="table-responsive">
-              <table class="table table-hover table-condensed" id="taxpayers">
+              <table class="table table-hover no-margin">
                 <thead>
                   <tr>
-                    <th> Business Name</th>
-                    <th>Owner</th>
-                    <th>Status</th>
+                    <th><b>BUSINESS NAME </b></th>
+                    <th><b> OWNER </b></th>
+                    <th><b> STATUS </b></th>
                   </tr>
                 </thead>
                 <tbody>
                   <% @businesses.each do |business| %>
                     <tr>
-                      <td><%=link_to truncate(business.business_name.upcase, length: 40), business%></td>
-                      <td><%= link_to business.taxpayer_name, taxpayer_path(id: business.taxpayer.id) %></td>
-                      <td><%=business.status%></td>
+                      <td><b><%=link_to truncate(business.business_name.upcase, length: 40), business%></b></td>
+                      <td><%= business.taxpayer_full_name %></td>
+                      <td class="label label-<%='success' if business.registered? %>"><%=business.status.to_s.titleize%></td>
                       <td>
                       <% if business.payment_pending?  %>
                        <%=link_to 'Pay', new_business_payment_path(business)%>
@@ -64,4 +66,3 @@
         </div>
       </div>
     </div>
-

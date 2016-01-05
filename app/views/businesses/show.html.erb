@@ -1,173 +1,210 @@
 <%provide(:title, "#{@business.business_name}") %>
 
-<div class="row">
+<section class="content">
 
-<div class="col-md-8 col-md-offset-2">
-  <div class="panel panel-default panel-with-shadow">
-  <div class="panel-heading">
-<%= attachment_image_tag(@business, :logo, :fill, 150, 150, fallback: "missing.png", class: 'center-block img-responsive img-circle')%>
+  <div class="row">
+    <div class="col-md-3">
 
+      <!-- Profile Image -->
+      <div class="box box-success">
+        <div class="box-body box-profile">
+          <%= attachment_image_tag(@business, :logo, :fill, 128, 128, fallback: "missing.png", class: "profile-user-img img-responsive img-circle", alt: "User profile picture") %>
+          <h3 class="profile-username text-center"><%= @business.business_name %></h3>
+          <p class="text-muted text-center"><%= @business.address %></p>
 
-        <h1 class="text-center"><%=@business.business_name %></h1>
-  </div>
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b>Outstanding Balance</b> <a class="pull-right badge badge-danger">1,322</a>
+            </li>
+            <li class="list-group-item">
+              <b>Following</b> <a class="pull-right">543</a>
+            </li>
+            <li class="list-group-item">
+              <b>Friends</b> <a class="pull-right">13,287</a>
+            </li>
+          </ul>
 
+          <%=link_to "Update", edit_business_path(@business), class: "btn btn-success btn-block" %>
+        </div><!-- /.box-body -->
+      </div><!-- /.box -->
 
+      <!-- About Me Box -->
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">About <%=@business.business_name.to_s.titleize %></h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <strong><i class="fa fa-book margin-r-5"></i>  Education</strong>
+          <p class="text-muted">
+            B.S. in Computer Science from the University of Tennessee at Knoxville
+          </p>
 
-        <h3 class="help-block text-center">Permit Number: <%=@business.permit_number %></h3>
-        <p class="text-center"><%=@business.taxpayer_name %></p>
+          <hr>
 
- <%unless @business.revoked?%>
-          <div class="modal-footer">
+          <strong><i class="fa fa-map-marker margin-r-5"></i> Permit Status</strong>
+          <p class="text-muted"><%=@business.status.to_s.titleize %><%=@business.created_at %></p>
 
-            <% if @business.registered? && current_user.system_administrator? && @business.line_of_businesses.present?%>
-            <div class="col-xs-12 col-md-2">
-              <%=link_to ' Print Mayors Permit', business_path(@business, format: "pdf"), class: " btn btn-info btn-flat glyphicon glyphicon-print" %>
-              </div>
-            <% end %>
-            <% if @business.line_of_businesses.blank?%>
-              <%=link_to ' Add Line of Business', new_business_line_of_business_path(@business), class: "btn btn-info btn-flat" %>
-            <% else %>
-                <% if policy(@business).edit? %>
-                <div class="col-xs-12 col-md-2 col-md-offset-1">
-              <%=link_to 'Edit Line of Business', edit_line_of_business_path(id: @business.line_of_businesses.last.id), class: "btn btn-warning btn-flat" %>
-              </div>
-              <% end %>
-            <% end %>
-            <% if @business.payment_pending? || @business.delinquent?%>
-              <%=link_to 'Pay Taxes', new_business_payment_path(@business), class: "btn btn-info btn-flat" %>
-            <% end %>
-            <% if policy(@business).edit? %>
-            <%=link_to 'Edit Business', edit_business_path(@business), class: "btn btn-warning btn-flat" %>
-            <% end %>
-            <% if @business.expired? %>
-              <%=link_to 'Renew', renew_business_path(@business), method: :get, class: 'btn btn-info btn-flat'%>
-            <% end %>
-          </div>
-          <% else %>
-            <div class="alert alert-danger"> Business is revoked.</div>
-            <% end %>
-    <div class="panel-body">
+          <hr>
 
-                  <div class="box-group" id="accordion">
-                    <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-                    <div class="panel box box-solid">
-                      <div class="box-header with-border">
-                        <h4 class="box-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#payments">
-                            <i class="fa fa-plus-circle"></i> Payments
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="payments" class="panel-collapse collapse">
-                        <div class="box-body">
+          <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+          <p>
+            <span class="label label-danger">UI Design</span>
+            <span class="label label-success">Coding</span>
+            <span class="label label-info">Javascript</span>
+            <span class="label label-warning">PHP</span>
+            <span class="label label-primary">Node.js</span>
+          </p>
 
-                        <div class="table-responsive">
-                        <table class="table table-hover">
-                          <thead>
-                          <tr>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                               <% @business.payments.each do |payment| %>
-        <tr>
-          <td><%= payment.created_at.strftime('%B %d, %Y at %H:%M %p') %></td>
-          <td><span class="pull-right"><%= number_to_currency(payment.amount) %></span></td>
-        </tr>
-      <% end %>
-                          </tbody>
-                          </table>
-                          </div>
-                          </div>
+          <hr>
 
-                        <div class="modal-footer">
-                        <%#=link_to 'New Payment', new_agricultural_loan_loan_payment_path(@agricultural_loan), class: "btn btn-flat btn-success"%>
-
-                        </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel box box-solid">
-                      <div class="box-header with-border">
-                        <h4 class="box-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#charges">
-                            <i class="fa fa-plus-circle"></i> Charges
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="charges" class="panel-collapse collapse">
-                        <div class="box-body">
-                        <%#=render "charges" %>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel box box-solid">
-                      <div class="box-header with-border">
-                        <h4 class="box-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#AgriculturalLoan">
-                            <i class="fa fa-plus-circle"></i> Amortization
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="AgriculturalLoan" class="panel-collapse collapse">
-                        <div class="box-body">
-
-                        </div>
-                      </div>
-                    </div>
+          <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+        </div><!-- /.box-body -->
+      </div><!-- /.box -->
+    </div><!-- /.col -->
+    <div class="col-md-9">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#business-info" data-toggle="tab">Business Info</a></li>
+          <li><a href="#timeline" data-toggle="tab">Payments</a></li>
+          <li><a href="#settings" data-toggle="tab">Settings</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="active tab-pane" id="business-info">
+              <h3 class="help-block text-center">Permit Number: <%=@business.permit_number %></h3>
+          </div><!-- /.tab-pane -->
+          <div class="tab-pane" id="timeline">
+            <!-- The timeline -->
+            <ul class="timeline timeline-inverse">
+              <!-- timeline time label -->
+              <li class="time-label">
+                <span class="bg-red">
+                  10 Feb. 2014
+                </span>
+              </li>
+              <!-- /.timeline-label -->
+              <!-- timeline item -->
+              <li>
+                <i class="fa fa-envelope bg-blue"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                  <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                  <div class="timeline-body">
+                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                    quora plaxo ideeli hulu weebly balihoo...
                   </div>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-      <hr>
+                  <div class="timeline-footer">
+                    <a class="btn btn-primary btn-xs">Read more</a>
+                    <a class="btn btn-danger btn-xs">Delete</a>
+                  </div>
+                </div>
+              </li>
+              <!-- END timeline item -->
+              <!-- timeline item -->
+              <li>
+                <i class="fa fa-user bg-aqua"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                  <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
+                </div>
+              </li>
+              <!-- END timeline item -->
+              <!-- timeline item -->
+              <li>
+                <i class="fa fa-comments bg-yellow"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+                  <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                  <div class="timeline-body">
+                    Take me to your leader!
+                    Switzerland is small and neutral!
+                    We are more like Germany, ambitious and misunderstood!
+                  </div>
+                  <div class="timeline-footer">
+                    <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                  </div>
+                </div>
+              </li>
+              <!-- END timeline item -->
+              <!-- timeline time label -->
+              <li class="time-label">
+                <span class="bg-green">
+                  3 Jan. 2014
+                </span>
+              </li>
+              <!-- /.timeline-label -->
+              <!-- timeline item -->
+              <li>
+                <i class="fa fa-camera bg-purple"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+                  <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                  <div class="timeline-body">
+                    <img src="http://placehold.it/150x100" alt="..." class="margin">
+                    <img src="http://placehold.it/150x100" alt="..." class="margin">
+                    <img src="http://placehold.it/150x100" alt="..." class="margin">
+                    <img src="http://placehold.it/150x100" alt="..." class="margin">
+                  </div>
+                </div>
+              </li>
+              <!-- END timeline item -->
+              <li>
+                <i class="fa fa-clock-o bg-gray"></i>
+              </li>
+            </ul>
+          </div><!-- /.tab-pane -->
 
-
-      </div>
-    </div>
-</div>
-
-<div class="col-md-6 col-md-offset-1">
-  <div class="box box-success">
-    <div class="box-header with-border">
-      <h3 class="box-title">Payments History</h3>
-      <div class="box-tools pull-right">
-        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-      </div>
-    </div><!-- /.box-header -->
-    <div class="box-body">
-      <% @business.payments.each do |payment| %>
-        <p>
-          <%= payment.created_at.strftime('%B %d, %Y %H:%M %p') %>
-          <span class="pull-right"><%= number_to_currency(payment.amount, {:unit =>'P '}) %></span>
-        </p>
-      <% end %>
-    </div>
-  </div>
-</div>
-<%if policy(@business).revoke? %>
-<%unless @business.revoked?%>
-  <div class="col-md-6 col-md-offset-4">
-    <div class="box box-danger">
-      <div class="box-header with-border">
-        <h3 class="box-title">Registration Settings</h3>
-        <div class="box-tools pull-right">
-          <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-          <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div>
-      </div><!-- /.box-header -->
-      <div class="box-body">
-        <p>After revoking a permit, it cannot be able to register again.</p>
-        <div class="modal-footer">
-          <%=link_to 'Revoke Permit', revoke_business_path, class: 'btn btn-danger', data: { confirm: "Are you sure you want to revoke this business permit?" } %>
-        </div>
-    </div>
-  </div>
-<% end %>
-<% end %>
-
-<div class="row">
-
-            </div><!-- /.col -->
+          <div class="tab-pane" id="settings">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="inputName" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="inputName" placeholder="Name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputName" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputName" placeholder="Name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-danger">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div><!-- /.tab-pane -->
+        </div><!-- /.tab-content -->
+      </div><!-- /.nav-tabs-custom -->
+    </div><!-- /.col -->
+  </div><!-- /.row -->

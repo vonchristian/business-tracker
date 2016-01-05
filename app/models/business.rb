@@ -51,6 +51,7 @@ class Business < ActiveRecord::Base
   validates :asset_size,  numericality:{ message: 'Invalid Amount'}
   validates :capital, numericality: { message: 'Invalid Amount'}, on: :create
 
+  delegate :full_name, to: :taxpayer, prefix: true
 
 
   def self.first_quarter
@@ -78,10 +79,6 @@ class Business < ActiveRecord::Base
 
   def payments_total
     self.payments.sum(:amount)
-  end
-
-  def taxpayer_name
-    self.taxpayer.try(:first_and_last_name)
   end
 
   def taxpayer_contact_details
