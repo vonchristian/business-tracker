@@ -30,6 +30,7 @@ class Business < ActiveRecord::Base
                         :wholesalers_retailers_dealers_distributors,
                         :transloading_operations,
                         :other_businesses]
+  enum permit_status:[:pending_for_approval, :approved]
 
   scope :owned_by_women, ->{Business.joins(:taxpayer).merge(Taxpayer.female)}
 

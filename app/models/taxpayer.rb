@@ -11,27 +11,23 @@ class Taxpayer < ActiveRecord::Base
  include PgSearch
   pg_search_scope :text_search, against: [:last_name, :first_name],
     using: {tsearch: {dictionary: "english", prefix: true}},
-     associated_against: {businesses: :business_name}
-  validates  :first_name, :middle_name, :last_name, :mobile_number,
-                  :cedula_number, :cedula_date_issued, :cedula_place_issued, :gender, presence: true
+    associated_against: {businesses: :business_name}
 
-###########ASSOCIATIONS######################
+  validates  :first_name, :middle_name, :last_name, :mobile_number,
+             :cedula_number, :cedula_date_issued, :cedula_place_issued,
+             :gender, presence: true
+
   has_many :businesses
   has_one :police_clearance
   has_one :cedula
   has_many :payments, :through => :businesses
-##########################################
 
-#################SCOPES####################
   scope :female, ->{Taxpayer.where(gender: 'Female')}
   scope :with_delinquent_business, ->{Taxpayer.joins(:businesses).merge(Business.delinquent)}
   scope :with_pending_payments, ->{Taxpayer.joins(:businesses).merge(Business.payment_pending)}
-##########################################
 
-###############CALLBACKS####################
   after_validation :titleize_attributes
   before_save :set_id
-##########################################
 
   def self.update_cedula_status
     if Time.now.end_of_year

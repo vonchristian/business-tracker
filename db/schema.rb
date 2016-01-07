@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422083956) do
+ActiveRecord::Schema.define(version: 20160105141205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 20150422083956) do
     t.boolean  "barangay_clearance"
     t.boolean  "certificate_of_sss_coverage_and_compliance"
     t.boolean  "dti_registration"
+    t.integer  "permit_status"
+    t.datetime "approved_at"
   end
 
   create_table "cedulas", force: :cascade do |t|
@@ -165,7 +167,7 @@ ActiveRecord::Schema.define(version: 20150422083956) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "collecting_officer"
-    t.boolean  "archived",                null: false
+    t.boolean  "archived"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -197,7 +199,6 @@ ActiveRecord::Schema.define(version: 20150422083956) do
     t.date     "date_of_birth"
     t.string   "place_of_birth"
     t.string   "occupation"
-    t.string   "gender"
     t.string   "profile_image_id"
     t.string   "email"
     t.string   "mobile_number"
@@ -212,24 +213,14 @@ ActiveRecord::Schema.define(version: 20150422083956) do
     t.string   "cedula_place_issued"
     t.date     "cedula_date_issued"
     t.integer  "status"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
+    t.integer  "gender"
   end
-
-  add_index "taxpayers", ["reset_password_token"], name: "index_taxpayers_on_reset_password_token", unique: true, using: :btree
 
   create_table "type_of_organizations", force: :cascade do |t|
     t.integer  "business_id"
