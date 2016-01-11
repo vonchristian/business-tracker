@@ -16,6 +16,7 @@ source 'https://rubygems.org'
   gem 'will_paginate'
   gem 'pundit'
   gem 'font-awesome-rails'
+  gem 'ionicons-rails'
   gem 'simple_form'
   gem 'jquery-ui-rails'
   gem 'whenever', require: false
