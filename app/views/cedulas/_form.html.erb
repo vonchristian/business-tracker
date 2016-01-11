@@ -1,4 +1,4 @@
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-4 col-md-offset-4">
 <div class="panel panel-primary">
 <div class="panel-heading">Cedula Details </div>
 <div class="panel-body">
@@ -30,21 +30,7 @@
         <%=f.input :place_of_issue %>
         </div>
         </div>
-        <div class="row">
-        <div class="col-md-6">
-<%=f.input :occupation %>
-</div>
-<div class="col-md-6">
-<%=f.input :citizenship %>
-</div>
-<div class="col-md-4">
-<%=f.input :gender, collection: Taxpayer.genders.keys.to_a.map { |a| [a.titleize]}, as: :radio_buttons%>
-</div>
-</div>
-<%=f.input :date_of_birth, as: :string %>
-<%=f.input :place_of_birth %>
-<%=f.input :height %>
-<%=f.input :weight %>
+
 <%=f.input :basic_community_tax, as: :string, autofocus: true %>
 
 <div id="subtotal">

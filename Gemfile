@@ -59,7 +59,7 @@ end
 
 group :test, :development do
   gem 'database_cleaner'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'spring-commands-rspec'

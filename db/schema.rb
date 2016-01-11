@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105141205) do
+ActiveRecord::Schema.define(version: 20160109134835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,16 +96,10 @@ ActiveRecord::Schema.define(version: 20160105141205) do
     t.decimal  "total_amount"
     t.string   "place_of_issue"
     t.date     "date_of_issue"
-    t.string   "citizenship"
-    t.integer  "civil_status"
-    t.integer  "gender"
-    t.date     "date_of_birth"
     t.string   "place_of_birth"
-    t.string   "height"
-    t.string   "weight"
-    t.string   "occupation"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "cedula_number"
   end
 
   add_index "cedulas", ["taxpayer_id"], name: "index_cedulas_on_taxpayer_id", using: :btree

@@ -19,7 +19,7 @@ class Taxpayer < ActiveRecord::Base
 
   has_many :businesses
   has_one :police_clearance
-  has_one :cedula
+  has_many :cedulas
   has_many :payments, :through => :businesses
 
   scope :female, ->{Taxpayer.where(gender: 'Female')}

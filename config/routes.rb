@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       match :delinquent, via: [:get], on: :collection
        match :with_pending_payments, via: [:get], on: :collection
       resources :businesses
+      resources :cedulas
     end
     resources :businesses, except: [:destroy] do
       match :renew, via: [:get], on: :member
@@ -64,6 +65,3 @@ Rails.application.routes.draw do
       get 'unrenewed_businesses_report' => 'businesses#unrenewed_businesses_report'
       get 'bir_report' => 'businesses#bir_report'
   end
-
-
-
