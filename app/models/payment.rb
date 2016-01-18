@@ -84,8 +84,8 @@ end
   def set_amount_paid
     self.amount=total
   end
-  def self.collection_amount
-    Payment.sum(:amount)
+  def self.revenue_for_current_year
+    self.sum(:amount)
   end
 
   def self.archive_all_payments

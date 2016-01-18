@@ -4,7 +4,7 @@
     <div class="user-panel">
       <div class="pull-left image">
          <% if current_user.profile_image %>
-           <%=link_to (image_tag attachment_url(current_user, :profile_image, :fill, 40, 40), class: 'img-circle'), user_path(current_user) %>
+           <%=link_to (image_tag attachment_url(current_user, :profile_image, :fill, 40, 40), class: 'img-square'), user_path(current_user) %>
          <% end %>
       </div>
       <div class="pull-left info">

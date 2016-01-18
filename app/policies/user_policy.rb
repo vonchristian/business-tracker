@@ -7,7 +7,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    current_user.system_administrator?
+    true
   end
 
   def show?

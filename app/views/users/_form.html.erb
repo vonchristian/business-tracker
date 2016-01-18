@@ -1,17 +1,12 @@
-<div class='col-md-5 col-md-offset-3'>
+<div class='col-md-6 col-md-offset-3'>
   <div class="panel panel-default">
     <div class="panel-body">
       <h4>Employee Details </h4>
       <hr />
-      <%=simple_form_for @user, html: { class: 'form-horizontal' },
-          wrapper: :horizontal_form,
-          wrapper_mappings: {
-          check_boxes: :vertical_radio_and_checkboxes,
-          radio_buttons: :horizontal_radio_and_checkboxes,
-          file: :horizontal_file_input,
-          boolean: :horizontal_boolean
-           } do |f| %>
+      <%=simple_form_for @user do |f| %>
       <%=f.error_notification %>
+      <div class="row">
+      <div class="col-md-6">
       <%if @user.profile_image.blank? %>
         <%=image_tag("missing.png", :class=>"img-circle center-block ") %>
         <% else %>
@@ -20,12 +15,23 @@
         <%= f.file_field :profile_image, class: 'center-block'%>
 
       <hr>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-6">
         <%=f.input :first_name, autofocus: true  %>
+      </div>
+      <div class="col-md-6">
         <%=f.input :last_name %>
+      </div>
+    </div>
         <%=f.input :email %>
-         <%= f.input :role, collection: User.roles.keys.to_a.map{|role| [role.titleize.upcase, role]}, as: :radio_buttons %>
+        <%=f.input :mobile_number %>
         <%=f.input :password %>
         <%=f.input :password_confirmation %>
+        <%= f.input :role, collection: User.roles.keys.to_a.map{|role| [role.titleize, role]}, as: :radio_buttons %>
+      </div>
+    </div>
         <div class="modal-footer">
           <%=f.submit 'Save Employee', class: 'btn btn-primary' %>
         </div>

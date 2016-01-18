@@ -2,9 +2,7 @@ class UsersController < ApplicationController
 before_action :authenticate_user!
 
   def index
-    authorize @users
     load_users
-    authorize @users
   end
 
   def show
@@ -45,7 +43,7 @@ end
 private
   def user_params
     user_params = params[:user]
-    user_params ? user_params.permit(:profile_image, :first_name, :last_name, :password, :password_confirmation, :email, :role) : {}
+    user_params ? user_params.permit(:profile_image, :first_name, :last_name, :password, :password_confirmation, :email, :role, :mobile_number) : {}
   end
   def load_users
     @users ||= user_scope.to_a

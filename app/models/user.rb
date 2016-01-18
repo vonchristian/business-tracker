@@ -22,7 +22,7 @@ end
 
 private
     def remove_non_digits_from_phone_numbers
-    self.sms_number = sms_number.to_s.gsub(/\D/, '').to_i if mobile_number.present?
+    self.mobile_number = mobile_number.to_s.gsub(/\D/, '').to_i if mobile_number.present?
   end
 
 end

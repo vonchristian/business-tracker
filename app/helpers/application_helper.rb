@@ -10,7 +10,7 @@ end
 
 
 def site_name
-    "DASHBOARD"
+    "BPLS"
   end
 
   def site_url
